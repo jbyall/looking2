@@ -11,22 +11,26 @@ namespace Looking2.Web.Controllers
 {
     public class GigsController : Controller
     {
-        private Repository repo;
-        public GigsController()
+        private IRepository<Gig> gigsRepo;
+        public GigsController(IRepository<Gig> repo)
         {
-            this.repo = new Repository();
+            this.gigsRepo = repo;
         }
+
         // GET: Gigs
         public ActionResult Index()
         {
-            var allGigs = repo.Gigs();
+            var allGigs = gigsRepo.GetAll().ToList();
             return View(allGigs);
         }
 
         // GET: Gigs/Details/5
         public ActionResult Details(string id)
         {
-            var model = repo.FindGig(id);
+            var model = gigsRepo.GetById(id);
+
+            // Returns json 
+            //return new ObjectResult(model);
             return View(model);
         }
 
@@ -42,7 +46,7 @@ namespace Looking2.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Gig model)
         {
-            var gig = repo.InsertGig(model);
+            var gig = gigsRepo.Add(model);
             try
             {
                 // TODO: Add insert logic here
@@ -51,7 +55,7 @@ namespace Looking2.Web.Controllers
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 

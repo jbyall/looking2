@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    public enum EventType
-    {
-        Fundraiser,
-        Gig,
-        SoloArtist,
-        MultipleArtist,
-        Series,
-        Exhibit,
-        Concert,
-        Orchestra,
-        Other
-    }
+    //public enum EventType
+    //{
+    //    Fundraiser,
+    //    Gig,
+    //    SoloArtist,
+    //    MultipleArtist,
+    //    Series,
+    //    Exhibit,
+    //    Concert,
+    //    Orchestra,
+    //    Other
+    //}
 
-    public class Event
-    {
-        public ObjectId Id{ get; set; }
-        public EventType Type { get; set; }
-        public int MyProperty { get; set; }
-    }
+    //public class Event
+    //{
+    //    public ObjectId Id{ get; set; }
+    //    public EventType Type { get; set; }
+    //    public int MyProperty { get; set; }
+    //}
 }

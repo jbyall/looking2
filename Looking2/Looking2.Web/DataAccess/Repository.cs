@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDB.Driver.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,52 +10,43 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.DataAccess
 {
-    public class Repository
+    public interface IRepository<T>
+        where T: Entity
     {
-        private IMongoCollection<Gig> gigsCollection;
-        public Repository()
-        {
-            this.Client = new MongoClient("mongodb://localhost:27017");
-            this.Database = Client.GetDatabase("looking2");
-            this.gigsCollection = Database.GetCollection<Gig>("gigs");
-        }
-        public MongoClient Client{ get; set; }
-        public IMongoDatabase Database { get; set; }
+        T GetById(string Id);
+        IEnumerable<T> GetAll();
+        T Add(T entity);
+    }
 
-        public void InsertCat(Cat newCat)
+    public class Repository<T> : IRepository<T>
+        where T : Entity
+    {
+        private MongoClient client;
+        private IMongoDatabase db;
+        
+        public Repository(string collectionName)
         {
-            var collection = Database.GetCollection<Cat>("cats");
-            collection.InsertOne(newCat);
-
-        }
-
-        public List<Category> GetCategoriesByType(CategoryType type, bool activeOnly = false)
-        {
-            var collection = Database.GetCollection<Category>("categories");
-            var result = collection.AsQueryable()
-                .Where(c => c.Type == CategoryType.Event)
-                .OrderBy(c => c.DisplayOrder)
-                .ToList();
-            return result;
+            this.client = new MongoClient("mongodb://localhost:27017");
+            this.db = client.GetDatabase("looking2");
+            this.Collection = db.GetCollection<T>(collectionName);
         }
 
-        public Gig InsertGig(Gig gig)
+        public IMongoCollection<T> Collection { get; private set; }
+
+        public T Add(T entity)
         {
-            var collection = Database.GetCollection<Gig>("gigs");
-            collection.InsertOne(gig);
-            return gig;
+            this.Collection.InsertOne(entity);
+            return entity;
         }
 
-        public Gig FindGig(string id)
+        public IEnumerable<T> GetAll()
         {
-            var collection = Database.GetCollection<Gig>("gigs");
-            var result = collection.AsQueryable().Where(g => g.Id == new ObjectId(id)).SingleOrDefault();
-            return result;
+            return this.Collection.AsQueryable<T>();
         }
 
-        public List<Gig> Gigs()
+        public T GetById(string Id)
         {
-            return gigsCollection.AsQueryable().ToList();
+            return this.Collection.AsQueryable<T>().Where(o => o.Id == new ObjectId(Id)).SingleOrDefault();
         }
     }
 }

@@ -5,118 +5,63 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.ViewModels;
+using Looking2.Web.DataAccess;
+using Looking2.Web.Domain;
 
 namespace Looking2.Web.Controllers
 {
     public class EventsController : Controller
     {
-        #region Fundraisers
-        [HttpGet]
-        public ActionResult CreateFundraisers()
+        private IEventsRepository eventsRepo;
+        public EventsController(IEventsRepository repo)
         {
-            return View();
+            this.eventsRepo = repo;
+        }
+
+        public IActionResult Create(string eventType)
+        {
+            var model = new EventListing();
+            EventType type;
+            if(Enum.TryParse<EventType>(eventType, out type))
+            {
+                switch (type)
+                {
+                    
+                    case EventType.Gig:
+                        model.EventCategory = EventCategory.LiveMusic;
+                        model.Titles = Enumerable.Repeat("", 2).ToList();
+                        model.Descriptions = Enumerable.Repeat("", 5).ToList();
+                        model.ContactWebsites = Enumerable.Repeat("", 2).ToList();
+                        break;
+                    case EventType.ArtistIndividual:
+                    case EventType.ArtistMultiple:
+                    case EventType.Concert:
+                    case EventType.Orchestra:
+                        model.EventCategory = EventCategory.LiveMusic;
+                        break;
+                    default:
+                        model.EventCategory = EventCategory.Other;
+                        break;
+                }
+            }
+            else
+            {
+                model.EventCategory = EventCategory.Other;
+            }
+            
+            return View("Create"+eventType, model);
         }
 
         [HttpPost]
-        public ActionResult CreateFundraisers(FundraiserViewModel model)
+        public IActionResult Create(EventListing model)
         {
-            return RedirectToAction("DetailsFundraisers");
+            eventsRepo.Add(model);
+            return RedirectToAction("Details");
         }
 
-        public ActionResult DetailsFundraisers()
+        public IActionResult Details(string id)
         {
             return View();
-        }
-        #endregion
-
-        #region Gigs
-        [HttpGet]
-        public ActionResult CreateGigs()
-        {
-            var model = new GigViewModel();
-            return View(model);
-        }
-        #endregion
-
-        // GET: Events
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Events/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Events/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Events/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Events/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Events/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Events/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Events/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

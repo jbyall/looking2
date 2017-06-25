@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Looking2.Web.DataAccess;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,8 @@ namespace Looking2.Web.Domain
         Event
     };
 
-    public class Category
+    public class Category : Entity
     {
-        public ObjectId Id { get; set; }
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }

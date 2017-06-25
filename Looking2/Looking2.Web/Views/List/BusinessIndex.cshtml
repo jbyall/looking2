@@ -1,0 +1,55 @@
+@model IEnumerable<Looking2.Web.Domain.Category>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 centered-column">
+                <h1>CHOOSE A BUSINESS TYPE</h1>
+                <p>
+                    We don't exactly pigeonhole Listings (and will let you make as many as you need within reason to cover what you are offering),
+                    but because Looking2 is a one-stop directory intended for almost anything, we encourage Listers to pick a general Category for each Listing so that
+                    Lookers can limit their searches to what they are actually looking to find.
+                </p>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            if (item.Active)
+            {
+                string controller = item.Controller;
+                <div class="row">
+                    <div class="col-md-3 right-column">
+                        <a asp-action="Create" asp-controller="@controller">@item.DisplayName</a>
+                    </div>
+                    <div class="col-md-9">
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+
+        }
+
+        <div class="row">
+            <div class="col-md-3 right-column">
+                <h3>Coming Soon:</h3>
+            </div>
+            <div class="col-md-9">
+
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            if (!item.Active)
+            {
+                <div class="row">
+                    <div class="col-md-3 right-column">
+                        <p><bold>@item.DisplayName</bold></p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>

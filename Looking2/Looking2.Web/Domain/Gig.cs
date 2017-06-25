@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Looking2.Web.DataAccess;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    public class Gig
+    public class Gig : Entity
     {
-        public ObjectId Id { get; set; }
+        //public ObjectId Id { get; set; }
         public string BandName { get; set; }
         public string Genre { get; set; }
         public string Venue { get; set; }

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Looking2.Web.DataAccess;
+using Looking2.Web.Domain;
 
 namespace Looking2.Web
 {
@@ -29,6 +31,14 @@ namespace Looking2.Web
         {
             // Add framework services.
             services.AddMvc();
+
+            // Dependency injection. This creates a new instance for each HTTP request.
+            services.AddScoped<IRepository<Gig>, GigsRepository>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IEventsRepository, EventsRepository>();
+
+            // Creates a single instance of this for the entire application
+            //services.AddSingleton<Type, Type>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
