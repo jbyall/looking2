@@ -1,0 +1,50 @@
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 centered-column">
+            <h1>You are now in the Looking2 Database</h1>
+            <h2>Explore!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 centered-column">
+            <h2>FIND A LISTING</h2>
+            <h3>free</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a asp-action="EventIndex" asp-controller="Home">Events</a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-action="BusinessIndex" asp-controller="Business">Businesses</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-4">
+            <img style="margin-left:auto;margin-right:auto;display:block;" src="~/images/logo.jpg" />
+        </div>
+
+        <div class="col-sm-4 centered-column">
+            <h2>MAKE A LISTING</h2>
+            <h3>free</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a asp-action="Index" asp-controller="Categories">Events</a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-action="BusinessCreate" asp-controller="Home">Businesses</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 centered-column">
+            <p>A "Business" means anything that's not an "Event" (but calling it a "Non-Event" didn't quite sound right...)</p>
+            <p><em>Drop us a line if you think you have a better distinction - we'll give you credit!</em></p>
+        </div>
+
+    </div>
+</div>

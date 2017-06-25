@@ -1,0 +1,84 @@
+@model Looking2.Web.Domain.Gig
+
+<div>
+    <h4>Gig</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BandName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BandName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Venue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Venue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArtistUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VenueUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VenueUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketInfo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TicketInfo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Brag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Brag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LongDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LongDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

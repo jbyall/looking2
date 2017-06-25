@@ -1,0 +1,118 @@
+@model Looking2.Web.Domain.Gig
+
+<form asp-action="Create">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 centered-column">
+                <h1>LIST A GIG</h1>
+                <p>Looking2 has a soft spot in the heart of it's database for gig bands and local acts,
+                along with the bars &amp; taverns that give them someplace to play. That's why we give you 
+                <em>exactly the same exposure</em> as anyone else. If Looking2 accomplishes nothing more than helping
+                local bands play to fuller and fuller houses, its founder will be a happy man. GigListings will always be free.
+                If you're not a local band, click here.</p>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">What is the name of the band?</label>
+            <div class="col-md-9">
+                <input asp-for="BandName" class="form-control" />
+                <span asp-validation-for="BandName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">What genre music will be played?</label>
+            <div class="col-md-9">
+                <input asp-for="Genre" class="form-control" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Where are you playing?</label>
+            <div class="col-md-9">
+                <input asp-for="Venue" class="form-control" />
+                <span asp-validation-for="Venue" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Your web presence (if any)</label>
+            <div class="col-md-9">
+                <input asp-for="ArtistUrl" class="form-control" />
+                <span asp-validation-for="ArtistUrl" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">The venue's website</label>
+            <div class="col-md-9">
+                <input asp-for="VenueUrl" class="form-control" />
+                <span asp-validation-for="VenueUrl" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Cost (type FREE! if it's free)</label>
+            <div class="col-md-9">
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Ticket info</label>
+            <div class="col-md-9">
+                <input asp-for="TicketInfo" class="form-control" />
+                <span asp-validation-for="TicketInfo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-9 control-label">If you want to highlight a specific date, enter it here (MM/DD/YY)</label>
+            <div class="col-md-3">
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-9 control-label">In this field, you should enter if it's <em>one night only</em> or a <em>regular gig</em>('every Friday night')</label>
+            <div class="col-md-3">
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">And now the time</label>
+            <div class="col-md-4">
+                <input asp-for="Time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Tell us why we should come</label>
+            <div class="col-md-9">
+                <input asp-for="Brag" class="form-control" />
+                <span asp-validation-for="Brag" class="text-danger"></span>
+            </div>
+        </div>
+        <p>After you finish with the (optional) field below, click <em>Here</em> to add your location information</p>
+        <p>Tell Us More (you might want to copy-and-paste the About-Us page from the website, or review - with attribution);</p>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input asp-for="LongDescription" class="form-control" />
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
