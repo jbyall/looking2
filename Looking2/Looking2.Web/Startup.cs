@@ -33,9 +33,9 @@ namespace Looking2.Web
             services.AddMvc();
 
             // Dependency injection. This creates a new instance for each HTTP request.
-            services.AddScoped<IRepository<Gig>, GigsRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IEventsRepository, EventsRepository>();
+            services.AddScoped<IBusinessRepository, BusinessRepository>();
 
             // Creates a single instance of this for the entire application
             //services.AddSingleton<Type, Type>();

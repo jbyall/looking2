@@ -16,12 +16,12 @@ namespace Looking2.Web.DataAccess
 
         
     //}
-    public class GigsRepository : Repository<Gig>
-    {
-        public GigsRepository() : base("gigs")
-        {
-        }
-    }
+    //public class GigsRepository : Repository<Gig>
+    //{
+    //    public GigsRepository() : base("gigs")
+    //    {
+    //    }
+    //}
 
     public interface ICategoriesRepository : IRepository<Category>
     {
@@ -48,6 +48,14 @@ namespace Looking2.Web.DataAccess
     public class EventsRepository : Repository<EventListing>, IEventsRepository
     {
         public EventsRepository() : base("events")
+        {
+        }
+    }
+
+    public interface IBusinessRepository : IRepository<BusinessListing> { }
+    public class BusinessRepository : Repository<BusinessListing>, IBusinessRepository
+    {
+        public BusinessRepository() : base("businesses")
         {
         }
     }
