@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Looking2.Web.ViewModels;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 
@@ -22,7 +21,7 @@ namespace Looking2.Web.Controllers
         {
             var model = new EventListing();
             EventType type;
-            if(Enum.TryParse<EventType>(eventType, out type))
+            if(Enum.TryParse(eventType, out type))
             {
                 switch (type)
                 {
@@ -49,7 +48,7 @@ namespace Looking2.Web.Controllers
                 model.EventCategory = EventCategory.Other;
             }
             
-            return View("Create"+eventType, model);
+            return View(eventType+"Create", model);
         }
 
         [HttpPost]
