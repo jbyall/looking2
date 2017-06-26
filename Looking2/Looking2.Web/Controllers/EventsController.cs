@@ -28,6 +28,7 @@ namespace Looking2.Web.Controllers
                     
                     case EventType.Gig:
                         model.EventCategory = EventCategory.LiveMusic;
+                        model.EventType = EventType.Gig;
                         model.Titles = Enumerable.Repeat("", 2).ToList();
                         model.Descriptions = Enumerable.Repeat("", 5).ToList();
                         model.ContactWebsites = Enumerable.Repeat("", 2).ToList();
@@ -55,12 +56,14 @@ namespace Looking2.Web.Controllers
         public IActionResult Create(EventListing model)
         {
             eventsRepo.Add(model);
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", new { id = model.Id.ToString()});
         }
 
         public IActionResult Details(string id)
         {
-            return View();
+            var model = eventsRepo.GetById(id);
+
+            return View(model.EventType.ToString() + "Details", model);
         }
     }
 }

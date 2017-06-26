@@ -1,50 +1,50 @@
-@model Gig
+@model EventListing
 
 <div>
     <h4>Gig</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.BandName)
+            @Html.Label("Band Name:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BandName)
+            @Html.DisplayFor(model => model.Titles[0])
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.Label("Genre:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.Descriptions[0])
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Venue)
+            @Html.Label("Venue:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Venue)
+            @Html.DisplayFor(model => model.Titles[1])
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ArtistUrl)
+            @Html.Label("Band Website:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ArtistUrl)
+            @Html.DisplayFor(model => model.ContactWebsites[0])
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.VenueUrl)
+            @Html.Label("Venue Website:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.VenueUrl)
+            @Html.DisplayFor(model => model.ContactWebsites[1])
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.Label("Price:")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TicketInfo)
+            @Html.Label("Admission Info:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TicketInfo)
+            @Html.DisplayFor(model => model.AdmissionInfo)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Date)
@@ -53,16 +53,16 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Duration)
+            @Html.Label("When it's happening:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Duration)
+            @Html.DisplayFor(model => model.Descriptions[1])
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Time)
+            @Html.Label("Time:")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Time)
+            @Html.DisplayFor(model => model.Descriptions[2])
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Brag)
@@ -71,7 +71,7 @@
             @Html.DisplayFor(model => model.Brag)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LongDescription)
+            @Html.Label("Tell me more:")
         </dt>
         <dd>
             @Html.DisplayFor(model => model.LongDescription)
