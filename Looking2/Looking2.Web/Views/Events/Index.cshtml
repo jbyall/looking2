@@ -1,0 +1,46 @@
+@model IEnumerable<Looking2.Web.ViewModels.EventDetailsViewModel>
+<h1>Events</h1>
+@foreach (var item in Model)
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                @Html.DisplayFor(Model => item.Date)
+            </div>
+
+            <div class="col-md-10 listing-title">
+                @Html.DisplayFor(Model => item.Title)
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-10">
+                @Html.DisplayFor(Model => item.Description)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-10">
+                @Html.DisplayFor(Model => item.Contact)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-10">
+                @Html.DisplayFor(Model => item.Brag)
+            </div>
+        </div>
+
+    </div>
+    <hr/>
+}

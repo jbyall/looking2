@@ -11,10 +11,19 @@ namespace Looking2.Web.Controllers
     public class BusinessesController : Controller
     {
         private IBusinessRepository businessRepo;
+        private ICategoriesRepository categoryRepo;
 
-        public BusinessesController(IBusinessRepository repo)
+        public BusinessesController(IBusinessRepository _businessRepo, ICategoriesRepository _categoryRepo)
         {
-            this.businessRepo = repo;
+            this.businessRepo = _businessRepo;
+            this.categoryRepo = _categoryRepo;
+        }
+
+        [HttpGet]
+        public IActionResult CategoryIndex()
+        {
+            var eventCategories = categoryRepo.GetByType(CategoryType.Business);
+            return View(eventCategories);
         }
 
         public IActionResult Create()

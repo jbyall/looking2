@@ -27,16 +27,6 @@ namespace Looking2.Web.Domain
     }
     public class EventListing : Entity
     {
-        public EventListing()
-        {
-            this.Titles = new List<string>();
-            this.Descriptions = new List<string>();
-            this.ContactWebsites = new List<string>();
-        }
-
-        public List<string> Titles { get; set; }
-        public List<string> Descriptions { get; set; }
-        public List<string> ContactWebsites { get; set; }
         public string AdmissionInfo { get; set; }
         public string Price { get; set; }
         public DateTime? Date { get; set; }

@@ -1,0 +1,45 @@
+@model EventDetailsViewModel
+
+<h1>Listing Preview</h1>
+<hr />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayFor(model => model.Date)
+        </div>
+
+        <div class="col-md-9 listing-title">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Contact)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Brag)
+        </div>
+    </div>
+
+</div>

@@ -6,15 +6,36 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
+using Looking2.Web.ViewModels;
 
 namespace Looking2.Web.Controllers
 {
     public class EventsController : Controller
     {
         private IEventsRepository eventsRepo;
-        public EventsController(IEventsRepository repo)
+        private ICategoriesRepository categoryRepo;
+        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo)
         {
-            this.eventsRepo = repo;
+            this.eventsRepo = _eventRepo;
+            this.categoryRepo = _categoryRepo;
+        }
+
+        public IActionResult Index()
+        {
+            var listings = eventsRepo.GetAll();
+            var viewListings = new List<EventDetailsViewModel>();
+            foreach (var item in listings)
+            {
+                viewListings.Add(new EventDetailsViewModel(item));
+            }
+            return View(viewListings);
+        }
+
+        [HttpGet]
+        public IActionResult CategoryIndex()
+        {
+            var eventCategories = categoryRepo.GetByType(CategoryType.Event);
+            return View(eventCategories);
         }
 
         public IActionResult Create(string eventType)
@@ -28,10 +49,6 @@ namespace Looking2.Web.Controllers
                     
                     case EventType.Gig:
                         model.EventCategory = EventCategory.LiveMusic;
-                        model.EventType = EventType.Gig;
-                        model.Titles = Enumerable.Repeat("", 2).ToList();
-                        model.Descriptions = Enumerable.Repeat("", 5).ToList();
-                        model.ContactWebsites = Enumerable.Repeat("", 2).ToList();
                         break;
                     case EventType.ArtistIndividual:
                     case EventType.ArtistMultiple:
@@ -43,27 +60,40 @@ namespace Looking2.Web.Controllers
                         model.EventCategory = EventCategory.Other;
                         break;
                 }
+
+                // Set event type
+                model.EventType = type;
             }
             else
             {
                 model.EventCategory = EventCategory.Other;
             }
-            
+
+            //create empty fields for view
+            model.Initialize();
+
             return View(eventType+"Create", model);
         }
 
         [HttpPost]
         public IActionResult Create(EventListing model)
         {
+            model.Clean();
             eventsRepo.Add(model);
             return RedirectToAction("Details", new { id = model.Id.ToString()});
         }
 
+        [HttpGet]
         public IActionResult Details(string id)
         {
-            var model = eventsRepo.GetById(id);
-
-            return View(model.EventType.ToString() + "Details", model);
+            var listing = eventsRepo.GetById(id);
+            var vm = new EventDetailsViewModel(listing);
+            return View(vm);
+            //return View(model.EventType.ToString() + "Details", model);
         }
+
+        #region helpers
+
+        #endregion
     }
 }

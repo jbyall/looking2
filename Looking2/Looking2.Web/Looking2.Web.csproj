@@ -17,17 +17,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
+    <!--<PackageReference Include="Microsoft.Composition" Version="1.0.27" ExcludeAssets="All" />-->
+    <!--<PackageReference Include="System.Composition" Version="1.0.31" />-->
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\images\logo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Businesses\" />
-    <Folder Include="Views\Businesses\" />
   </ItemGroup>
 
 </Project>

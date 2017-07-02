@@ -5,13 +5,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 centered-column">
-                <h1>LIST A GIG</h1>
+                <h1>LIST A BENEFIT</h1>
                 <p>
-                    Looking2 has a soft spot in the heart of it's database for gig bands and local acts,
-                    along with the bars &amp; taverns that give them someplace to play. That's why we give you
-                    <em>exactly the same exposure</em> as anyone else. If Looking2 accomplishes nothing more than helping
-                    local bands play to fuller and fuller houses, its founder will be a happy man. GigListings will always be free.
-                    If you're not a local band, click here.
+                    Fundraisers and benefits deserve the widest possible notice, so that the most people possible can contribute to the cause.  
+                    Looking2 wants to do its part by helping generous Lookers out there find people and programs they'd like to help or contribute to, 
+                    whether they can attend the event or not.
                 </p>
             </div>
         </div>
@@ -20,84 +18,104 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label class="col-md-4 control-label">What is the name of the band?</label>
+            <label class="col-md-4 control-label">What is the name of the event?</label>
             <div class="col-md-8">
                 <input asp-for="Titles[0]" class="form-control" />
                 <span asp-validation-for="Titles[0]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">What genre music will be played?</label>
+            <label class="col-md-4 control-label">Who does it benefit?</label>
             <div class="col-md-8">
                 <input asp-for="Descriptions[0]" class="form-control" />
                 <span asp-validation-for="Descriptions[0]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">Where are you playing?</label>
-            <div class="col-md-8">
-                <input asp-for="Titles[1]" class="form-control" />
-                <span asp-validation-for="Titles[1]" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">Your web presence (if any)</label>
-            <div class="col-md-8">
-                <input asp-for="Contact[0]" class="form-control" />
-                <span asp-validation-for="Contact[0]" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">The venue's website</label>
-            <div class="col-md-8">
-                <input asp-for="Contact[1]" class="form-control" />
-                <span asp-validation-for="Contact[1]" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">Cost (type FREE! if it's free)</label>
-            <div class="col-md-8">
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">Ticket info</label>
-            <div class="col-md-8">
-                <input asp-for="AdmissionInfo" class="form-control" />
-                <span asp-validation-for="AdmissionInfo" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">If you want to highlight a specific date, enter it here (MM/DD/YY)</label>
-            <div class="col-md-8" data-provide="datepicker">
-                <input asp-for="Date" class="form-control"/>
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label">In this field, you should enter if it's <em>one night only</em> or a <em>regular gig</em>('every Friday night')</label>
+            <label class="col-md-4 control-label">In a word or two, what kind of an event is it?</label>
             <div class="col-md-8">
                 <input asp-for="Descriptions[1]" class="form-control" />
                 <span asp-validation-for="Descriptions[1]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">And now the time</label>
+            <label class="col-md-4 control-label">What ages is it for?</label>
             <div class="col-md-8">
                 <input asp-for="Descriptions[2]" class="form-control" />
                 <span asp-validation-for="Descriptions[2]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-4 control-label">Website or phone number to contact for information</label>
+            <div class="col-md-8">
+                <input asp-for="Contact[0]" class="form-control" />
+                <span asp-validation-for="Contact[0]" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Where is it being held (name of venue)?</label>
+            <div class="col-md-8">
+                <input asp-for="Titles[1]" class="form-control" />
+                <span asp-validation-for="Titles[1]" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Please provide ticket/cost info here</label>
+            <div class="col-md-8">
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label class="col-md-4 control-label">Ticket info</label>
+            <div class="col-md-8">
+                <input asp-for="AdmissionInfo" class="form-control" />
+                <span asp-validation-for="AdmissionInfo" class="text-danger"></span>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="col-md-4 control-label">If you want to highlight a specific date, enter it here (MM/DD/YY)</label>
+            <div class="col-md-8" data-provide="datepicker">
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Please enter the date range for the event or if it's one day or one night only:</label>
+            <div class="col-md-8">
+                <input asp-for="Descriptions[3]" class="form-control" />
+                <span asp-validation-for="Descriptions[3]" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">And now the time</label>
+            <div class="col-md-8">
+                <input asp-for="Descriptions[4]" class="form-control" />
+                <span asp-validation-for="Descriptions[4]" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Please send donations to:</label>
+            <div class="col-md-8">
+                <input asp-for="Descriptions[5]" class="form-control" />
+                <span asp-validation-for="Descriptions[5]" class="text-danger"></span>
+            </div>
+        </div>
+
+        
+
+        @*<div class="form-group">
             <label class="col-md-4 control-label">Tell us why we should come</label>
             <div class="col-md-8">
                 <input asp-for="Brag" class="form-control" />
                 <span asp-validation-for="Brag" class="text-danger"></span>
             </div>
-        </div>
+        </div>*@
         <p>After you finish with the (optional) field below, click <em>Here</em> to add your location information</p>
-        <p>Tell Us More (you might want to copy-and-paste the About-Us page from the website, or review - with attribution);</p>
+        <p>Tell Us More (you might want to copy-and-paste the About-Us page from the website:</p>
         <div class="form-group">
             <label class="col-md-2"></label>
             <div class="col-md-10">

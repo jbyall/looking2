@@ -8,21 +8,6 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.DataAccess
 {
-    //public interface IGigsRepository
-    //{
-    //    Gig FindGig(string id);
-    //    IEnumerable<Gig> FindGigs();
-    //    Gig InsertGig(Gig gig);
-
-        
-    //}
-    //public class GigsRepository : Repository<Gig>
-    //{
-    //    public GigsRepository() : base("gigs")
-    //    {
-    //    }
-    //}
-
     public interface ICategoriesRepository : IRepository<Category>
     {
         IEnumerable<Category> GetByType(CategoryType type);
@@ -59,6 +44,23 @@ namespace Looking2.Web.DataAccess
         {
         }
     }
+
+    #region OldRepos
+    //public interface IGigsRepository
+    //{
+    //    Gig FindGig(string id);
+    //    IEnumerable<Gig> FindGigs();
+    //    Gig InsertGig(Gig gig);
+
+
+    //}
+    //public class GigsRepository : Repository<Gig>
+    //{
+    //    public GigsRepository() : base("gigs")
+    //    {
+    //    }
+    //}
+
     //public class GigsRepository : IGigsRepository
     //{
     //    private MongoClient client;
@@ -89,4 +91,5 @@ namespace Looking2.Web.DataAccess
     //        return gig;
     //    }
     //}
+    #endregion
 }

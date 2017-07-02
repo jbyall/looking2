@@ -32,11 +32,15 @@ namespace Looking2Console
 
             foreach (var item in newCategories)
             {
+                // Check for existing to determine insert or update
                 var existingCategory = categories.Find(c => c.Name == item.Name).ToList();
+
+                // Insert new
                 if (existingCategory.Count < 1)
                 {
                     categories.InsertOne(item);
                 }
+                // Update
                 else
                 {
                     item.Id = existingCategory[0].Id;
@@ -57,7 +61,6 @@ namespace Looking2Console
                     DisplayName = "Benefits & fundraisers",
                     Description ="when it's all about helping a good cause",
                     Type = CategoryType.Event,
-                    DisplayOrder = 2,
                     Active = true
                 },
                 new Category
@@ -66,7 +69,6 @@ namespace Looking2Console
                     DisplayName = "Gigs",
                     Description ="for local bands playing in local venues",
                     Type = CategoryType.Event,
-                    DisplayOrder = 3,
                     Active = true
                 },
                 new Category
@@ -75,7 +77,6 @@ namespace Looking2Console
                     DisplayName = "Individual Artists",
                     Description ="for individual performers appearing alone or together",
                     Type = CategoryType.Event,
-                    DisplayOrder = 4,
                     Active = true
                 },
                 new Category
@@ -84,7 +85,6 @@ namespace Looking2Console
                     DisplayName = "Multiple Artists",
                     Description ="covers opening acts, joint appearances and/or special guests",
                     Type = CategoryType.Event,
-                    DisplayOrder = 5,
                     Active = true
                 },
                 new Category
@@ -93,7 +93,6 @@ namespace Looking2Console
                     DisplayName = "Series",
                     Description ="when the event is part of a series",
                     Type = CategoryType.Event,
-                    DisplayOrder = 6,
                     Active = true
                 },
                 new Category
@@ -102,7 +101,6 @@ namespace Looking2Console
                     DisplayName = "Exhibits",
                     Description ="Is your work going to be on display somewhere?  choose this one!",
                     Type = CategoryType.Event,
-                    DisplayOrder = 7,
                     Active = false
                 },
                 new Category
@@ -111,7 +109,6 @@ namespace Looking2Console
                     DisplayName = "Concert Tours",
                     Description ="for any show on tour: concerts, comedians, speakers, whatever",
                     Type = CategoryType.Event,
-                    DisplayOrder = 8,
                     Active = false
                 },
                 new Category
@@ -121,7 +118,6 @@ namespace Looking2Console
                     DisplayName = "Troupes, Companies, Orchestras",
                     Description ="when who's putting on the show is as important as the show they're putting on",
                     Type = CategoryType.Event,
-                    DisplayOrder = 9,
                     Active = false
                 },
                 new Category
@@ -130,21 +126,98 @@ namespace Looking2Console
                     DisplayName = "Other",
                     Description ="any event that does not fall under any of the other categories, use this one!",
                     Type = CategoryType.Event,
-                    DisplayOrder = 10,
+                    Active = true
+                },
+                // Business Categories
+                new Category
+                {
+                    Name="Artists",
+                    DisplayName = "Artists, Artisans & Musicians",
+                    Description ="If you create things of beauty, pick this one",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="HealthCare",
+                    DisplayName = "Health Care",
+                    Description ="For those who practice the healing arts and sciences (& have a degree AND/OR state certification)",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="AltHealthCare",
+                    DisplayName = "Alternative Health Care",
+                    Description ="For those with a non-traditional approach to addressing our aches and pains",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="Information",
+                    DisplayName = "Information",
+                    Description ="Do you offer information of any kind?",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="Instruction",
+                    DisplayName = "Instruction",
+                    Description ="Lessons and instruction of all kinds",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="Lawyers",
+                    DisplayName = "Lawyers",
+                    Description ="For practitioners of one of the world's oldest professions",
+                    Type = CategoryType.Business,
                     Active = true
                 },
                 new Category
                 {
                     Name = "Restaurant",
-                    DisplayName = "Restaurants",
-                    Description ="any event that does not fall under any of the other categories, use this one!",
+                    DisplayName = "Places to Eat",
+                    Description ="Do you serve prepared food, ready to eat right now?",
                     Type = CategoryType.Business,
-                    DisplayOrder = 10,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="ServiceProviders",
+                    DisplayName = "Service Providers",
+                    Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="Shopkeepers",
+                    DisplayName = "Shopkeepers",
+                    Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
+                    Type = CategoryType.Business,
+                    Active = true
+                },
+                new Category
+                {
+                    Name="Support",
+                    DisplayName = "Support",
+                    Description ="Do you offer support of any kind?",
+                    Type = CategoryType.Business,
                     Active = true
                 }
 
 
             };
+            int displayCount = 1;
+            foreach (var item in result)
+            {
+                item.DisplayOrder = displayCount;
+                displayCount++;
+            }
             return result;
 
         }

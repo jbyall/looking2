@@ -33,6 +33,7 @@ namespace Looking2.Web
             services.AddMvc();
 
             // Dependency injection. This creates a new instance for each HTTP request.
+            // Allows creating controller ctors with params
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IEventsRepository, EventsRepository>();
             services.AddScoped<IBusinessRepository, BusinessRepository>();
