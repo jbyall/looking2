@@ -1,41 +1,29 @@
-﻿using System;
+﻿using Looking2.Web.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Looking2.Web.Domain;
 
 namespace Looking2.Web.ViewModels
 {
-    public class EventDetailsViewModel
+    public class BusinessDetailsViewModel
     {
-        public EventDetailsViewModel(EventListing listing)
+        public BusinessDetailsViewModel(BusinessListing listing)
         {
             this.Id = listing.Id.ToString();
-            this.Date = listing.Date.Value.ToString("d");
             this.Type = listing.EventType.ToString();
             this.Title = string.Format("{0} at {1}", listing.Titles[0], listing.Titles[1]);
             this.Description = parseDescription(this.Type, listing.Descriptions);
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
-            this.AdmissionInfo = listing.AdmissionInfo;
-            this.Price = listing.Price;
-            this.LongDescription = listing.LongDescription;
-            this.EventType = listing.EventType.ToString();
-            this.EventCategory = listing.EventCategory.ToString();
         }
         public string Id { get; set; }
-        public string Date { get; set; }
         public string Type { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
         public string Contact { get; set; }
         public string Brag { get; set; }
-        public string AdmissionInfo { get; set; }
-        public string Price { get; set; }
-        public string LongDescription { get; set; }
-        public string EventType { get; set; }
-        public string EventCategory { get; set; }
 
         private string parseDescription(string type, List<string> descriptions)
         {

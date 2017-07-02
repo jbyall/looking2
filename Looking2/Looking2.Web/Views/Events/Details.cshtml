@@ -5,18 +5,18 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayFor(model => model.Date)
+        <div class="col-md-3 right-column">
+            @Html.Label("Title:")
         </div>
 
         <div class="col-md-9 listing-title">
             @Html.DisplayFor(model => model.Title)
         </div>
-
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 right-column">
+            @Html.Label("Description:")
         </div>
 
         <div class="col-md-9">
@@ -25,7 +25,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 right-column">
+            @Html.Label("Contact Info:")
         </div>
 
         <div class="col-md-9">
@@ -34,11 +35,72 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 right-column">
+            @Html.Label("Highlights:")
         </div>
 
         <div class="col-md-9">
             @Html.DisplayFor(model => model.Brag)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 right-column">
+            @Html.Label("Admission:")
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.AdmissionInfo)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 right-column">
+            @Html.Label("Date:")
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Date)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 right-column">
+            @Html.Label("Price:")
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Price)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 right-column">
+            @Html.Label("More Info:")
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.LongDescription)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 right-column">
+            @Html.Label("Event Type:")
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.EventType)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 right-column">
+            @Html.Label("Event Category:")
+        </div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.EventCategory)
         </div>
     </div>
 

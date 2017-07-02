@@ -28,7 +28,6 @@ textarea {
     width: 100%;
 }
 
-
 .centered-column{
     text-align:center;
 }
@@ -42,7 +41,16 @@ textarea {
 
 .listing-title{
     font-size: 16px;
-    color:red;
+    color:#AA0000;
+}
+.listing-description{
+    font-weight:600;
+}
+.highlight {
+    font-size: 16px;
+    color: #AA0000;
+    font-weight:700;
+
 }
 
 /* Hide/rearrange for smaller screens */

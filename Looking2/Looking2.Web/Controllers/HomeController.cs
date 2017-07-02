@@ -19,7 +19,10 @@ namespace Looking2.Web.Controllers
 
             return View();
         }
-
+        public IActionResult Why()
+        {
+            return View();
+        }
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";

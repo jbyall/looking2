@@ -1,10 +1,13 @@
 @model IEnumerable<Looking2.Web.ViewModels.EventDetailsViewModel>
+@{
+    ViewData["Title"] = "Events";
+}
 <h1>Events</h1>
 @foreach (var item in Model)
 {
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 highlight">
                 @Html.DisplayFor(Model => item.Date)
             </div>
 
@@ -18,8 +21,8 @@
             <div class="col-md-2">
             </div>
 
-            <div class="col-md-10">
-                @Html.DisplayFor(Model => item.Description)
+            <div class="col-md-10 listing-description">
+                <bold>@Html.DisplayFor(Model => item.Description)</bold>
             </div>
         </div>
 
@@ -34,6 +37,7 @@
 
         <div class="row">
             <div class="col-md-2">
+                @Html.ActionLink("Tell me more", "Details", new { id = item.Id})
             </div>
 
             <div class="col-md-10">

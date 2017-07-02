@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
+using Looking2.Web.ViewModels;
 
 namespace Looking2.Web.Controllers
 {
@@ -17,6 +18,17 @@ namespace Looking2.Web.Controllers
         {
             this.businessRepo = _businessRepo;
             this.categoryRepo = _categoryRepo;
+        }
+
+        public IActionResult Index()
+        {
+            var listings = businessRepo.GetAll();
+            var viewListings = new List<BusinessDetailsViewModel>();
+            foreach (var item in listings)
+            {
+                viewListings.Add(new BusinessDetailsViewModel(item));
+            }
+            return View();
         }
 
         [HttpGet]

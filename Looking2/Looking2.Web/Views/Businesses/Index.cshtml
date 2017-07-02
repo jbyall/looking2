@@ -1,0 +1,50 @@
+@model IEnumerable<Looking2.Web.ViewModels.BusinessDetailsViewModel>
+@{ 
+    @ViewData["Title"] = "Businesses";
+}
+    <h1>Businesses</h1>
+    @foreach (var item in Model)
+    {
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    
+                </div>
+
+                <div class="col-md-10">
+                    @Html.DisplayFor(Model => item.Title, new { @class = "listing-title"})
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.ActionLink("Details", "Details", new { id = item.Id})
+                </div>
+
+                <div class="col-md-10">
+                    @Html.DisplayFor(Model => item.Description)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-10">
+                    @Html.DisplayFor(Model => item.Contact)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-10">
+                    @Html.DisplayFor(Model => item.Brag)
+                </div>
+            </div>
+
+        </div>
+        <hr />
+    }
