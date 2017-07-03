@@ -11,11 +11,14 @@ namespace Looking2.Web.ViewModels
         public BusinessDetailsViewModel(BusinessListing listing)
         {
             this.Id = listing.Id.ToString();
-            this.Type = listing.EventType.ToString();
-            this.Title = string.Format("{0} at {1}", listing.Titles[0], listing.Titles[1]);
+            this.Type = listing.BusinessType.ToString();
+            this.Title = parseTitle(listing.Titles);
             this.Description = parseDescription(this.Type, listing.Descriptions);
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
+            this.LongDescription = listing.LongDescription;
+            this.BusinessCategory = listing.BusinessCategory.ToString();
+            this.BusinessType = listing.BusinessType.ToString();
         }
         public string Id { get; set; }
         public string Type { get; set; }
@@ -24,6 +27,20 @@ namespace Looking2.Web.ViewModels
         public string Location { get; set; }
         public string Contact { get; set; }
         public string Brag { get; set; }
+        public string LongDescription { get; set; }
+        public string BusinessCategory { get; set; }
+        public string BusinessType { get; set; }
+
+
+        private string parseTitle(List<string> titles)
+        {
+            var result = "";
+            foreach (var item in titles)
+            {
+                result += item;
+            }
+            return result;
+        }
 
         private string parseDescription(string type, List<string> descriptions)
         {

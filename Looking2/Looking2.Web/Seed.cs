@@ -66,7 +66,7 @@ namespace Looking2.Web
                     DisplayName = "Individual Artists",
                     Description ="for individual performers appearing alone or together",
                     Type = CategoryType.Event,
-                    Active = true
+                    Active = false
                 },
                 new Category
                 {
@@ -74,7 +74,7 @@ namespace Looking2.Web
                     DisplayName = "Multiple Artists",
                     Description ="covers opening acts, joint appearances and/or special guests",
                     Type = CategoryType.Event,
-                    Active = true
+                    Active = false
                 },
                 new Category
                 {
@@ -82,7 +82,7 @@ namespace Looking2.Web
                     DisplayName = "Series",
                     Description ="when the event is part of a series",
                     Type = CategoryType.Event,
-                    Active = true
+                    Active = false
                 },
                 new Category
                 {
@@ -115,7 +115,7 @@ namespace Looking2.Web
                     DisplayName = "Other",
                     Description ="any event that does not fall under any of the other categories, use this one!",
                     Type = CategoryType.Event,
-                    Active = true
+                    Active = false
                 },
                 // Business Categories
                 new Category
@@ -124,7 +124,7 @@ namespace Looking2.Web
                     DisplayName = "Artists, Artisans & Musicians",
                     Description ="If you create things of beauty, pick this one",
                     Type = CategoryType.Business,
-                    Active = true
+                    Active = false
                 },
                 new Category
                 {
@@ -180,7 +180,7 @@ namespace Looking2.Web
                     DisplayName = "Service Providers",
                     Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
                     Type = CategoryType.Business,
-                    Active = true
+                    Active = false
                 },
                 new Category
                 {
@@ -188,7 +188,7 @@ namespace Looking2.Web
                     DisplayName = "Shopkeepers",
                     Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
                     Type = CategoryType.Business,
-                    Active = true
+                    Active = false
                 },
                 new Category
                 {
@@ -196,7 +196,7 @@ namespace Looking2.Web
                     DisplayName = "Support",
                     Description ="Do you offer support of any kind?",
                     Type = CategoryType.Business,
-                    Active = true
+                    Active = false
                 }
 
 

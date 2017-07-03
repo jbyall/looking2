@@ -1,5 +1,7 @@
 @model IEnumerable<Looking2.Web.Domain.Category>
-
+@{
+    ViewData["Title"] = "Business Listing";
+}
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 centered-column">
@@ -18,7 +20,7 @@
             string businessType = item.Name;
         <div class="row">
             <div class="col-md-3 right-column">
-                <a asp-action="Create" asp-controller="Events" asp-route-eventType="@businessType">@item.DisplayName</a>
+                <a asp-action="Create" asp-controller="Businesses" asp-route-businessType="@businessType">@item.DisplayName</a>
             </div>
             <div class="col-md-9">
                 <p>@item.Description</p>

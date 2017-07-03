@@ -1,0 +1,109 @@
+@model BusinessListing
+
+@{
+    ViewData["Title"] = "Instruction Listing";
+}
+
+<form asp-action="Create">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 centered-column">
+                <h1>LIST AN INSTRUCTION</h1>
+                <p>
+                    However do you advertise the fact that you give music lessons, or any other lessons for that matter?  
+                    Why not on Looking2 where all a Looker has to do is type in the type of lesson and the location they're interested 
+                    in and any Listings matching those criteria will present themselves?
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">What name do you go by as an instructor?</label>
+            <div class="col-md-8">
+                <input asp-for="Titles[0]" class="form-control" />
+                <span asp-validation-for="Titles[0]" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">What kind of instruction do you offer?</label>
+            <div class="col-md-8">
+                <input asp-for="Descriptions[0]" class="form-control" />
+                <span asp-validation-for="Descriptions[0]" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">What age group do you work with?</label>
+            <div class="col-md-8">
+                <input asp-for="Descriptions[1]" class="form-control" />
+                <span asp-validation-for="Descriptions[1]" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">What skill levels?</label>
+            <div class="col-md-8">
+                <input asp-for="Descriptions[2]" class="form-control" />
+                <span asp-validation-for="Descriptions[2]" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">What is your website?</label>
+            <div class="col-md-8">
+                <input asp-for="Contact[0]" class="form-control" />
+                <span asp-validation-for="Contact[0]" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Phone (optional):</label>
+            <div class="col-md-8">
+                <input asp-for="Contact[1]" class="form-control" />
+                <span asp-validation-for="Contact[1]" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Email (optional):</label>
+            <div class="col-md-8">
+                <input asp-for="Contact[2]" class="form-control" />
+                <span asp-validation-for="Contact[2]" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Brag a little(certifications, affiliated hospitals, etc)</label>
+            <div class="col-md-8">
+                <input asp-for="Brag" class="form-control" />
+                <span asp-validation-for="Brag" class="text-danger"></span>
+            </div>
+        </div>
+
+        <p>After you finish with the (optional) field below, click <em>Here</em> to add your location information</p>
+        <p>Tell Us More (you might want to copy-and-paste the About-Us page from the website:</p>
+        <div class="form-group">
+            <label class="col-md-2"></label>
+            <div class="col-md-10">
+                <textarea rows="5" cols="300" asp-for="LongDescription" class="form-control"></textarea>
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.BusinessCategory)
+    @Html.HiddenFor(model => model.BusinessType)
+    @Html.HiddenFor(model => model.Location[0])
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
