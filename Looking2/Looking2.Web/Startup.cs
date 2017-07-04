@@ -11,6 +11,7 @@ using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Microsoft.AspNetCore.Identity;
 using Looking2.Web.Settings;
+using Looking2.Web.ViewModels;
 
 namespace Looking2.Web
 {
@@ -48,7 +49,8 @@ namespace Looking2.Web
             services.AddScoped<IBusinessRepository, BusinessRepository>();
 
             // Creates a single instance of this for the entire application
-            //services.AddSingleton<Type, Type>();
+            // Allows appsettings (defined in Startup ctor) to be passed to controller
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,7 +77,7 @@ namespace Looking2.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Welcome}/{id?}");
             });
         }
 

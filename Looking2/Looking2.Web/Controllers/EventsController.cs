@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace Looking2.Web.Controllers
 {
@@ -14,10 +16,13 @@ namespace Looking2.Web.Controllers
     {
         private IEventsRepository eventsRepo;
         private ICategoriesRepository categoryRepo;
-        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo)
+        private IConfiguration configuration;
+        //private EventListingViewModel vmFields;
+        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IConfiguration _configuration)
         {
             this.eventsRepo = _eventRepo;
             this.categoryRepo = _categoryRepo;
+            this.configuration = _configuration;
         }
 
         public IActionResult Index()
@@ -40,7 +45,8 @@ namespace Looking2.Web.Controllers
 
         public IActionResult Create(string eventType)
         {
-            var model = new EventListing();
+            var model = new EventListingViewModel();
+            
             EventType type;
             if(Enum.TryParse(eventType, out type))
             {
@@ -48,39 +54,41 @@ namespace Looking2.Web.Controllers
                 {
                     
                     case EventType.Gig:
-                        model.EventCategory = EventCategory.LiveMusic;
+                        // Populate field values from app settings
+                        configuration.Bind("GigFieldLabels", model);
+                        model.Category = EventCategory.LiveMusic;
                         break;
                     case EventType.ArtistIndividual:
                     case EventType.ArtistMultiple:
                     case EventType.Concert:
                     case EventType.Orchestra:
-                        model.EventCategory = EventCategory.LiveMusic;
+                        model.Category = EventCategory.LiveMusic;
                         break;
                     default:
-                        model.EventCategory = EventCategory.Other;
+                        model.Category = EventCategory.Other;
                         break;
                 }
 
                 // Set event type
-                model.EventType = type;
+                model.Type = type;
             }
             else
             {
-                model.EventCategory = EventCategory.Other;
+                model.Category = EventCategory.Other;
             }
 
             //create empty fields for view
-            model.Initialize();
+            model.Listing.Initialize();
 
             return View(eventType+"Create", model);
         }
 
         [HttpPost]
-        public IActionResult Create(EventListing model)
+        public IActionResult Create(EventListingViewModel model)
         {
-            model.Clean();
-            eventsRepo.Add(model);
-            return RedirectToAction("Details", new { id = model.Id.ToString()});
+            model.Listing.Clean();
+            eventsRepo.Add(model.Listing);
+            return RedirectToAction("Details", new { id = model.Listing.Id.ToString()});
         }
 
         [HttpGet]

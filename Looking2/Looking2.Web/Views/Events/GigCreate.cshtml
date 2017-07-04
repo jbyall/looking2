@@ -1,102 +1,94 @@
-@model EventListing
-@{
-    ViewData["Title"] = "Gig Listing";
+@model EventListingViewModel
+@{ 
+    ViewData["Title"] = Model.PageTitle;
 }
-
-
 <form asp-action="Create">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 centered-column">
-                <h1>LIST A GIG</h1>
-                <p>
-                    Looking2 has a soft spot in the heart of it's database for gig bands and local acts,
-                    along with the bars &amp; taverns that give them someplace to play. That's why we give you
-                    <em>exactly the same exposure</em> as anyone else. If Looking2 accomplishes nothing more than helping
-                    local bands play to fuller and fuller houses, its founder will be a happy man. GigListings will always be free.
-                    If you're not a local band, click here.
-                </p>
+                @Html.Partial(Model.HeadingPartial)
             </div>
         </div>
     </div>
     <div class="form-horizontal">
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*TODO: make view more generic and add if string.null to check model for which fields to display*@ 
         <div class="form-group">
-            <label class="col-md-4 control-label">What is the name of the band?</label>
+            <label class="col-md-4 control-label">@Model.Title0Label</label>
             <div class="col-md-8">
-                <input asp-for="Titles[0]" class="form-control" />
-                <span asp-validation-for="Titles[0]" class="text-danger"></span>
+                <input asp-for="Listing.Titles[0]" class="form-control" />
+                <span asp-validation-for="Listing.Titles[0]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">What genre music will be played?</label>
+            <label class="col-md-4 control-label">@Model.Description0Label</label>
             <div class="col-md-8">
-                <input asp-for="Descriptions[0]" class="form-control" />
-                <span asp-validation-for="Descriptions[0]" class="text-danger"></span>
+                <input asp-for="Listing.Descriptions[0]" class="form-control" />
+                <span asp-validation-for="Listing.Descriptions[0]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">Where are you playing?</label>
+            <label class="col-md-4 control-label">@Model.Title1Label</label>
             <div class="col-md-8">
-                <input asp-for="Titles[1]" class="form-control" />
-                <span asp-validation-for="Titles[1]" class="text-danger"></span>
+                <input asp-for="Listing.Titles[1]" class="form-control" />
+                <span asp-validation-for="Listing.Titles[1]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">Your web presence (if any)</label>
+            <label class="col-md-4 control-label">@Model.Contact0Label</label>
             <div class="col-md-8">
-                <input asp-for="Contact[0]" class="form-control" />
-                <span asp-validation-for="Contact[0]" class="text-danger"></span>
+                <input asp-for="Listing.Contact[0]" class="form-control" />
+                <span asp-validation-for="Listing.Contact[0]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">The venue's website</label>
+            <label class="col-md-4 control-label">@Model.Contact1Label</label>
             <div class="col-md-8">
-                <input asp-for="Contact[1]" class="form-control" />
-                <span asp-validation-for="Contact[1]" class="text-danger"></span>
+                <input asp-for="Listing.Contact[1]" class="form-control" />
+                <span asp-validation-for="Listing.Contact[1]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">Cost (type FREE! if it's free)</label>
+            <label class="col-md-4 control-label">@Model.PriceLabel</label>
             <div class="col-md-8">
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <input asp-for="Listing.Price" class="form-control" />
+                <span asp-validation-for="Listing.Price" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">Ticket info</label>
+            <label class="col-md-4 control-label">@Model.AdmissionInfoLabel</label>
             <div class="col-md-8">
-                <input asp-for="AdmissionInfo" class="form-control" />
-                <span asp-validation-for="AdmissionInfo" class="text-danger"></span>
+                <input asp-for="Listing.AdmissionInfo" class="form-control" />
+                <span asp-validation-for="Listing.AdmissionInfo" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">If you want to highlight a specific date, enter it here (MM/DD/YY)</label>
+            <label class="col-md-4 control-label">@Model.DateLabel</label>
             <div class="col-md-8" data-provide="datepicker">
-                <input asp-for="Date" class="form-control"/>
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <input asp-for="Listing.Date" class="form-control"/>
+                <span asp-validation-for="Listing.Date" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">In this field, you should enter if it's <em>one night only</em> or a <em>regular gig</em>('every Friday night')</label>
+            <label class="col-md-4 control-label">@Model.Description1Label</label>
             <div class="col-md-8">
-                <input asp-for="Descriptions[1]" class="form-control" />
-                <span asp-validation-for="Descriptions[1]" class="text-danger"></span>
+                <input asp-for="Listing.Descriptions[1]" class="form-control" />
+                <span asp-validation-for="Listing.Descriptions[1]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">And now the time</label>
+            <label class="col-md-4 control-label">@Model.Description2Label</label>
             <div class="col-md-8">
-                <input asp-for="Descriptions[2]" class="form-control" />
-                <span asp-validation-for="Descriptions[2]" class="text-danger"></span>
+                <input asp-for="Listing.Descriptions[2]" class="form-control" />
+                <span asp-validation-for="Listing.Descriptions[2]" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label">Tell us why we should come</label>
+            <label class="col-md-4 control-label">@Model.BragLabel</label>
             <div class="col-md-8">
-                <input asp-for="Brag" class="form-control" />
-                <span asp-validation-for="Brag" class="text-danger"></span>
+                <input asp-for="Listing.Brag" class="form-control" />
+                <span asp-validation-for="Listing.Brag" class="text-danger"></span>
             </div>
         </div>
         <p>After you finish with the (optional) field below, click <em>Here</em> to add your location information</p>
@@ -104,8 +96,8 @@
         <div class="form-group">
             <label class="col-md-2"></label>
             <div class="col-md-10">
-                <textarea rows="5" cols="300" asp-for="LongDescription" class="form-control"></textarea>
-                <span asp-validation-for="LongDescription" class="text-danger"></span>
+                <textarea rows="5" cols="300" asp-for="Listing.LongDescription" class="form-control"></textarea>
+                <span asp-validation-for="Listing.LongDescription" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -114,9 +106,9 @@
             </div>
         </div>
     </div>
-    @Html.HiddenFor(model => model.EventCategory)
-    @Html.HiddenFor(model => model.EventType)
-    @Html.HiddenFor(model => model.Location[0])
+    @Html.HiddenFor(model => model.Listing.EventCategory)
+    @Html.HiddenFor(model => model.Listing.EventType)
+    @Html.HiddenFor(model => model.Listing.Location[0])
 </form>
 
 <div>
