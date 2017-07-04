@@ -1,6 +1,7 @@
 ﻿using Looking2.Web.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +18,9 @@ namespace Looking2.Web.Domain
     {
         Fundraiser,
         Gig,
+        [Description("Artist")]
         ArtistIndividual,
+        [Description("Multiple Artists")]
         ArtistMultiple,
         Series,
         Exhibit,
@@ -25,7 +28,7 @@ namespace Looking2.Web.Domain
         Orchestra,
         Other
     }
-    public class EventListing : Entity
+    public class EventListing : Listing
     {
         public string AdmissionInfo { get; set; }
         public string Price { get; set; }
@@ -34,6 +37,5 @@ namespace Looking2.Web.Domain
         public string LongDescription { get; set; }
         public EventCategory EventCategory { get; set; }
         public EventType EventType { get; set; }
-
     }
 }

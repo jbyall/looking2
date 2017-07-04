@@ -4,37 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Looking2.Web.Domain;
+using Looking2.Web.DataAccess;
 
 namespace Looking2.Web
 {
     public static class Seed
     {
-        public static void SeedDb()
+        
+        public static void SeedCategories(Looking2DbContext context)
         {
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            var db = client.GetDatabase("looking2");
-
-            var listCollection = db.GetCollection<EventListing>("listings");
-
-
-            var categories = db.GetCollection<Category>("categories");
             var newCategories = GetSeedCategories();
 
             foreach (var item in newCategories)
             {
                 // Check for existing to determine insert or update
-                var existingCategory = categories.Find(c => c.Name == item.Name).ToList();
+                var existingCategory = context.Categories.Find(c => c.Name == item.Name).ToList();
 
                 // Insert new
                 if (existingCategory.Count < 1)
                 {
-                    categories.InsertOne(item);
+                    context.Categories.InsertOne(item);
                 }
                 // Update
                 else
                 {
                     item.Id = existingCategory[0].Id;
-                    var result = categories.FindOneAndReplace<Category>(c => c.Name == item.Name, item);
+                    var result = context.Categories.FindOneAndReplace<Category>(c => c.Name == item.Name, item);
                 }
 
             }

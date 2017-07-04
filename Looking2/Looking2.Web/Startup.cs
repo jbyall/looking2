@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
+using Microsoft.AspNetCore.Identity;
+using Looking2.Web.Settings;
 
 namespace Looking2.Web
 {
@@ -29,8 +31,15 @@ namespace Looking2.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // mongodb identity
+            services.AddIdentityWithMongoStores(Configuration.GetConnectionString("Looking2DbConnection")).AddDefaultTokenProviders();
+
             // Add framework services.
             services.AddMvc();
+
+            // App Settings
+            services.AddOptions();
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
             // Dependency injection. This creates a new instance for each HTTP request.
             // Allows creating controller ctors with params
@@ -60,6 +69,8 @@ namespace Looking2.Web
 
             app.UseStaticFiles();
 
+            app.UseIdentity();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -67,5 +78,6 @@ namespace Looking2.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
     }
 }
