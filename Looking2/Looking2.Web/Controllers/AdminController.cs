@@ -68,9 +68,5 @@ namespace Looking2.Web.Controllers
             return Content(string.Format("Successfully Updated: {0}", model.FormName));
         }
 
-        //public IActionResult EditForms(string id)
-        //{
-
-        //}
     }
 }
