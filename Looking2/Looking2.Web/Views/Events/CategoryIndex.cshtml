@@ -1,61 +1,60 @@
 @model IEnumerable<Looking2.Web.Domain.Category>
-@{
-    ViewData["Title"] = "Event Listing";
-}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 centered-column">
-            <h1>CHOOSE AN EVENT TYPE</h1>
-            <p>
-                How Looking2 handles Event Listings depends on the type of event being listed.
-                For some events, the organization behind it is as important as the name of the performance;
-                these might include ballets, operas, symphonies, etc.  For others, the name of the performer is most important,
-                but where the performance is being held is also significant, with certain venues being more desirable for whatever reason.
-                Similarly, events in a series may enjoy a certain reputation. Then there are events in which the event name tells it all or that where it is being held is important only
-                so that people can find it. But regardless of the option you select, Lookers will find everything in the same place.
-            </p>
-        </div>
-    </div>
-    @foreach (var item in Model)
-    {
-        if (item.Active)
-        {
-            string eventType = item.Name;
-            <div class="row">
-                <div class="col-md-3 right-column">
-                    <a asp-action="Create" asp-controller="Events" asp-route-eventType="@eventType">@item.DisplayName</a>
-                </div>
-                <div class="col-md-9">
-                    <p>@item.Description</p>
-                </div>
+    @{
+        ViewData["Title"] = "Event Listing";
+    }
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 centered-column">
+                <h1>CHOOSE AN EVENT TYPE</h1>
+                <p>
+                    How Looking2 handles Event Listings depends on the type of event being listed.
+                    For some events, the organization behind it is as important as the name of the performance;
+                    these might include ballets, operas, symphonies, etc.  For others, the name of the performer is most important,
+                    but where the performance is being held is also significant, with certain venues being more desirable for whatever reason.
+                    Similarly, events in a series may enjoy a certain reputation. Then there are events in which the event name tells it all or that where it is being held is important only
+                    so that people can find it. But regardless of the option you select, Lookers will find everything in the same place.
+                </p>
             </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            if (item.Active)
+            {
+                string eventType = item.Name;
+                <div class="row">
+                    <div class="col-md-3 right-column">
+                        <a asp-action="Create" asp-controller="Events" asp-route-eventType="@eventType">@item.DisplayName</a>
+                    </div>
+                    <div class="col-md-9">
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+
         }
 
-    }
-
-    <div class="row">
-        <div class="col-md-3 right-column">
-            <h3>Coming Soon:</h3>
-        </div>
-        <div class="col-md-9">
-
-        </div>
-    </div>
-
-    @foreach (var item in Model)
-    {
-        if (!item.Active)
-        {
-            <div class="row">
-                <div class="col-md-3 right-column">
-                    <p><bold>@item.DisplayName</bold></p>
-                </div>
-                <div class="col-md-9">
-                    <p>@item.Description</p>
-                </div>
+        <div class="row">
+            <div class="col-md-3 right-column">
+                <h3>Coming Soon:</h3>
             </div>
+            <div class="col-md-9">
+
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            if (!item.Active)
+            {
+                <div class="row">
+                    <div class="col-md-3 right-column">
+                        <p><bold>@item.DisplayName</bold></p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
         }
-    }
 
-</div>
-
+    </div>

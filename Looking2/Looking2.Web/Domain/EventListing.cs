@@ -16,7 +16,7 @@ namespace Looking2.Web.Domain
 
     public enum EventType
     {
-        Fundraiser,
+        Benefit,
         Gig,
         [Description("Artist")]
         ArtistIndividual,

@@ -45,6 +45,43 @@ namespace Looking2.Web.DataAccess
         }
     }
 
+    public interface IEventFormsRepo : IRepository<EventFieldSet>
+    {
+        EventFieldSet GetByName(string name);
+    }
+
+    public class EventFormsRepository : Repository<EventFieldSet>, IEventFormsRepo
+    {
+        public EventFormsRepository() : base("eventforms")
+        {
+
+        }
+
+        public EventFieldSet GetByName(string name)
+        {
+            return this.Collection.AsQueryable().Where(f => f.FormName.ToLower() == name.ToLower()).SingleOrDefault();
+        }
+    }
+
+    public interface IBusinessFormsRepo : IRepository<BusinessFieldSet>
+    {
+        BusinessFieldSet GetByName(string name);
+    }
+
+    public class BusinessFormsRepository : Repository<BusinessFieldSet>, IBusinessFormsRepo
+    {
+        public BusinessFormsRepository() : base("businessforms")
+        {
+
+        }
+
+        public BusinessFieldSet GetByName(string name)
+        {
+            return this.Collection.AsQueryable().Where(f => f.FormName.ToLower()==name.ToLower()).SingleOrDefault();
+        }
+    }
+
+
     #region OldRepos
     //public interface IGigsRepository
     //{

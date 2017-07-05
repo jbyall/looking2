@@ -9,6 +9,8 @@ using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
+using Looking2.Web.Settings;
+using MongoDB.Driver;
 
 namespace Looking2.Web.Controllers
 {
@@ -17,12 +19,14 @@ namespace Looking2.Web.Controllers
         private IEventsRepository eventsRepo;
         private ICategoriesRepository categoryRepo;
         private IConfiguration configuration;
+        private ConnectionStrings connectionStrings;
         //private EventListingViewModel vmFields;
-        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IConfiguration _configuration)
+        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IConfiguration _configuration, IOptions<ConnectionStrings> _connectionStrings)
         {
             this.eventsRepo = _eventRepo;
             this.categoryRepo = _categoryRepo;
             this.configuration = _configuration;
+            this.connectionStrings = _connectionStrings.Value;
         }
 
         public IActionResult Index()
@@ -45,6 +49,7 @@ namespace Looking2.Web.Controllers
 
         public IActionResult Create(string eventType)
         {
+            var db = new Looking2DbContext(connectionStrings.Looking2DbConnection);
             var model = new EventListingViewModel();
             
             EventType type;
@@ -55,32 +60,59 @@ namespace Looking2.Web.Controllers
                     
                     case EventType.Gig:
                         // Populate field values from app settings
-                        configuration.Bind("GigFieldLabels", model);
-                        model.Category = EventCategory.LiveMusic;
+                        //configuration.Bind("GigFieldLabels", model);
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "GigCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.LiveMusic;
                         break;
                     case EventType.ArtistIndividual:
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ArtistIndividualCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        break;
                     case EventType.ArtistMultiple:
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ArtistMultipleCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        break;
                     case EventType.Concert:
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ConcertCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        break;
                     case EventType.Orchestra:
-                        model.Category = EventCategory.LiveMusic;
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "OrchestraCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        break;
+                    case EventType.Benefit:
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "BenefitCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.Other;
+                        break;
+                    case EventType.Series:
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "SeriesCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.Other;
+                        break;
+                    case EventType.Exhibit:
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ExhibitCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.Other;
                         break;
                     default:
-                        model.Category = EventCategory.Other;
+                        model.FieldSet = db.EventForms.Find(f => f.FormName == "OtherCreate").SingleOrDefault();
+                        model.Listing.EventCategory = EventCategory.Other;
                         break;
                 }
 
                 // Set event type
-                model.Type = type;
+                model.Listing.EventType = type;
             }
             else
             {
-                model.Category = EventCategory.Other;
+                model.FieldSet = db.EventForms.Find(f => f.FormName == "OtherCreate").SingleOrDefault();
+                model.Listing.EventCategory = EventCategory.Other;
+                model.Listing.EventType = EventType.Other;
             }
 
             //create empty fields for view
             model.Listing.Initialize();
 
-            return View(eventType+"Create", model);
+            return View(model);
+            //return View(eventType+"Create", model);
         }
 
         [HttpPost]

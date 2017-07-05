@@ -1,0 +1,203 @@
+@model BusinessFieldSet
+@{
+        ViewData["Title"] = "Business Listing";
+}
+<h1>Edit fields for: @Model.FormName</h1>
+<h2>Unwanted fields should be set to empty.</h2>
+<h3>Search Result Example:</h3>
+@Html.Partial("_SearchResultExample")
+<form asp-action="EditBusinessForm">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title0Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Title0Label" class="form-control admin-input" />
+                <span asp-validation-for="Title0Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Title1Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Title1Label" class="form-control admin-input" />
+                <span asp-validation-for="Title1Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description0Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description0Label" class="form-control admin-input" />
+                <span asp-validation-for="Description0Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description1Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description1Label" class="form-control admin-input" />
+                <span asp-validation-for="Description1Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description2Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description2Label" class="form-control admin-input" />
+                <span asp-validation-for="Description2Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description3Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description3Label" class="form-control admin-input" />
+                <span asp-validation-for="Description3Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description4Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description4Label" class="form-control admin-input" />
+                <span asp-validation-for="Description4Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description5Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description5Label" class="form-control admin-input" />
+                <span asp-validation-for="Description5Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description6Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description6Label" class="form-control admin-input" />
+                <span asp-validation-for="Description6Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description7Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description7Label" class="form-control admin-input" />
+                <span asp-validation-for="Description7Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description8Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description8Label" class="form-control admin-input" />
+                <span asp-validation-for="Description8Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description9Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Description9Label" class="form-control admin-input" />
+                <span asp-validation-for="Description9Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Contact0Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Contact0Label" class="form-control admin-input" />
+                <span asp-validation-for="Contact0Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Contact1Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Contact1Label" class="form-control admin-input" />
+                <span asp-validation-for="Contact1Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Contact2Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Contact2Label" class="form-control admin-input" />
+                <span asp-validation-for="Contact2Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Contact3Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Contact3Label" class="form-control admin-input" />
+                <span asp-validation-for="Contact3Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Contact4Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Contact4Label" class="form-control admin-input" />
+                <span asp-validation-for="Contact4Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BragLabel" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="BragLabel" class="form-control admin-input" />
+                <span asp-validation-for="BragLabel" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LongDescriptionLabel" class="col-md-4 control-label">LongDescription(For John's Use)</label>
+            <div class="col-md-8">
+                <input asp-for="LongDescriptionLabel" class="form-control admin-input" />
+                <span asp-validation-for="LongDescriptionLabel" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="HeadingPartial" class="col-md-4 control-label">HeadingPartial(For John's Use)</label>
+            <div class="col-md-8">
+                <input asp-for="HeadingPartial" class="form-control admin-input" />
+                <span asp-validation-for="HeadingPartial" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PageTitle" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="PageTitle" class="form-control admin-input" />
+                <span asp-validation-for="PageTitle" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FormName" class="col-md-4 control-label">FormName(For John's Use)</label>
+            <div class="col-md-8">
+                <input asp-for="FormName" class="form-control admin-input" />
+                <span asp-validation-for="FormName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

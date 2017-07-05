@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Looking2.Web.DataAccess;
+using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Looking2.Web.ViewModels
+namespace Looking2.Web.Domain
 {
-    public class FieldSet
+    public class FormFieldSet : Entity
     {
+        public string FormName { get; set; }
         public string Title0Label { get; set; }
         public string Title1Label { get; set; }
         public string Description0Label { get; set; }
@@ -26,5 +29,8 @@ namespace Looking2.Web.ViewModels
         public string Contact4Label { get; set; }
         public string BragLabel { get; set; }
         public string LongDescriptionLabel { get; set; }
+        public string HeadingPartial { get; set; }
+        public string PageTitle { get; set; }
+
     }
 }

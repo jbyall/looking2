@@ -21,6 +21,8 @@ namespace Looking2.Web.DataAccess
             this.Events = Db.GetCollection<EventListing>("events");
             this.Businesses = Db.GetCollection<BusinessListing>("businesses");
             this.Categories = Db.GetCollection<Category>("categories");
+            this.EventForms = Db.GetCollection<EventFieldSet>("eventforms");
+            this.BusinessForms = Db.GetCollection<BusinessFieldSet>("businessforms");
         }
 
         #region properties
@@ -29,6 +31,8 @@ namespace Looking2.Web.DataAccess
         public IMongoCollection<EventListing> Events { get; private set; }
         public IMongoCollection<BusinessListing> Businesses { get; private set; }
         public IMongoCollection<Category> Categories { get; private set; }
+        public IMongoCollection<EventFieldSet> EventForms { get; private set; }
+        public IMongoCollection<BusinessFieldSet> BusinessForms { get; private set; }
         #endregion
     }
 }

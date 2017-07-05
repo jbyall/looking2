@@ -112,6 +112,11 @@ namespace Looking2.Web.Controllers
                 {
                     user.AddRole("admin");
                 }
+
+                if(user.Email == "rich@looking2.net")
+                {
+                    user.AddRole("admin");
+                }
                 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

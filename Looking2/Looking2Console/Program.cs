@@ -57,8 +57,8 @@ namespace Looking2Console
             {
                 new Category
                 {
-                    Name = "Fundraiser",
-                    DisplayName = "Benefits & fundraisers",
+                    Name = "Benefit",
+                    DisplayName = "Fundraisers & Benefits",
                     Description ="when it's all about helping a good cause",
                     Type = CategoryType.Event,
                     Active = true

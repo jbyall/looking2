@@ -28,5 +28,19 @@ namespace Looking2.Web.Controllers
             Seed.SeedCategories(context);
             return Content("Categories seeded successfully");
         }
+
+        public IActionResult SeedForms()
+        {
+            var context = new Looking2DbContext(connectionStrings.Looking2DbConnection);
+            Seed.SeedForms(context);
+            return Content("Forms seeded successfully");
+        }
+
+        public IActionResult SeedAll()
+        {
+            var context = new Looking2DbContext(connectionStrings.Looking2DbConnection);
+            Seed.SeedAll(context);
+            return Content("All done.");
+        }
     }
 }

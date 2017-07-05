@@ -16,6 +16,7 @@ namespace Looking2.Web.DataAccess
         T GetById(string Id);
         IEnumerable<T> GetAll();
         T Add(T entity);
+        T Update(T entity);
     }
 
     public class Repository<T> : IRepository<T>
@@ -47,6 +48,11 @@ namespace Looking2.Web.DataAccess
         public T GetById(string Id)
         {
             return this.Collection.AsQueryable<T>().Where(o => o.Id == new ObjectId(Id)).SingleOrDefault();
+        }
+
+        public T Update(T entity)
+        {
+            return this.Collection.FindOneAndReplace<T>(o => o.Id == entity.Id, entity);
         }
     }
 }

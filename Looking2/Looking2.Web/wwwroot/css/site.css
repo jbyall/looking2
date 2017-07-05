@@ -17,6 +17,11 @@ textarea {
     max-width: 280px;
 }
 
+.admin-input{
+    width:100%;
+    max-width: 800px;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

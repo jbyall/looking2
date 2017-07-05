@@ -47,6 +47,9 @@ namespace Looking2.Web
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IEventsRepository, EventsRepository>();
             services.AddScoped<IBusinessRepository, BusinessRepository>();
+            services.AddScoped<IEventFormsRepo, EventFormsRepository>();
+            services.AddScoped<IBusinessFormsRepo, BusinessFormsRepository>();
+
 
             // Creates a single instance of this for the entire application
             // Allows appsettings (defined in Startup ctor) to be passed to controller
@@ -77,7 +80,7 @@ namespace Looking2.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Welcome}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
