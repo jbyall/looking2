@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    public enum CategoryType
+    public enum ListingCategory
     {
         Business,
         Event
@@ -19,7 +19,7 @@ namespace Looking2.Web.Domain
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
-        public CategoryType Type { get; set; }
+        public ListingCategory Type { get; set; }
         public int DisplayOrder { get; set; }
         public bool Active { get; set; }
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    public class FormFieldSet : Entity
+    public class FormDataSet : Entity
     {
         public string FormName { get; set; }
         public string Title0Label { get; set; }

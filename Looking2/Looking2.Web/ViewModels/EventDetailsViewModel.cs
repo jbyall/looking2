@@ -21,7 +21,7 @@ namespace Looking2.Web.ViewModels
             this.Price = listing.Price;
             this.LongDescription = listing.LongDescription;
             this.EventType = listing.EventType.ToString();
-            this.EventCategory = listing.EventCategory.ToString();
+            this.EventCategory = listing.SearchDescription.ToString();
         }
         public string Id { get; set; }
         public string Date { get; set; }

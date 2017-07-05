@@ -17,15 +17,13 @@ namespace Looking2.Web.Controllers
     {
         private IBusinessRepository businessRepo;
         private ICategoriesRepository categoryRepo;
-        private IConfiguration configuration;
-        private ConnectionStrings connectionStrings;
+        private IBusinessFormsRepo formsRepo;
 
-        public BusinessesController(IBusinessRepository _businessRepo, ICategoriesRepository _categoryRepo, IConfiguration _configuration, IOptions<ConnectionStrings> _connectionStrings)
+        public BusinessesController(IBusinessRepository _businessRepo, ICategoriesRepository _categoryRepo, IBusinessFormsRepo _formsRepo)
         {
             this.businessRepo = _businessRepo;
             this.categoryRepo = _categoryRepo;
-            this.configuration = _configuration;
-            this.connectionStrings = _connectionStrings.Value;
+            this.formsRepo = _formsRepo;
         }
 
         public IActionResult Index()
@@ -42,14 +40,13 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult CategoryIndex()
         {
-            var eventCategories = categoryRepo.GetByType(CategoryType.Business);
+            var eventCategories = categoryRepo.GetByType(ListingCategory.Business);
             return View(eventCategories);
         }
 
         [HttpGet]
         public IActionResult Create(string businessType)
         {
-            var db = new Looking2DbContext(connectionStrings.Looking2DbConnection);
             var model = new BusinessListingViewModel();
             BusinessType type;
             if (Enum.TryParse(businessType, out type))
@@ -57,55 +54,55 @@ namespace Looking2.Web.Controllers
                 switch (type)
                 {
                     case BusinessType.Artists:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "ArtistsCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("ArtistsCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.HealthCare:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "HealthCareCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("HealthCareCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.AltHealthCare:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "AltHealthCareCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("AltHealthCareCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Information:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "InformationCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("InformationCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Instruction:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "InstructionCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("InstructionCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Lawyers:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "LawyersCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("LawyersCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Restaurant:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "RestaurantCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("RestaurantCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.ServiceProviders:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "ServiceProvidersCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("ServiceProvidersCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Shopkeepers:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "ShopkeepersCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("ShopkeepersCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Support:
-                        model.FieldSet = db.BusinessForms.Find(f => f.FormName == "SupportCreate").SingleOrDefault();
-                        model.Listing.BusinessCategory = BusinessCategory.Other;
+                        model.FormData = formsRepo.GetByName("SupportCreate");
+                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     default:
                         break;
                 }
-                model.Listing.BusinessCategory = BusinessCategory.Other;
+                model.Listing.BusinessDescription = EventDescription.Other.ToString();
                 model.Listing.BusinessType = type;
             }
             else
             {
-                model.FieldSet = db.BusinessForms.Find(f => f.FormName == "OtherCreate").SingleOrDefault();
-                model.Listing.BusinessCategory = BusinessCategory.Other;
+                model.FormData = formsRepo.GetByName("OtherCreate");
+                model.Listing.BusinessDescription = EventDescription.Other.ToString();
             }
 
             //create empty fields for view

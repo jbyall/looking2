@@ -17,7 +17,7 @@ namespace Looking2.Web.ViewModels
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
             this.LongDescription = listing.LongDescription;
-            this.BusinessCategory = listing.BusinessCategory.ToString();
+            this.BusinessCategory = listing.BusinessDescription.ToString();
             this.BusinessType = listing.BusinessType.ToString();
         }
         public string Id { get; set; }

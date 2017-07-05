@@ -18,17 +18,16 @@ namespace Looking2.Web.Controllers
     {
         private IEventsRepository eventsRepo;
         private ICategoriesRepository categoryRepo;
-        private IConfiguration configuration;
-        private ConnectionStrings connectionStrings;
-        //private EventListingViewModel vmFields;
-        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IConfiguration _configuration, IOptions<ConnectionStrings> _connectionStrings)
+        private IEventFormsRepo formsRepo;
+        
+        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IEventFormsRepo _formsRepo)
         {
             this.eventsRepo = _eventRepo;
             this.categoryRepo = _categoryRepo;
-            this.configuration = _configuration;
-            this.connectionStrings = _connectionStrings.Value;
+            this.formsRepo = _formsRepo;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var listings = eventsRepo.GetAll();
@@ -43,13 +42,13 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult CategoryIndex()
         {
-            var eventCategories = categoryRepo.GetByType(CategoryType.Event);
+            var eventCategories = categoryRepo.GetByType(ListingCategory.Event);
             return View(eventCategories);
         }
 
+        [HttpGet]
         public IActionResult Create(string eventType)
         {
-            var db = new Looking2DbContext(connectionStrings.Looking2DbConnection);
             var model = new EventListingViewModel();
             
             EventType type;
@@ -59,42 +58,40 @@ namespace Looking2.Web.Controllers
                 {
                     
                     case EventType.Gig:
-                        // Populate field values from app settings
-                        //configuration.Bind("GigFieldLabels", model);
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "GigCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        model.FormData = formsRepo.GetByName("GigCreate");
+                        model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.ArtistIndividual:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ArtistIndividualCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        model.FormData = formsRepo.GetByName("ArtistIndividualCreate");
+                        model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.ArtistMultiple:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ArtistMultipleCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        model.FormData = formsRepo.GetByName("ArtistMultipleCreate");
+                        model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.Concert:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ConcertCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        model.FormData = formsRepo.GetByName("ConcertCreate");
+                        model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.Orchestra:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "OrchestraCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.LiveMusic;
+                        model.FormData = formsRepo.GetByName("OrchestraCreate");
+                        model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.Benefit:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "BenefitCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.Other;
+                        model.FormData = formsRepo.GetByName("BenefitCreate");
+                        model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                     case EventType.Series:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "SeriesCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.Other;
+                        model.FormData = formsRepo.GetByName("SeriesCreate");
+                        model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                     case EventType.Exhibit:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "ExhibitCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.Other;
+                        model.FormData = formsRepo.GetByName("ExhibitCreate");
+                        model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                     default:
-                        model.FieldSet = db.EventForms.Find(f => f.FormName == "OtherCreate").SingleOrDefault();
-                        model.Listing.EventCategory = EventCategory.Other;
+                        model.FormData = formsRepo.GetByName("OtherCreate");
+                        model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                 }
 
@@ -103,8 +100,8 @@ namespace Looking2.Web.Controllers
             }
             else
             {
-                model.FieldSet = db.EventForms.Find(f => f.FormName == "OtherCreate").SingleOrDefault();
-                model.Listing.EventCategory = EventCategory.Other;
+                model.FormData = formsRepo.GetByName("OtherCreate");
+                model.Listing.SearchDescription = EventDescription.Other.ToString();
                 model.Listing.EventType = EventType.Other;
             }
 

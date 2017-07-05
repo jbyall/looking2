@@ -47,7 +47,7 @@ namespace Looking2.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditEventForm(EventFieldSet model)
+        public IActionResult EditEventForm(EventFormData model)
         {
             model = eventFormsRepo.Update(model);
             return Content(string.Format("Successfully Updated: {0}", model.FormName));
@@ -62,7 +62,7 @@ namespace Looking2.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditBusinessForm(BusinessFieldSet model)
+        public IActionResult EditBusinessForm(BusinessFormData model)
         {
             model = businessFormsRepo.Update(model);
             return Content(string.Format("Successfully Updated: {0}", model.FormName));

@@ -1,12 +1,12 @@
 @model EventListingViewModel
 @{
-    ViewData["Title"] = Model.FieldSet.PageTitle;
+    ViewData["Title"] = Model.FormData.PageTitle;
 }
 <form asp-action="Create">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 centered-column">
-                @Html.Partial(Model.FieldSet.HeadingPartial)
+                @Html.Partial(Model.FormData.HeadingPartial)
             </div>
         </div>
     </div>
@@ -14,10 +14,10 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @*TODO: make view more generic and add if string.null to check model for which fields to display*@
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Title0Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title0Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Title0Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Title0Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Titles[0]" class="form-control" />
                     <span asp-validation-for="Listing.Titles[0]" class="text-danger"></span>
@@ -25,10 +25,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Title1Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title1Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Title1Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Title1Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Titles[1]" class="form-control" />
                     <span asp-validation-for="Listing.Titles[1]" class="text-danger"></span>
@@ -36,10 +36,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description0Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description0Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description0Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description0Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[0]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[0]" class="text-danger"></span>
@@ -47,10 +47,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Contact0Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Contact0Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Contact0Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Contact0Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Contact[0]" class="form-control" />
                     <span asp-validation-for="Listing.Contact[0]" class="text-danger"></span>
@@ -58,10 +58,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Contact1Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Contact1Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Contact1Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Contact1Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Contact[1]" class="form-control" />
                     <span asp-validation-for="Listing.Contact[1]" class="text-danger"></span>
@@ -70,10 +70,10 @@
 
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.PriceLabel))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.PriceLabel))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.PriceLabel</label>
+                <label class="col-md-4 control-label">@Model.FormData.PriceLabel</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Price" class="form-control" />
                     <span asp-validation-for="Listing.Price" class="text-danger"></span>
@@ -81,10 +81,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.AdmissionInfoLabel))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.AdmissionInfoLabel))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.AdmissionInfoLabel</label>
+                <label class="col-md-4 control-label">@Model.FormData.AdmissionInfoLabel</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.AdmissionInfo" class="form-control" />
                     <span asp-validation-for="Listing.AdmissionInfo" class="text-danger"></span>
@@ -92,10 +92,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.DateLabel))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.DateLabel))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.DateLabel</label>
+                <label class="col-md-4 control-label">@Model.FormData.DateLabel</label>
                 <div class="col-md-8" data-provide="datepicker">
                     <input asp-for="Listing.Date" class="form-control" />
                     <span asp-validation-for="Listing.Date" class="text-danger"></span>
@@ -103,10 +103,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description1Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description1Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description1Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description1Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[1]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[1]" class="text-danger"></span>
@@ -114,10 +114,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description2Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description2Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description2Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description2Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[2]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[2]" class="text-danger"></span>
@@ -125,10 +125,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description3Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description3Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description3Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description3Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[3]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[3]" class="text-danger"></span>
@@ -136,10 +136,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description4Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description4Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description4Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description4Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[4]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[4]" class="text-danger"></span>
@@ -147,10 +147,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description5Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description5Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description5Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description5Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[5]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[5]" class="text-danger"></span>
@@ -158,10 +158,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description6Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description6Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description6Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description6Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[6]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[6]" class="text-danger"></span>
@@ -169,10 +169,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description7Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description7Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description7Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description7Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[7]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[7]" class="text-danger"></span>
@@ -180,10 +180,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description8Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description8Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description8Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description8Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[8]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[8]" class="text-danger"></span>
@@ -191,10 +191,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.Description9Label))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description9Label))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.Description9Label</label>
+                <label class="col-md-4 control-label">@Model.FormData.Description9Label</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Descriptions[9]" class="form-control" />
                     <span asp-validation-for="Listing.Descriptions[9]" class="text-danger"></span>
@@ -202,10 +202,10 @@
             </div>
         }
 
-        @if (!string.IsNullOrWhiteSpace(Model.FieldSet.BragLabel))
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.BragLabel))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FieldSet.BragLabel</label>
+                <label class="col-md-4 control-label">@Model.FormData.BragLabel</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Brag" class="form-control" />
                     <span asp-validation-for="Listing.Brag" class="text-danger"></span>

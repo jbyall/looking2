@@ -12,8 +12,10 @@ namespace Looking2.Web.ViewModels
         {
 
         }
-
+        // Represents the listing object that is saved to the listings collection
         public BusinessListing Listing { get; set; }
-        public BusinessFieldSet FieldSet { get; set; }
+
+        // Represents the labels for the form inputs (these differ by business)
+        public BusinessFormData FormData { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace Looking2.Web
                 else
                 {
                     item.Id = existingForm[0].Id;
-                    var result = context.EventForms.FindOneAndReplace<EventFieldSet>(f => f.FormName == item.FormName, item);
+                    var result = context.EventForms.FindOneAndReplace<EventFormData>(f => f.FormName == item.FormName, item);
                 }
             }
 
@@ -65,7 +65,7 @@ namespace Looking2.Web
                 else
                 {
                     item.Id = existingForm[0].Id;
-                    var result = context.BusinessForms.FindOneAndReplace<BusinessFieldSet>(f => f.FormName == item.FormName, item);
+                    var result = context.BusinessForms.FindOneAndReplace<BusinessFormData>(f => f.FormName == item.FormName, item);
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace Looking2.Web
                     Name = "Benefit",
                     DisplayName = "Fundraisers & Benefits",
                     Description ="when it's all about helping a good cause",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -93,7 +93,7 @@ namespace Looking2.Web
                     Name = "Gig",
                     DisplayName = "Gigs",
                     Description ="for local bands playing in local venues",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -101,7 +101,7 @@ namespace Looking2.Web
                     Name="ArtistIndividual",
                     DisplayName = "Individual Artists",
                     Description ="for individual performers appearing alone or together",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -109,7 +109,7 @@ namespace Looking2.Web
                     Name = "ArtistMultiple",
                     DisplayName = "Multiple Artists",
                     Description ="covers opening acts, joint appearances and/or special guests",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -117,7 +117,7 @@ namespace Looking2.Web
                     Name="Series",
                     DisplayName = "Series",
                     Description ="when the event is part of a series",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -125,7 +125,7 @@ namespace Looking2.Web
                     Name = "Exhibit",
                     DisplayName = "Exhibits",
                     Description ="Is your work going to be on display somewhere?  choose this one!",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -133,7 +133,7 @@ namespace Looking2.Web
                     Name = "Concert",
                     DisplayName = "Concert Tours",
                     Description ="for any show on tour: concerts, comedians, speakers, whatever",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -142,7 +142,7 @@ namespace Looking2.Web
                     Name = "Orchestra",
                     DisplayName = "Troupes, Companies, Orchestras",
                     Description ="when who's putting on the show is as important as the show they're putting on",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -150,7 +150,7 @@ namespace Looking2.Web
                     Name="Other",
                     DisplayName = "Other",
                     Description ="any event that does not fall under any of the other categories, use this one!",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 // Business Categories
@@ -159,7 +159,7 @@ namespace Looking2.Web
                     Name="Artists",
                     DisplayName = "Artists, Artisans & Musicians",
                     Description ="If you create things of beauty, pick this one",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -167,7 +167,7 @@ namespace Looking2.Web
                     Name="HealthCare",
                     DisplayName = "Health Care",
                     Description ="For those who practice the healing arts and sciences (& have a degree AND/OR state certification)",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -175,7 +175,7 @@ namespace Looking2.Web
                     Name="AltHealthCare",
                     DisplayName = "Alternative Health Care",
                     Description ="For those with a non-traditional approach to addressing our aches and pains",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -183,7 +183,7 @@ namespace Looking2.Web
                     Name="Information",
                     DisplayName = "Information",
                     Description ="Do you offer information of any kind?",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -191,7 +191,7 @@ namespace Looking2.Web
                     Name="Instruction",
                     DisplayName = "Instruction",
                     Description ="Lessons and instruction of all kinds",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -199,7 +199,7 @@ namespace Looking2.Web
                     Name="Lawyers",
                     DisplayName = "Lawyers",
                     Description ="For practitioners of one of the world's oldest professions",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -207,7 +207,7 @@ namespace Looking2.Web
                     Name = "Restaurant",
                     DisplayName = "Places to Eat",
                     Description ="Do you serve prepared food, ready to eat right now?",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -215,7 +215,7 @@ namespace Looking2.Web
                     Name="ServiceProviders",
                     DisplayName = "Service Providers",
                     Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = false
                 },
                 new Category
@@ -223,7 +223,7 @@ namespace Looking2.Web
                     Name="Shopkeepers",
                     DisplayName = "Shopkeepers",
                     Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = false
                 },
                 new Category
@@ -231,7 +231,7 @@ namespace Looking2.Web
                     Name="Support",
                     DisplayName = "Support",
                     Description ="Do you offer support of any kind?",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = false
                 }
 
@@ -247,14 +247,14 @@ namespace Looking2.Web
 
         }
 
-        private static List<EventFieldSet> GetSeedEventForms()
+        private static List<EventFormData> GetSeedEventForms()
         {
-            return new List<EventFieldSet>()
+            return new List<EventFormData>()
             {
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "GigCreate",
-                     Category = EventCategory.LiveMusic,
+                     Category = EventDescription.LiveMusic,
                      Type = EventType.Gig,
                      Title0Label = "What is the name of the band?",
                      Title1Label = "Where are you playing?",
@@ -280,10 +280,10 @@ namespace Looking2.Web
                      PageTitle = "Gig Listing",
                      HeadingPartial = "_GigHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "BenefitCreate",
-                     Category = EventCategory.Other,
+                     Category = EventDescription.Other,
                      Type = EventType.Benefit,
                      Title0Label = "What is the name of the event?",
                      Title1Label = "Where is it being held (name of venue)?",
@@ -309,10 +309,10 @@ namespace Looking2.Web
                      PageTitle = "Benefit Listing",
                      HeadingPartial = "_BenefitHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "ArtistIndividualCreate",
-                     Category = EventCategory.LiveMusic,
+                     Category = EventDescription.LiveMusic,
                      Type = EventType.ArtistIndividual,
                      Title0Label = "",
                      Title1Label = "?",
@@ -338,10 +338,10 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ArtistIndividualHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "ArtistMultipleCreate",
-                     Category = EventCategory.LiveMusic,
+                     Category = EventDescription.LiveMusic,
                      Type = EventType.ArtistMultiple,
                      Title0Label = "",
                      Title1Label = "?",
@@ -367,10 +367,10 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ArtistMultipleHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "SeriesCreate",
-                     Category = EventCategory.Other,
+                     Category = EventDescription.Other,
                      Type = EventType.Series,
                      Title0Label = "",
                      Title1Label = "?",
@@ -396,10 +396,10 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_SeriesHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "ExhibitCreate",
-                     Category = EventCategory.Other,
+                     Category = EventDescription.Other,
                      Type = EventType.Exhibit,
                      Title0Label = "",
                      Title1Label = "?",
@@ -425,10 +425,10 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ExhibitHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "ConcertCreate",
-                     Category = EventCategory.LiveMusic,
+                     Category = EventDescription.LiveMusic,
                      Type = EventType.Concert,
                      Title0Label = "",
                      Title1Label = "?",
@@ -454,10 +454,10 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ConcertHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "OrchestraCreate",
-                     Category = EventCategory.LiveMusic,
+                     Category = EventDescription.LiveMusic,
                      Type = EventType.Orchestra,
                      Title0Label = "",
                      Title1Label = "?",
@@ -483,10 +483,10 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_OrchestraHeading"
                 },
-                new EventFieldSet
+                new EventFormData
                 {
                      FormName = "OtherCreate",
-                     Category = EventCategory.Other,
+                     Category = EventDescription.Other,
                      Type = EventType.Other,
                      Title0Label = "",
                      Title1Label = "?",
@@ -515,15 +515,15 @@ namespace Looking2.Web
             };
         }
 
-        private static List<BusinessFieldSet> GetSeedBusinessForms()
+        private static List<BusinessFormData> GetSeedBusinessForms()
         {
-            return new List<BusinessFieldSet>()
+            return new List<BusinessFormData>()
             {
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "ArtistsCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Artists,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Artists,
                      Title0Label = "",
                      Title1Label = "",
                      Description0Label = "",
@@ -545,11 +545,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ArtistsHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "HealthCareCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.HealthCare,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.HealthCare,
                      Title0Label = "What is the name of your practice?",
                      Title1Label = "",
                      Description0Label = "What is your role as an HCP?",
@@ -571,11 +571,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_HealthCareHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "AltHealthCareCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.AltHealthCare,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.AltHealthCare,
                      Title0Label = "What is the name of your practice?",
                      Title1Label = "",
                      Description0Label = "What is your role as an HCP?",
@@ -597,11 +597,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_AltHealthCareHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "InformationCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Information,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Information,
                      Title0Label = "What is the name of your business?",
                      Title1Label = "",
                      Description0Label = "Broad categorization:",
@@ -623,11 +623,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_InformationHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "InstructionCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Instruction,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Instruction,
                      Title0Label = "What name do you go by as an instructor?",
                      Title1Label = "",
                      Description0Label = "What kind of instruction do you offer?",
@@ -649,11 +649,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_InstructionHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "LawyersCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Lawyers,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Lawyers,
                      Title0Label = "What is the name of your law firm?",
                      Title1Label = "",
                      Description0Label = "Please enter your last name:",
@@ -675,11 +675,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_LawyersHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "RestaurantCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Restaurant,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Restaurant,
                      Title0Label = "What is the name of your eatery?",
                      Title1Label = "",
                      Description0Label = "What type of eatery is it?",
@@ -701,11 +701,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_RestaurantHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "ServiceProvidersCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.ServiceProviders,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.ServiceProviders,
                      Title0Label = "",
                      Title1Label = "",
                      Description0Label = "",
@@ -727,11 +727,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ServiceProvidersHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "ShopkeepersCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Shopkeepers,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Shopkeepers,
                      Title0Label = "",
                      Title1Label = "",
                      Description0Label = "",
@@ -753,11 +753,11 @@ namespace Looking2.Web
                      PageTitle = "",
                      HeadingPartial = "_ShopkeepersHeading"
                 },
-                new BusinessFieldSet
+                new BusinessFormData
                 {
                     FormName = "SupportCreate",
-                     Category = BusinessCategory.Other,
-                     Type = BusinessType.Support,
+                     SearchDescription = EventDescription.Other,
+                     BusinessType = BusinessType.Support,
                      Title0Label = "",
                      Title1Label = "",
                      Description0Label = "",

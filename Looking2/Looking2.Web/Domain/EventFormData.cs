@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    public class EventFieldSet : FormFieldSet
+    public class EventFormData : FormDataSet
     {
         public EventType Type { get; set; }
-        public EventCategory Category { get; set; }
+        public EventDescription Category { get; set; }
         
         // Unique labels
         public string PriceLabel { get; set; }

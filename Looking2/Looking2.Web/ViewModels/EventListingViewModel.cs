@@ -13,6 +13,6 @@ namespace Looking2.Web.ViewModels
             this.Listing = new EventListing();
         }
         public EventListing Listing { get; set; }
-        public EventFieldSet FieldSet { get; set; }
+        public EventFormData FormData { get; set; }
     }
 }

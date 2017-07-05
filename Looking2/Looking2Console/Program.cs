@@ -15,8 +15,15 @@ namespace Looking2Console
     {
         static void Main(string[] args)
         {
-            addEventCategories();
-            Console.WriteLine("Hello World!");
+            var test = new SearchTest();
+            //test.Seed(500000);
+            //var bluegrassResults = test.SearchDescription("bluegrass");
+            //var BluegrassResults = test.SearchDescription("Bluegrass", 10);
+
+            //var bluegrassCount = test.SearchDescriptionCount("rock");
+            var descLocCount = test.SearchLocationDescriptionCount("denver", "rock");
+            Console.WriteLine("Done");
+            Console.Read();
         }
 
         static void addEventCategories()
@@ -60,7 +67,7 @@ namespace Looking2Console
                     Name = "Benefit",
                     DisplayName = "Fundraisers & Benefits",
                     Description ="when it's all about helping a good cause",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -68,7 +75,7 @@ namespace Looking2Console
                     Name = "Gig",
                     DisplayName = "Gigs",
                     Description ="for local bands playing in local venues",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -76,7 +83,7 @@ namespace Looking2Console
                     Name="ArtistIndividual",
                     DisplayName = "Individual Artists",
                     Description ="for individual performers appearing alone or together",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -84,7 +91,7 @@ namespace Looking2Console
                     Name = "ArtistMultiple",
                     DisplayName = "Multiple Artists",
                     Description ="covers opening acts, joint appearances and/or special guests",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -92,7 +99,7 @@ namespace Looking2Console
                     Name="Series",
                     DisplayName = "Series",
                     Description ="when the event is part of a series",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 new Category
@@ -100,7 +107,7 @@ namespace Looking2Console
                     Name = "Exhibit",
                     DisplayName = "Exhibits",
                     Description ="Is your work going to be on display somewhere?  choose this one!",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = false
                 },
                 new Category
@@ -108,7 +115,7 @@ namespace Looking2Console
                     Name = "Concert",
                     DisplayName = "Concert Tours",
                     Description ="for any show on tour: concerts, comedians, speakers, whatever",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = false
                 },
                 new Category
@@ -117,7 +124,7 @@ namespace Looking2Console
                     Name = "Orchestra",
                     DisplayName = "Troupes, Companies, Orchestras",
                     Description ="when who's putting on the show is as important as the show they're putting on",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = false
                 },
                 new Category
@@ -125,7 +132,7 @@ namespace Looking2Console
                     Name="Other",
                     DisplayName = "Other",
                     Description ="any event that does not fall under any of the other categories, use this one!",
-                    Type = CategoryType.Event,
+                    Type = ListingCategory.Event,
                     Active = true
                 },
                 // Business Categories
@@ -134,7 +141,7 @@ namespace Looking2Console
                     Name="Artists",
                     DisplayName = "Artists, Artisans & Musicians",
                     Description ="If you create things of beauty, pick this one",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -142,7 +149,7 @@ namespace Looking2Console
                     Name="HealthCare",
                     DisplayName = "Health Care",
                     Description ="For those who practice the healing arts and sciences (& have a degree AND/OR state certification)",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -150,7 +157,7 @@ namespace Looking2Console
                     Name="AltHealthCare",
                     DisplayName = "Alternative Health Care",
                     Description ="For those with a non-traditional approach to addressing our aches and pains",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -158,7 +165,7 @@ namespace Looking2Console
                     Name="Information",
                     DisplayName = "Information",
                     Description ="Do you offer information of any kind?",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -166,7 +173,7 @@ namespace Looking2Console
                     Name="Instruction",
                     DisplayName = "Instruction",
                     Description ="Lessons and instruction of all kinds",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -174,7 +181,7 @@ namespace Looking2Console
                     Name="Lawyers",
                     DisplayName = "Lawyers",
                     Description ="For practitioners of one of the world's oldest professions",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -182,7 +189,7 @@ namespace Looking2Console
                     Name = "Restaurant",
                     DisplayName = "Places to Eat",
                     Description ="Do you serve prepared food, ready to eat right now?",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -190,7 +197,7 @@ namespace Looking2Console
                     Name="ServiceProviders",
                     DisplayName = "Service Providers",
                     Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -198,7 +205,7 @@ namespace Looking2Console
                     Name="Shopkeepers",
                     DisplayName = "Shopkeepers",
                     Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 },
                 new Category
@@ -206,7 +213,7 @@ namespace Looking2Console
                     Name="Support",
                     DisplayName = "Support",
                     Description ="Do you offer support of any kind?",
-                    Type = CategoryType.Business,
+                    Type = ListingCategory.Business,
                     Active = true
                 }
 

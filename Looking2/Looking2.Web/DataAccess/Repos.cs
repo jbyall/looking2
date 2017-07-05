@@ -10,7 +10,7 @@ namespace Looking2.Web.DataAccess
 {
     public interface ICategoriesRepository : IRepository<Category>
     {
-        IEnumerable<Category> GetByType(CategoryType type);
+        IEnumerable<Category> GetByType(ListingCategory type);
     }
 
     public class CategoriesRepository : Repository<Category>, ICategoriesRepository
@@ -19,7 +19,7 @@ namespace Looking2.Web.DataAccess
         {
         }
 
-        public IEnumerable<Category> GetByType(CategoryType type)
+        public IEnumerable<Category> GetByType(ListingCategory type)
         {
             return this.Collection.AsQueryable().Where(c => c.Type == type);
         }
@@ -45,37 +45,37 @@ namespace Looking2.Web.DataAccess
         }
     }
 
-    public interface IEventFormsRepo : IRepository<EventFieldSet>
+    public interface IEventFormsRepo : IRepository<EventFormData>
     {
-        EventFieldSet GetByName(string name);
+        EventFormData GetByName(string name);
     }
 
-    public class EventFormsRepository : Repository<EventFieldSet>, IEventFormsRepo
+    public class EventFormsRepository : Repository<EventFormData>, IEventFormsRepo
     {
         public EventFormsRepository() : base("eventforms")
         {
 
         }
 
-        public EventFieldSet GetByName(string name)
+        public EventFormData GetByName(string name)
         {
             return this.Collection.AsQueryable().Where(f => f.FormName.ToLower() == name.ToLower()).SingleOrDefault();
         }
     }
 
-    public interface IBusinessFormsRepo : IRepository<BusinessFieldSet>
+    public interface IBusinessFormsRepo : IRepository<BusinessFormData>
     {
-        BusinessFieldSet GetByName(string name);
+        BusinessFormData GetByName(string name);
     }
 
-    public class BusinessFormsRepository : Repository<BusinessFieldSet>, IBusinessFormsRepo
+    public class BusinessFormsRepository : Repository<BusinessFormData>, IBusinessFormsRepo
     {
         public BusinessFormsRepository() : base("businessforms")
         {
 
         }
 
-        public BusinessFieldSet GetByName(string name)
+        public BusinessFormData GetByName(string name)
         {
             return this.Collection.AsQueryable().Where(f => f.FormName.ToLower()==name.ToLower()).SingleOrDefault();
         }
