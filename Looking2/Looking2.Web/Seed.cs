@@ -10,70 +10,68 @@ namespace Looking2.Web
 {
     public static class Seed
     {
-
-        public static void SeedCategories(Looking2DbContext context)
+        public static void SeedCategories(ICategoriesRepository _categoriesRepo)
         {
-            context.Db.DropCollection("categories");
+            _categoriesRepo.Db.DropCollection("categories");
             var newCategories = GetSeedCategories();
             foreach (var item in newCategories)
             {
                 // Check for existing to determine insert or update
-                var existingCategory = context.Categories.Find(c => c.Name == item.Name).ToList();
-
+                var existingCategory = _categoriesRepo.Find(c => c.Name == item.Name).ToList();
                 // Insert new
                 if (existingCategory.Count < 1)
                 {
-                    context.Categories.InsertOne(item);
+                    _categoriesRepo.Add(item);
                 }
                 // Update
                 else
                 {
                     item.Id = existingCategory[0].Id;
-                    var result = context.Categories.FindOneAndReplace<Category>(c => c.Name == item.Name, item);
+                    var result = _categoriesRepo.Collection.FindOneAndReplace<Category>(c => c.Name == item.Name, item);
                 }
 
             }
         }
 
-        public static void SeedForms(Looking2DbContext context)
+        public static void SeedForms(IBusinessFormsRepo _businessFormsRepo, IEventFormsRepo _eventFormsRepo)
         {
             var newForms = GetSeedEventForms();
             foreach (var item in newForms)
             {
-                var existingForm = context.EventForms.Find(f => f.FormName == item.FormName).ToList();
+                var existingForm = _eventFormsRepo.Find(f => f.FormName == item.FormName).ToList();
 
                 if (existingForm.Count < 1 )
                 {
-                    context.EventForms.InsertOne(item);
+                    _eventFormsRepo.Add(item);
                 }
                 else
                 {
                     item.Id = existingForm[0].Id;
-                    var result = context.EventForms.FindOneAndReplace<EventFormData>(f => f.FormName == item.FormName, item);
+                    var result = _eventFormsRepo.Collection.FindOneAndReplace<EventFormData>(f => f.FormName == item.FormName, item);
                 }
             }
 
             var newBusinessForms = GetSeedBusinessForms();
             foreach (var item in newBusinessForms)
             {
-                var existingForm = context.BusinessForms.Find(f => f.FormName == item.FormName).ToList();
+                var existingForm = _businessFormsRepo.Find(f => f.FormName == item.FormName).ToList();
 
                 if (existingForm.Count < 1)
                 {
-                    context.BusinessForms.InsertOne(item);
+                    _businessFormsRepo.Add(item);
                 }
                 else
                 {
                     item.Id = existingForm[0].Id;
-                    var result = context.BusinessForms.FindOneAndReplace<BusinessFormData>(f => f.FormName == item.FormName, item);
+                    var result = _businessFormsRepo.Collection.FindOneAndReplace<BusinessFormData>(f => f.FormName == item.FormName, item);
                 }
             }
         }
 
-        public static void SeedAll(Looking2DbContext context)
+        public static void SeedAll(ICategoriesRepository _categoriesRepo, IBusinessFormsRepo _businessFormsRepo, IEventFormsRepo _eventFormsRepo)
         {
-            SeedCategories(context);
-            SeedForms(context);
+            SeedCategories(_categoriesRepo);
+            SeedForms(_businessFormsRepo, _eventFormsRepo);
         }
 
         private static List<Category> GetSeedCategories()

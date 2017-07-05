@@ -13,10 +13,20 @@ namespace Looking2.Web.Controllers
     [Authorize(Roles = "admin")]
     public class SeedController : Controller
     {
-        private ConnectionStrings connectionStrings;
-        public SeedController(IOptions<ConnectionStrings> _connectionStrings)
+        private IOptions<DbSettings> settings;
+        private ICategoriesRepository categoriesRepo;
+        private IEventFormsRepo eventForms;
+        private IBusinessFormsRepo businessForms;
+
+        public SeedController(IOptions<DbSettings> _settings, 
+                                ICategoriesRepository _categoriesRepo,
+                                IBusinessFormsRepo _businessForms,
+                                IEventFormsRepo _eventForms)
         {
-            this.connectionStrings = _connectionStrings.Value;
+            this.settings = _settings;
+            this.categoriesRepo = _categoriesRepo;
+            this.businessForms = _businessForms;
+            this.eventForms = _eventForms;
         }
         public IActionResult Index()
         {
@@ -24,22 +34,19 @@ namespace Looking2.Web.Controllers
         }
         public IActionResult SeedCategories()
         {
-            var context = new Looking2DbContext(connectionStrings.Looking2DbConnection);
-            Seed.SeedCategories(context);
+            Seed.SeedCategories(categoriesRepo);
             return Content("Categories seeded successfully");
         }
 
         public IActionResult SeedForms()
         {
-            var context = new Looking2DbContext(connectionStrings.Looking2DbConnection);
-            Seed.SeedForms(context);
+            Seed.SeedForms(businessForms, eventForms);
             return Content("Forms seeded successfully");
         }
 
         public IActionResult SeedAll()
         {
-            var context = new Looking2DbContext(connectionStrings.Looking2DbConnection);
-            Seed.SeedAll(context);
+            Seed.SeedAll(categoriesRepo, businessForms, eventForms);
             return Content("All done.");
         }
     }

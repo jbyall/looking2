@@ -1,4 +1,6 @@
 ﻿using Looking2.Web.Domain;
+using Looking2.Web.Settings;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,8 +17,9 @@ namespace Looking2.Web.DataAccess
 
     public class CategoriesRepository : Repository<Category>, ICategoriesRepository
     {
-        public CategoriesRepository() : base("categories")
+        public CategoriesRepository(IOptions<DbSettings> settings) : base(settings)
         {
+            this.Collection = Db.GetCollection<Category>(settings.Value.CategoriesCollection);
         }
 
         public IEnumerable<Category> GetByType(ListingCategory type)
@@ -32,16 +35,18 @@ namespace Looking2.Web.DataAccess
 
     public class EventsRepository : Repository<EventListing>, IEventsRepository
     {
-        public EventsRepository() : base("events")
+        public EventsRepository(IOptions<DbSettings> settings) : base(settings)
         {
+            this.Collection = Db.GetCollection<EventListing>(settings.Value.EventsCollection);
         }
     }
 
     public interface IBusinessRepository : IRepository<BusinessListing> { }
     public class BusinessRepository : Repository<BusinessListing>, IBusinessRepository
     {
-        public BusinessRepository() : base("businesses")
+        public BusinessRepository(IOptions<DbSettings> settings) : base(settings)
         {
+            this.Collection = Db.GetCollection<BusinessListing>(settings.Value.BusinessesCollection);
         }
     }
 
@@ -52,9 +57,9 @@ namespace Looking2.Web.DataAccess
 
     public class EventFormsRepository : Repository<EventFormData>, IEventFormsRepo
     {
-        public EventFormsRepository() : base("eventforms")
+        public EventFormsRepository(IOptions<DbSettings> settings) : base(settings)
         {
-
+            this.Collection = Db.GetCollection<EventFormData>(settings.Value.EventFormsCollection);
         }
 
         public EventFormData GetByName(string name)
@@ -70,9 +75,9 @@ namespace Looking2.Web.DataAccess
 
     public class BusinessFormsRepository : Repository<BusinessFormData>, IBusinessFormsRepo
     {
-        public BusinessFormsRepository() : base("businessforms")
+        public BusinessFormsRepository(IOptions<DbSettings> settings) : base(settings)
         {
-
+            this.Collection = Db.GetCollection<BusinessFormData>(settings.Value.BusinessFormsCollection);
         }
 
         public BusinessFormData GetByName(string name)

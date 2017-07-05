@@ -7,32 +7,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Looking2.Web.Settings;
+using System.Linq.Expressions;
 
 namespace Looking2.Web.DataAccess
 {
     public interface IRepository<T>
         where T: Entity
     {
+        IFindFluent<T,T> Find(Expression<Func<T,bool>> predicate);
         T GetById(string Id);
         IEnumerable<T> GetAll();
         T Add(T entity);
         T Update(T entity);
+        IMongoDatabase Db { get; }
+        IMongoCollection<T> Collection { get; }
     }
 
     public class Repository<T> : IRepository<T>
         where T : Entity
     {
-        private MongoClient client;
-        private IMongoDatabase db;
-        
-        public Repository(string collectionName)
+
+        public Repository(IOptions<DbSettings> settings)
         {
-            this.client = new MongoClient("mongodb://localhost:27017");
-            this.db = client.GetDatabase("looking2");
-            this.Collection = db.GetCollection<T>(collectionName);
+            this.Client = new MongoClient(settings.Value.ConnectionString);
+            this.Db = Client.GetDatabase(settings.Value.DatabaseName);
         }
 
-        public IMongoCollection<T> Collection { get; private set; }
+        public MongoClient Client { get; private set; }
+        public IMongoDatabase Db { get; private set; }
+        public IMongoCollection<T> Collection { get; set; }
+
+        public IFindFluent<T,T> Find(Expression<Func<T,bool>> predicate)
+        {
+            return this.Collection.Find<T>(predicate);
+        }
 
         public T Add(T entity)
         {

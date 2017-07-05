@@ -16,6 +16,7 @@ namespace Looking2.Web.Controllers
         private ICategoriesRepository categoryRepo;
         private IEventFormsRepo eventFormsRepo;
         private IBusinessFormsRepo businessFormsRepo;
+
         public AdminController(ICategoriesRepository _categoryRepo, IEventFormsRepo _eventFormRepo, IBusinessFormsRepo _businessFormRepo)
         {
             this.categoryRepo = _categoryRepo;

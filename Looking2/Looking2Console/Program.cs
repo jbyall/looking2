@@ -16,12 +16,12 @@ namespace Looking2Console
         static void Main(string[] args)
         {
             var test = new SearchTest();
-            //test.Seed(500000);
+            test.Seed(50);
             //var bluegrassResults = test.SearchDescription("bluegrass");
             //var BluegrassResults = test.SearchDescription("Bluegrass", 10);
 
             //var bluegrassCount = test.SearchDescriptionCount("rock");
-            var descLocCount = test.SearchLocationDescriptionCount("denver", "rock");
+            //var descLocCount = test.SearchLocationDescriptionCount("denver", "rock");
             Console.WriteLine("Done");
             Console.Read();
         }

@@ -12,6 +12,8 @@ using Looking2.Web.Domain;
 using Microsoft.AspNetCore.Identity;
 using Looking2.Web.Settings;
 using Looking2.Web.ViewModels;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Looking2.Web
 {
@@ -34,13 +36,15 @@ namespace Looking2.Web
         {
             // mongodb identity
             services.AddIdentityWithMongoStores(Configuration.GetConnectionString("Looking2DbConnection")).AddDefaultTokenProviders();
-
+            
             // Add framework services.
             services.AddMvc();
 
             // App Settings
             services.AddOptions();
-            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<DbSettings>(Configuration.GetSection("DbSettings"));
+
+            
 
             // Dependency injection. This creates a new instance for each HTTP request.
             // Allows creating controller ctors with params
@@ -49,6 +53,8 @@ namespace Looking2.Web
             services.AddScoped<IBusinessRepository, BusinessRepository>();
             services.AddScoped<IEventFormsRepo, EventFormsRepository>();
             services.AddScoped<IBusinessFormsRepo, BusinessFormsRepository>();
+            
+            
 
 
             // Creates a single instance of this for the entire application
