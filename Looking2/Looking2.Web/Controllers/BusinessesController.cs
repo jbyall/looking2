@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Looking2.Web.Settings;
-using MongoDB.Driver;
 
 namespace Looking2.Web.Controllers
 {
@@ -26,6 +20,7 @@ namespace Looking2.Web.Controllers
             this.formsRepo = _formsRepo;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var listings = businessRepo.GetAll();
@@ -46,6 +41,29 @@ namespace Looking2.Web.Controllers
 
         [HttpGet]
         public IActionResult Create(string businessType)
+        {
+            var model = getModelByBusinessType(businessType);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Create(BusinessListingViewModel model)
+        {
+            model.Listing.Clean();
+            businessRepo.Add(model.Listing);
+            return RedirectToAction("Details", new { id = model.Listing.Id.ToString() });
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var listing = businessRepo.GetById(id);
+            var vm = new BusinessDetailsViewModel(listing);
+            return View(vm);
+        }
+
+        #region Helpers
+        private BusinessListingViewModel getModelByBusinessType(string businessType)
         {
             var model = new BusinessListingViewModel();
             BusinessType type;
@@ -107,24 +125,9 @@ namespace Looking2.Web.Controllers
 
             //create empty fields for view
             model.Listing.Initialize();
-            return View(model);
-            //return View(businessType + "Create", model);
-        }
 
-        [HttpPost]
-        public IActionResult Create(BusinessListing model)
-        {
-            model.Clean();
-            businessRepo.Add(model);
-            return RedirectToAction("Details", new { id = model.Id.ToString() });
+            return model;
         }
-
-        [HttpGet]
-        public IActionResult Details(string id)
-        {
-            var listing = businessRepo.GetById(id);
-            var vm = new BusinessDetailsViewModel(listing);
-            return View(vm);
-        }
+        #endregion
     }
 }

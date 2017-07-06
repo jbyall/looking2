@@ -19,7 +19,6 @@ namespace Looking2.Web.DataAccess
     {
         IEnumerable<Category> GetByType(ListingCategory type);
     }
-
     public class CategoriesRepository : Repository<Category>, ICategoriesRepository
     {
         public CategoriesRepository(IOptions<DbSettings> settings) : base(settings)
@@ -38,7 +37,6 @@ namespace Looking2.Web.DataAccess
         List<EventListing> SearchDescriptionFields(string text, int maxResults = 100);
         List<EventListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100);
     }
-
     public class EventsRepository : Repository<EventListing>, IEventsRepository
     {
         public EventsRepository(IOptions<DbSettings> settings) : base(settings)
@@ -122,13 +120,16 @@ namespace Looking2.Web.DataAccess
                             .Limit(maxResults)
                             .ToList();
         }
+        
+        // TODO:
+        //1. Add an exists method
+        //2. Try to combine BusinessRepository and EventRepository into 1 generic
     }
 
     public interface IEventFormsRepo : IRepository<EventFormData>
     {
         EventFormData GetByName(string name);
     }
-
     public class EventFormsRepository : Repository<EventFormData>, IEventFormsRepo
     {
         public EventFormsRepository(IOptions<DbSettings> settings) : base(settings)
@@ -146,7 +147,6 @@ namespace Looking2.Web.DataAccess
     {
         BusinessFormData GetByName(string name);
     }
-
     public class BusinessFormsRepository : Repository<BusinessFormData>, IBusinessFormsRepo
     {
         public BusinessFormsRepository(IOptions<DbSettings> settings) : base(settings)

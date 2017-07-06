@@ -33,6 +33,25 @@ namespace Looking2.Web
             }
         }
 
+        public static void SeedBusinesses(IBusinessRepository _businessRepo)
+        {
+            var businesses = GetSeedBusinessListings();
+            // TODO: Finish this with find and replace functionality
+            foreach (var business in businesses)
+            {
+                _businessRepo.Add(business);
+            }
+        }
+
+        public static void SeedEvents(IEventsRepository _eventRepo)
+        {
+            var events = GetSeedEventListings();
+            foreach (var e in events)
+            {
+                _eventRepo.Add(e);
+            }
+        }
+
         public static void SeedForms(IBusinessFormsRepo _businessFormsRepo, IEventFormsRepo _eventFormsRepo)
         {
             var newForms = GetSeedEventForms();
@@ -68,11 +87,36 @@ namespace Looking2.Web
             }
         }
 
-        public static void SeedAll(ICategoriesRepository _categoriesRepo, IBusinessFormsRepo _businessFormsRepo, IEventFormsRepo _eventFormsRepo)
+        public static void SeedAll(ICategoriesRepository _categoriesRepo, 
+            IBusinessFormsRepo _businessFormsRepo, 
+            IEventFormsRepo _eventFormsRepo,
+            IEventsRepository _eventRepo,
+            IBusinessRepository _businessRepo)
         {
             SeedCategories(_categoriesRepo);
             SeedForms(_businessFormsRepo, _eventFormsRepo);
+            SeedBusinesses(_businessRepo);
+            SeedEvents(_eventRepo);
         }
+
+        public static void DropListingCollections(
+            ICategoriesRepository _categoriesRepo,
+            IEventsRepository _eventRepo,
+            IBusinessRepository _businessRepo)
+        {
+            _businessRepo.Db.DropCollection("businesses");
+            _eventRepo.Db.DropCollection("events");
+            _categoriesRepo.Db.DropCollection("categories");
+
+        }
+
+        public static void DropFormCollections(IEventFormsRepo _eventForms, IBusinessFormsRepo _businessForms)
+        {
+            _eventForms.Db.DropCollection("eventforms");
+            _businessForms.Db.DropCollection("businessforms");
+        }
+
+
 
         private static List<Category> GetSeedCategories()
         {
@@ -778,6 +822,49 @@ namespace Looking2.Web
                      HeadingPartial = "_SupportHeading"
                 },
             };
+        }
+
+        private static List<BusinessListing> GetSeedBusinessListings()
+        {
+            var result = new List<BusinessListing>();
+
+            var bondHealthCare = new BusinessListing();
+            bondHealthCare.Titles.Add("Bond Physical Therapy");
+            bondHealthCare.Descriptions.Add("Physical Therapy");
+            bondHealthCare.Descriptions.Add("Bond");
+            bondHealthCare.Descriptions.Add("John P");
+            bondHealthCare.Descriptions.Add("DPT");
+            bondHealthCare.Descriptions.Add("general physical therapy");
+            bondHealthCare.Descriptions.Add("All PT needs");
+            bondHealthCare.Contact.Add("www.bondpt.com");
+            bondHealthCare.Contact.Add("777.777.7777, 724.944.1234");
+            bondHealthCare.Brag = "We are dedicated to excellence and you will get the best experience from us.";
+            bondHealthCare.BusinessType = BusinessType.HealthCare;
+            result.Add(bondHealthCare);
+
+            return result;
+        }
+
+        private static List<EventListing> GetSeedEventListings()
+        {
+            var result = new List<EventListing>();
+            var bondGig = new EventListing();
+            bondGig.Titles.Add("Bond Rockers");
+            bondGig.Titles.Add("Pepsi Center");
+            bondGig.Descriptions.Add("rock & roll");
+            bondGig.Descriptions.Add("all ages");
+            bondGig.Descriptions.Add("one night only");
+            bondGig.Descriptions.Add("doors open at 7:30pm");
+            bondGig.Contact.Add("www.bondrockers.com");
+            bondGig.Contact.Add("www.pepsicenter.com");
+            bondGig.AdmissionInfo = "www.ticketmaster.com";
+            bondGig.Brag = "Best rock show in town";
+            bondGig.Date = DateTime.Now.AddDays(10).Date;
+            bondGig.EventType = EventType.Gig;
+            bondGig.Price = "FREE!";
+            bondGig.LongDescription = "We put on the best rock show you will ever see. Come to hear the face melting guitar solos of new and classic rock hits!";
+            result.Add(bondGig);
+            return result;
         }
     }
 }

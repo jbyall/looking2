@@ -1,16 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
-using Looking2.Web.Settings;
-using MongoDB.Driver;
 
 namespace Looking2.Web.Controllers
 {
@@ -49,14 +42,35 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult Create(string eventType)
         {
+            var model = getModelByEventType(eventType);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Create(EventListingViewModel model)
+        {
+            model.Listing.Clean();
+            eventsRepo.Add(model.Listing);
+            return RedirectToAction("Details", new { id = model.Listing.Id.ToString()});
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var listing = eventsRepo.GetById(id);
+            var vm = new EventDetailsViewModel(listing);
+            return View(vm);
+        }
+
+        #region helpers
+        private EventListingViewModel getModelByEventType(string eventType)
+        {
             var model = new EventListingViewModel();
-            
             EventType type;
-            if(Enum.TryParse(eventType, out type))
+            if (Enum.TryParse(eventType, out type))
             {
                 switch (type)
                 {
-                    
                     case EventType.Gig:
                         model.FormData = formsRepo.GetByName("GigCreate");
                         //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
@@ -108,29 +122,8 @@ namespace Looking2.Web.Controllers
             //create empty fields for view
             model.Listing.Initialize();
 
-            return View(model);
-            //return View(eventType+"Create", model);
+            return model;
         }
-
-        [HttpPost]
-        public IActionResult Create(EventListingViewModel model)
-        {
-            model.Listing.Clean();
-            eventsRepo.Add(model.Listing);
-            return RedirectToAction("Details", new { id = model.Listing.Id.ToString()});
-        }
-
-        [HttpGet]
-        public IActionResult Details(string id)
-        {
-            var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing);
-            return View(vm);
-            //return View(model.EventType.ToString() + "Details", model);
-        }
-
-        #region helpers
-
         #endregion
     }
 }
