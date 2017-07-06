@@ -55,54 +55,54 @@ namespace Looking2.Web.Controllers
                 {
                     case BusinessType.Artists:
                         model.FormData = formsRepo.GetByName("ArtistsCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.HealthCare:
                         model.FormData = formsRepo.GetByName("HealthCareCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.AltHealthCare:
                         model.FormData = formsRepo.GetByName("AltHealthCareCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Information:
                         model.FormData = formsRepo.GetByName("InformationCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Instruction:
                         model.FormData = formsRepo.GetByName("InstructionCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Lawyers:
                         model.FormData = formsRepo.GetByName("LawyersCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Restaurant:
                         model.FormData = formsRepo.GetByName("RestaurantCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.ServiceProviders:
                         model.FormData = formsRepo.GetByName("ServiceProvidersCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Shopkeepers:
                         model.FormData = formsRepo.GetByName("ShopkeepersCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Support:
                         model.FormData = formsRepo.GetByName("SupportCreate");
-                        model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     default:
                         break;
                 }
-                model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                 model.Listing.BusinessType = type;
             }
             else
             {
                 model.FormData = formsRepo.GetByName("OtherCreate");
-                model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                //model.Listing.BusinessDescription = EventDescription.Other.ToString();
             }
 
             //create empty fields for view

@@ -10,12 +10,12 @@
     </div>
     @foreach (var item in Model)
     {
-        if (item.Active && item.Type == CategoryType.Event)
+        if (item.Active && item.Type == ListingCategory.Event)
         {
             string name = item.Name;
             <div class="row">
                 <div class="col-md-3 right-column">
-                    <a asp-action="EditEventForm" asp-controller="Admin" asp-route-id="@name">@item.DisplayName</a>
+                    <a asp-action="EditEventForm" asp-controller="Admin" asp-route-name="@name">@item.DisplayName</a>
                 </div>
                 <div class="col-md-9">
                     <p>@item.Description</p>
@@ -23,12 +23,12 @@
             </div>
         }
 
-        if (item.Active && item.Type == CategoryType.Business)
+        if (item.Active && item.Type == ListingCategory.Business)
         {
             string name = item.Name;
             <div class="row">
                 <div class="col-md-3 right-column">
-                    <a asp-action="EditBusinessForm" asp-controller="Admin" asp-route-id="@name">@item.DisplayName</a>
+                    <a asp-action="EditBusinessForm" asp-controller="Admin" asp-route-name="@name">@item.DisplayName</a>
                 </div>
                 <div class="col-md-9">
                     <p>@item.Description</p>

@@ -1,14 +1,14 @@
-﻿using Looking2.Web.DataAccess;
-using MongoDB.Bson;
+﻿using Looking2.Web.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Looking2.Web.Domain
+namespace Looking2.Web.ViewModels
 {
-    public class BusinessFormData : Entity
+    public class BusinessFormViewModel
     {
+        public string Id { get; set; }
         public BusinessType BusinessType { get; set; }
         public string FormName { get; set; }
         public string Title0Label { get; set; }
@@ -32,7 +32,5 @@ namespace Looking2.Web.Domain
         public string LongDescriptionLabel { get; set; }
         public string HeadingPartial { get; set; }
         public string PageTitle { get; set; }
-
-        // Unique labels
     }
 }

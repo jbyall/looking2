@@ -21,7 +21,6 @@ namespace Looking2.Web.ViewModels
             this.Price = listing.Price;
             this.LongDescription = listing.LongDescription;
             this.EventType = listing.EventType.ToString();
-            this.EventCategory = listing.SearchDescription.ToString();
         }
         public string Id { get; set; }
         public string Date { get; set; }
@@ -35,7 +34,6 @@ namespace Looking2.Web.ViewModels
         public string Price { get; set; }
         public string LongDescription { get; set; }
         public string EventType { get; set; }
-        public string EventCategory { get; set; }
 
         private string parseDescription(string type, List<string> descriptions)
         {

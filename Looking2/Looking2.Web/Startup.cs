@@ -14,6 +14,7 @@ using Looking2.Web.Settings;
 using Looking2.Web.ViewModels;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using AutoMapper;
 
 namespace Looking2.Web
 {
@@ -44,7 +45,7 @@ namespace Looking2.Web
             services.AddOptions();
             services.Configure<DbSettings>(Configuration.GetSection("DbSettings"));
 
-            
+            services.AddAutoMapper();
 
             // Dependency injection. This creates a new instance for each HTTP request.
             // Allows creating controller ctors with params
@@ -77,6 +78,8 @@ namespace Looking2.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            
 
             app.UseStaticFiles();
 

@@ -1,4 +1,4 @@
-@model BusinessFieldSet
+@model BusinessFormViewModel
 @{
         ViewData["Title"] = "Business Listing";
 }
@@ -185,7 +185,7 @@
                 <span asp-validation-for="FormName" class="text-danger"></span>
             </div>
         </div>
-
+        @Html.HiddenFor(model => model.Id)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

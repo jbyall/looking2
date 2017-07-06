@@ -6,33 +6,34 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    public enum EventDescription
-    {
-        LiveMusic,
-        Fundraiser,
-        Benefit,
+    //public enum EventDescription
+    //{
+    //    [Description("Live Music")]
+    //    LiveMusic,
+    //    [Description("Benefit/Fundraiser")]
+    //    BenefitFundraiser,
+    //    Other
+    //}
 
-        Other
-    }
-
-    public enum BusinessDescription
-    {
-        Restaurant,
-        Bar,
-        [Description("Restaurant & bar")]
-        RestaurantBar,
-        [Description("Attorney")]
-        Lawyer,
-        Other
-    }
+    //public enum BusinessDescription
+    //{
+    //    Restaurant,
+    //    Bar,
+    //    [Description("Restaurant & bar")]
+    //    RestaurantBar,
+    //    [Description("Attorney")]
+    //    Lawyer,
+    //    Other
+    //}
 
     public enum EventType
     {
         Benefit,
+        [Description("Live Music")]
         Gig,
-        [Description("Artist")]
+        [Description("Live Music")]
         ArtistIndividual,
-        [Description("Multiple Artists")]
+        [Description("Live Music")]
         ArtistMultiple,
         Series,
         Exhibit,

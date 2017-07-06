@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.DataAccess
 {
+    public enum SearchOperator
+    {
+        And,
+        Or
+    }
     public interface ICategoriesRepository : IRepository<Category>
     {
         IEnumerable<Category> GetByType(ListingCategory type);
@@ -30,7 +35,8 @@ namespace Looking2.Web.DataAccess
 
     public interface IEventsRepository : IRepository<EventListing>
     {
-
+        List<EventListing> SearchDescriptionFields(string text, int maxResults = 100);
+        List<EventListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100);
     }
 
     public class EventsRepository : Repository<EventListing>, IEventsRepository
@@ -39,14 +45,82 @@ namespace Looking2.Web.DataAccess
         {
             this.Collection = Db.GetCollection<EventListing>(settings.Value.EventsCollection);
         }
+
+        public List<EventListing> SearchDescriptionFields(string text, int maxResults = 100)
+        {
+            var filter = new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", text)));
+            return this.Collection.Find<EventListing>(filter)
+                            .Limit(maxResults)
+                            .ToList();
+        }
+
+        public List<EventListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType,int maxResults = 100)
+        {
+            string searchOp = "";
+            switch (searchType)
+            {
+                case SearchOperator.And:
+                    searchOp = "$and";
+                    break;
+                case SearchOperator.Or:
+                    searchOp = "$or";
+                    break;
+                default:
+                    break;
+            }
+            var filter = new BsonDocument(searchOp, new BsonArray
+            {
+                new BsonDocument("Titles", new BsonDocument("$regex", string.Format("(?i){0}", title))),
+                new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", description))),
+            });
+            return this.Collection.Find<EventListing>(filter)
+                            .Limit(maxResults)
+                            .ToList();
+        }
     }
 
-    public interface IBusinessRepository : IRepository<BusinessListing> { }
+    public interface IBusinessRepository : IRepository<BusinessListing>
+    {
+        List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100);
+        List<BusinessListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100);
+    }
     public class BusinessRepository : Repository<BusinessListing>, IBusinessRepository
     {
         public BusinessRepository(IOptions<DbSettings> settings) : base(settings)
         {
             this.Collection = Db.GetCollection<BusinessListing>(settings.Value.BusinessesCollection);
+        }
+
+        public List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100)
+        {
+            var filter = new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", text)));
+            return this.Collection.Find<BusinessListing>(filter)
+                            .Limit(maxResults)
+                            .ToList();
+        }
+
+        public List<BusinessListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100)
+        {
+            string searchOp = "";
+            switch (searchType)
+            {
+                case SearchOperator.And:
+                    searchOp = "$and";
+                    break;
+                case SearchOperator.Or:
+                    searchOp = "$or";
+                    break;
+                default:
+                    break;
+            }
+            var filter = new BsonDocument(searchOp, new BsonArray
+            {
+                new BsonDocument("Titles", new BsonDocument("$regex", string.Format("(?i){0}", title))),
+                new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", description))),
+            });
+            return this.Collection.Find<BusinessListing>(filter)
+                            .Limit(maxResults)
+                            .ToList();
         }
     }
 

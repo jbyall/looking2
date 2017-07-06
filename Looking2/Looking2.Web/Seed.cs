@@ -252,7 +252,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "GigCreate",
-                     Category = EventDescription.LiveMusic,
+                     //Category = EventDescription.LiveMusic,
                      Type = EventType.Gig,
                      Title0Label = "What is the name of the band?",
                      Title1Label = "Where are you playing?",
@@ -281,7 +281,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "BenefitCreate",
-                     Category = EventDescription.Other,
+                     //Category = EventDescription.Other,
                      Type = EventType.Benefit,
                      Title0Label = "What is the name of the event?",
                      Title1Label = "Where is it being held (name of venue)?",
@@ -310,7 +310,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "ArtistIndividualCreate",
-                     Category = EventDescription.LiveMusic,
+                     //Category = EventDescription.LiveMusic,
                      Type = EventType.ArtistIndividual,
                      Title0Label = "",
                      Title1Label = "?",
@@ -339,7 +339,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "ArtistMultipleCreate",
-                     Category = EventDescription.LiveMusic,
+                     //Category = EventDescription.LiveMusic,
                      Type = EventType.ArtistMultiple,
                      Title0Label = "",
                      Title1Label = "?",
@@ -368,7 +368,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "SeriesCreate",
-                     Category = EventDescription.Other,
+                     //Category = EventDescription.Other,
                      Type = EventType.Series,
                      Title0Label = "",
                      Title1Label = "?",
@@ -397,7 +397,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "ExhibitCreate",
-                     Category = EventDescription.Other,
+                     //Category = EventDescription.Other,
                      Type = EventType.Exhibit,
                      Title0Label = "",
                      Title1Label = "?",
@@ -426,7 +426,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "ConcertCreate",
-                     Category = EventDescription.LiveMusic,
+                     //Category = EventDescription.LiveMusic,
                      Type = EventType.Concert,
                      Title0Label = "",
                      Title1Label = "?",
@@ -455,7 +455,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "OrchestraCreate",
-                     Category = EventDescription.LiveMusic,
+                     //Category = EventDescription.LiveMusic,
                      Type = EventType.Orchestra,
                      Title0Label = "",
                      Title1Label = "?",
@@ -484,7 +484,7 @@ namespace Looking2.Web
                 new EventFormData
                 {
                      FormName = "OtherCreate",
-                     Category = EventDescription.Other,
+                     //Category = EventDescription.Other,
                      Type = EventType.Other,
                      Title0Label = "",
                      Title1Label = "?",
@@ -520,7 +520,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "ArtistsCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Artists,
                      Title0Label = "",
                      Title1Label = "",
@@ -546,7 +546,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "HealthCareCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.HealthCare,
                      Title0Label = "What is the name of your practice?",
                      Title1Label = "",
@@ -572,7 +572,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "AltHealthCareCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.AltHealthCare,
                      Title0Label = "What is the name of your practice?",
                      Title1Label = "",
@@ -598,7 +598,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "InformationCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Information,
                      Title0Label = "What is the name of your business?",
                      Title1Label = "",
@@ -624,7 +624,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "InstructionCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Instruction,
                      Title0Label = "What name do you go by as an instructor?",
                      Title1Label = "",
@@ -650,7 +650,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "LawyersCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Lawyers,
                      Title0Label = "What is the name of your law firm?",
                      Title1Label = "",
@@ -676,7 +676,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "RestaurantCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Restaurant,
                      Title0Label = "What is the name of your eatery?",
                      Title1Label = "",
@@ -702,7 +702,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "ServiceProvidersCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.ServiceProviders,
                      Title0Label = "",
                      Title1Label = "",
@@ -728,7 +728,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "ShopkeepersCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Shopkeepers,
                      Title0Label = "",
                      Title1Label = "",
@@ -754,7 +754,7 @@ namespace Looking2.Web
                 new BusinessFormData
                 {
                     FormName = "SupportCreate",
-                     SearchDescription = EventDescription.Other,
+                     //SearchDescription = EventDescription.Other,
                      BusinessType = BusinessType.Support,
                      Title0Label = "",
                      Title1Label = "",

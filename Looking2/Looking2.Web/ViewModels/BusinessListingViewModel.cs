@@ -10,7 +10,7 @@ namespace Looking2.Web.ViewModels
     {
         public BusinessListingViewModel()
         {
-
+            this.Listing = new BusinessListing();
         }
         // Represents the listing object that is saved to the listings collection
         public BusinessListing Listing { get; set; }

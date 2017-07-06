@@ -17,7 +17,6 @@ namespace Looking2.Web.Domain
         public DateTime? Date { get; set; }
         public string Brag { get; set; }
         public string LongDescription { get; set; }
-        public string SearchDescription { get; set; }
         public EventType EventType { get; set; }
     }
 }

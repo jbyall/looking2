@@ -12,7 +12,6 @@ namespace Looking2.Web.Domain
     {
         public string Brag { get; set; }
         public string LongDescription { get; set; }
-        public string BusinessDescription { get; set; }
         public BusinessType BusinessType { get; set; }
     }
 }
