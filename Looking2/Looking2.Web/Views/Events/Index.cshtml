@@ -3,76 +3,17 @@
     ViewData["Title"] = "Events";
 }
 <h1>Events</h1>
+@Html.Partial("_SearchForm")
 
-<form id="search-form">
-    <div class="form-horizontal">
-        <hr />
-        <div class="form-group">
-            <label class="col-md-2 control-label">Text Search</label>
-            <div class="col-md-10">
-                <input type="text" id="text-query" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Location Search</label>
-            <div class="col-md-10">
-                <input type="text" id="location-query" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-4">
-                <input type="submit" onclick="search()" value="Search" class="btn btn-default" />
-            </div>
-        </div>
-        
-    </div>
-    
-</form>
+<div id="event-listing-results">
+    @Html.Partial("EventListings", Model)
+</div>
 
-<p id="test-container"></p>
-<hr/>
-@foreach (var item in Model)
-{
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 highlight">
-                @Html.DisplayFor(Model => item.Date)
-            </div>
-
-            <div class="col-md-10 listing-title">
-                @Html.DisplayFor(Model => item.Title)
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-2">
-            </div>
-
-            <div class="col-md-10 listing-description">
-                <bold>@Html.DisplayFor(Model => item.Description)</bold>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-2">
-            </div>
-
-            <div class="col-md-10">
-                @Html.DisplayFor(Model => item.Contact)
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-2">
-                @Html.ActionLink("Tell me more", "Details", new { id = item.Id})
-            </div>
-
-            <div class="col-md-10">
-                @Html.DisplayFor(Model => item.Brag)
-            </div>
-        </div>
-
-    </div>
-    <hr/>
+@section Scripts{
+    <script type="text/javascript">
+        $('#search-form').submit(function(event) {
+            search("/Events/Search", "#event-listing-results");
+            event.preventDefault();
+        });
+    </script>
 }

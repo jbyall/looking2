@@ -5,6 +5,7 @@ using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
 using Looking2.Web.Services;
+using System.Linq;
 
 namespace Looking2.Web.Controllers
 {
@@ -23,9 +24,24 @@ namespace Looking2.Web.Controllers
             this.overrides = _overrides;
         }
 
-        public IActionResult Test(string textQuery, string locationQuery)
+        public IActionResult Search(string textQuery, string locationQuery)
         {
-            return Json("Test returned from controller" + textQuery + locationQuery);
+            var searchResults = new List<EventListing>();
+            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery))
+            {
+                searchResults = eventsRepo.GetAll().ToList();
+            }
+            else
+            {
+                searchResults = eventsRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
+            }
+            
+            var viewListings = new List<EventDetailsViewModel>();
+            foreach (var item in searchResults)
+            {
+                viewListings.Add(new EventDetailsViewModel(item, overrides));
+            }
+            return PartialView("EventListings", viewListings);
         }
 
         [HttpGet]

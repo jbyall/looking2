@@ -5,6 +5,7 @@ using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
 using Looking2.Web.Services;
+using System.Linq;
 
 namespace Looking2.Web.Controllers
 {
@@ -21,6 +22,26 @@ namespace Looking2.Web.Controllers
             this.categoryRepo = _categoryRepo;
             this.formsRepo = _formsRepo;
             this.overrides = _overrides;
+        }
+
+        public IActionResult Search(string textQuery, string locationQuery)
+        {
+            var searchResults = new List<BusinessListing>();
+            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery))
+            {
+                searchResults = businessRepo.GetAll().ToList();
+            }
+            else
+            {
+                searchResults = businessRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
+            }
+
+            var viewListings = new List<BusinessDetailsViewModel>();
+            foreach (var item in searchResults)
+            {
+                viewListings.Add(new BusinessDetailsViewModel(item, overrides));
+            }
+            return PartialView("BusinessListings", viewListings);
         }
 
         [HttpGet]
