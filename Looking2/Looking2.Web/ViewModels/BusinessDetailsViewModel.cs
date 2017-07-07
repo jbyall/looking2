@@ -3,21 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Looking2.Web.Services;
 
 namespace Looking2.Web.ViewModels
 {
     public class BusinessDetailsViewModel
     {
-        public BusinessDetailsViewModel(BusinessListing listing)
+        public BusinessDetailsViewModel(BusinessListing listing, ISearchOverride overrides)
         {
             this.Id = listing.Id.ToString();
             this.Type = listing.BusinessType.ToString();
             this.Title = parseTitle(listing.Titles);
-            this.Description = parseDescription(this.Type, listing.Descriptions);
+            
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
             this.LongDescription = listing.LongDescription;
             this.BusinessType = listing.BusinessType.ToString();
+            if (overrides.BusinessDescriptionOverrides.ContainsKey(listing.BusinessType))
+            {
+                listing.Descriptions.Insert(0, overrides.BusinessDescriptionOverrides[listing.BusinessType]);
+            }
+            this.Description = parseDescription(listing.Descriptions);
         }
         public string Id { get; set; }
         public string Type { get; set; }
@@ -40,11 +46,15 @@ namespace Looking2.Web.ViewModels
             return result;
         }
 
-        private string parseDescription(string type, List<string> descriptions)
+        private string parseDescription(List<string> descriptions)
         {
-            var result = type;
+            var result = "";
+            if (descriptions.Count > 0)
+            {
+                result = descriptions[0];
+            }
             var count = descriptions.Count < 5 ? descriptions.Count : 5;
-            for (int i = 0; i < count; i++)
+            for (int i = 1; i < count; i++)
             {
                 result += " | " + descriptions[i];
             }

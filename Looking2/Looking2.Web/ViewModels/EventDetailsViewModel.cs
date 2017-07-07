@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Looking2.Web.Domain;
+using Looking2.Web.Services;
 
 namespace Looking2.Web.ViewModels
 {
     public class EventDetailsViewModel
     {
-        public EventDetailsViewModel(EventListing listing)
+        public EventDetailsViewModel(EventListing listing, ISearchOverride overrides)
         {
             this.Id = listing.Id.ToString();
-            this.Date = listing.Date.Value.ToString("d");
+            this.Date = listing.Date.HasValue ? listing.Date.Value.ToString("d") : null;
             this.Type = listing.EventType.ToString();
             this.Title = string.Format("{0} at {1}", listing.Titles[0], listing.Titles[1]);
-            this.Description = parseDescription(this.Type, listing.Descriptions);
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
             this.AdmissionInfo = listing.AdmissionInfo;
             this.Price = listing.Price;
             this.LongDescription = listing.LongDescription;
             this.EventType = listing.EventType.ToString();
+            if (overrides.EventDescriptionOverrides.ContainsKey(listing.EventType))
+            {
+                listing.Descriptions.Insert(0, overrides.EventDescriptionOverrides[listing.EventType]);
+            }
+            this.Description = parseDescription(listing.Descriptions);
         }
         public string Id { get; set; }
         public string Date { get; set; }
@@ -35,11 +40,15 @@ namespace Looking2.Web.ViewModels
         public string LongDescription { get; set; }
         public string EventType { get; set; }
 
-        private string parseDescription(string type, List<string> descriptions)
+        private string parseDescription(List<string> descriptions)
         {
-            var result = type;
+            var result = "";
+            if (descriptions.Count > 0)
+            {
+                result = descriptions[0];
+            }
             var count = descriptions.Count < 5 ? descriptions.Count : 5;
-            for (int i = 0; i < count; i++)
+            for (int i = 1; i < count; i++)
             {
                 result += " | " + descriptions[i];
             }

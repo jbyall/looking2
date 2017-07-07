@@ -15,6 +15,7 @@ using Looking2.Web.ViewModels;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using AutoMapper;
+using Looking2.Web.Services;
 
 namespace Looking2.Web
 {
@@ -54,8 +55,7 @@ namespace Looking2.Web
             services.AddScoped<IBusinessRepository, BusinessRepository>();
             services.AddScoped<IEventFormsRepo, EventFormsRepository>();
             services.AddScoped<IBusinessFormsRepo, BusinessFormsRepository>();
-            
-            
+            services.AddScoped<ISearchOverride, SearchOverride>();
 
 
             // Creates a single instance of this for the entire application

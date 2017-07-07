@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
+using Looking2.Web.Services;
 
 namespace Looking2.Web.Controllers
 {
@@ -12,12 +13,14 @@ namespace Looking2.Web.Controllers
         private IEventsRepository eventsRepo;
         private ICategoriesRepository categoryRepo;
         private IEventFormsRepo formsRepo;
-        
-        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IEventFormsRepo _formsRepo)
+        private ISearchOverride overrides;
+
+        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IEventFormsRepo _formsRepo, ISearchOverride _overrides)
         {
             this.eventsRepo = _eventRepo;
             this.categoryRepo = _categoryRepo;
             this.formsRepo = _formsRepo;
+            this.overrides = _overrides;
         }
 
         [HttpGet]
@@ -27,7 +30,7 @@ namespace Looking2.Web.Controllers
             var viewListings = new List<EventDetailsViewModel>();
             foreach (var item in listings)
             {
-                viewListings.Add(new EventDetailsViewModel(item));
+                viewListings.Add(new EventDetailsViewModel(item, overrides));
             }
             return View(viewListings);
         }
@@ -58,7 +61,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Details(string id)
         {
             var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing);
+            var vm = new EventDetailsViewModel(listing, overrides);
             return View(vm);
         }
 

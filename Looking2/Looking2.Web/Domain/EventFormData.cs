@@ -14,6 +14,10 @@ namespace Looking2.Web.Domain
         public string FormName { get; set; }
         public string Title0Label { get; set; }
         public string Title1Label { get; set; }
+        public string Title2Label { get; set; }
+        public string Title3Label { get; set; }
+        public string Title4Label { get; set; }
+        public string DefaultDescriptionText { get; set; }
         public string Description0Label { get; set; }
         public string Description1Label { get; set; }
         public string Description2Label { get; set; }
@@ -33,6 +37,7 @@ namespace Looking2.Web.Domain
         public string LongDescriptionLabel { get; set; }
         public string HeadingPartial { get; set; }
         public string PageTitle { get; set; }
+        
         // Unique labels
         public string PriceLabel { get; set; }
         public string AdmissionInfoLabel { get; set; }

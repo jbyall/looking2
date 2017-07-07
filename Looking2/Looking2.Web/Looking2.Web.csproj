@@ -26,7 +26,6 @@
     <None Include="wwwroot\images\logo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Seed\" />
   </ItemGroup>

@@ -28,6 +28,39 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="Title2Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Title2Label" class="form-control admin-input" />
+                <span asp-validation-for="Title2Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Title3Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Title3Label" class="form-control admin-input" />
+                <span asp-validation-for="Title3Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Title4Label" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Title4Label" class="form-control admin-input" />
+                <span asp-validation-for="Title4Label" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DefaultDescriptionText" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="DefaultDescriptionText" class="form-control admin-input" />
+                <p>NOTE: Use this field to set a default value for the first description field in search results (e.g. "Live Music")</p>
+                <span asp-validation-for="DefaultDescriptionText" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label asp-for="Description0Label" class="col-md-4 control-label"></label>
             <div class="col-md-8">
                 <input asp-for="Description0Label" class="form-control admin-input" />
@@ -211,6 +244,7 @@
             </div>
         </div>
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Type)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

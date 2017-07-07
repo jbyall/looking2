@@ -48,6 +48,7 @@ namespace Looking2.Web.Controllers
             {
                 throw new Exception("form not found");
             }
+            model.Type = getEventTypeByName(name);
             var vm = Mapper.Map<EventFormData, EventFormViewModel>(model);
             return View(vm);
         }
@@ -58,7 +59,8 @@ namespace Looking2.Web.Controllers
         {
             var model = Mapper.Map<EventFormViewModel, EventFormData>(vm);
             model = eventFormsRepo.Update(model);
-            return Content(string.Format("Successfully Updated: {0}", model.FormName));
+            ViewData["Message"] = string.Format("Successfully Updated: {0}", model.FormName);
+            return View("Result");
         }
 
         [HttpGet]
@@ -69,6 +71,7 @@ namespace Looking2.Web.Controllers
             {
                 throw new Exception("form not found");
             }
+            model.BusinessType = getBusinessTypeByName(name);
             var vm = Mapper.Map<BusinessFormData, BusinessFormViewModel>(model);
             return View(vm);
         }
@@ -79,8 +82,42 @@ namespace Looking2.Web.Controllers
         {
             var model = Mapper.Map<BusinessFormViewModel, BusinessFormData>(vm);
             model = businessFormsRepo.Update(model);
-            return Content(string.Format("Successfully Updated: {0}", model.FormName));
+            ViewData["Message"] = string.Format("Successfully Updated: {0}", model.FormName);
+            return View("Result");
         }
 
+        // TODO : Add details view for redirect after editing
+        //public IActionResult EventFormDetails(string id)
+        //{
+
+        //}
+        #region Helpers
+        private BusinessType getBusinessTypeByName(string name)
+        {
+            BusinessType type;
+            if (Enum.TryParse(name, out type))
+            {
+                return type;
+            }
+            else
+            {
+                return BusinessType.Support;
+                //model.Listing.BusinessDescription = EventDescription.Other.ToString();
+            }
+        }
+
+        private EventType getEventTypeByName(string name)
+        {
+            EventType type;
+            if (Enum.TryParse(name, out type))
+            {
+                return type;
+            }
+            else
+            {
+                return EventType.Other;
+            }
+        }
+        #endregion
     }
 }
