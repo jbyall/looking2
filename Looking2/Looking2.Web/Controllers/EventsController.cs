@@ -23,6 +23,11 @@ namespace Looking2.Web.Controllers
             this.overrides = _overrides;
         }
 
+        public IActionResult Test(string textQuery, string locationQuery)
+        {
+            return Json("Test returned from controller" + textQuery + locationQuery);
+        }
+
         [HttpGet]
         public IActionResult Index()
         {

@@ -3,6 +3,34 @@
     ViewData["Title"] = "Events";
 }
 <h1>Events</h1>
+
+<form id="search-form">
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <label class="col-md-2 control-label">Text Search</label>
+            <div class="col-md-10">
+                <input type="text" id="text-query" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Location Search</label>
+            <div class="col-md-10">
+                <input type="text" id="location-query" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4">
+                <input type="submit" onclick="search()" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+        
+    </div>
+    
+</form>
+
+<p id="test-container"></p>
+<hr/>
 @foreach (var item in Model)
 {
     <div class="container-fluid">
