@@ -120,6 +120,7 @@ namespace Looking2.Web.DataAccess
                             .Limit(maxResults)
                             .ToList();
         }
+
         
         // TODO:
         //1. Add an exists method

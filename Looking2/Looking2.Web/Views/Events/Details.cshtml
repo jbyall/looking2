@@ -97,15 +97,17 @@
         </div>
     </div>
 
-    @*<div class="row">
-        <div class="col-md-3 right-column">
-            @Html.Label("Event Category:")
+    <div class="row">
+        <div class="col-md-6 ">
         </div>
 
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.EventCategory)
+        <div class="col-md-6">
+            @{ 
+                var id = Model.Id;
+            }
+            <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
         </div>
-    </div>*@
+    </div>
 
 </div>
 

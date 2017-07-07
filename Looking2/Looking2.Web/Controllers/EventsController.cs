@@ -65,6 +65,13 @@ namespace Looking2.Web.Controllers
             return View(vm);
         }
 
+        
+        public IActionResult Delete(string id)
+        {
+            eventsRepo.Delete(id);
+            return RedirectToAction("Index");
+        }
+
         #region helpers
         private EventListingViewModel getModelByEventType(string eventType)
         {

@@ -23,6 +23,7 @@ namespace Looking2.Web.DataAccess
         T Update(T entity);
         IMongoDatabase Db { get; }
         IMongoCollection<T> Collection { get; }
+        void Delete(string id);
     }
 
     public class Repository<T> : IRepository<T>
@@ -63,6 +64,11 @@ namespace Looking2.Web.DataAccess
         public T Update(T entity)
         {
             return this.Collection.FindOneAndReplace<T>(o => o.Id == entity.Id, entity);
+        }
+
+        public void Delete(string id)
+        {
+            this.Collection.DeleteOne(new BsonDocument("_id", new ObjectId(id)));
         }
     }
 }

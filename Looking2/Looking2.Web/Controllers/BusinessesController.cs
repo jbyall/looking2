@@ -65,6 +65,12 @@ namespace Looking2.Web.Controllers
             return View(vm);
         }
 
+        public IActionResult Delete(string id)
+        {
+            businessRepo.Delete(id);
+            return RedirectToAction("Index");
+        }
+
         #region Helpers
         private BusinessListingViewModel getModelByBusinessType(string businessType)
         {
