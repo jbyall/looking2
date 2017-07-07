@@ -9,7 +9,7 @@ namespace Looking2.Web.ViewModels
 {
     public class BusinessDetailsViewModel
     {
-        public BusinessDetailsViewModel(BusinessListing listing, ISearchOverride overrides)
+        public BusinessDetailsViewModel(BusinessListing listing)
         {
             this.Id = listing.Id.ToString();
             this.Type = listing.BusinessType.ToString();
@@ -19,10 +19,6 @@ namespace Looking2.Web.ViewModels
             this.Brag = listing.Brag;
             this.LongDescription = listing.LongDescription;
             this.BusinessType = listing.BusinessType.ToString();
-            if (overrides.BusinessDescriptionOverrides.ContainsKey(listing.BusinessType))
-            {
-                listing.Descriptions.Insert(0, overrides.BusinessDescriptionOverrides[listing.BusinessType]);
-            }
             this.Description = parseDescription(listing.Descriptions);
         }
         public string Id { get; set; }

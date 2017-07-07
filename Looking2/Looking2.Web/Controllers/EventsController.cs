@@ -14,14 +14,12 @@ namespace Looking2.Web.Controllers
         private IEventsRepository eventsRepo;
         private ICategoriesRepository categoryRepo;
         private IEventFormsRepo formsRepo;
-        private ISearchOverride overrides;
 
-        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IEventFormsRepo _formsRepo, ISearchOverride _overrides)
+        public EventsController(IEventsRepository _eventRepo, ICategoriesRepository _categoryRepo, IEventFormsRepo _formsRepo)
         {
             this.eventsRepo = _eventRepo;
             this.categoryRepo = _categoryRepo;
             this.formsRepo = _formsRepo;
-            this.overrides = _overrides;
         }
 
         public IActionResult Search(string textQuery, string locationQuery)
@@ -39,7 +37,7 @@ namespace Looking2.Web.Controllers
             var viewListings = new List<EventDetailsViewModel>();
             foreach (var item in searchResults)
             {
-                viewListings.Add(new EventDetailsViewModel(item, overrides));
+                viewListings.Add(new EventDetailsViewModel(item));
             }
             return PartialView("EventListings", viewListings);
         }
@@ -51,7 +49,7 @@ namespace Looking2.Web.Controllers
             var viewListings = new List<EventDetailsViewModel>();
             foreach (var item in listings)
             {
-                viewListings.Add(new EventDetailsViewModel(item, overrides));
+                viewListings.Add(new EventDetailsViewModel(item));
             }
             return View(viewListings);
         }
@@ -73,7 +71,6 @@ namespace Looking2.Web.Controllers
         [HttpPost]
         public IActionResult Create(EventListingViewModel model)
         {
-            model.Listing.Clean();
             eventsRepo.Add(model.Listing);
             return RedirectToAction("Details", new { id = model.Listing.Id.ToString()});
         }
@@ -82,7 +79,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Details(string id)
         {
             var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing, overrides);
+            var vm = new EventDetailsViewModel(listing);
             return View(vm);
         }
 

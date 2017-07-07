@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Looking2.Web.DataAccess;
 namespace Looking2.Web.Services
 {
-    public interface ISearchOverride
+    public interface IListingCleaner
     {
         Dictionary<EventType, string> EventDescriptionOverrides { get; set; }
         Dictionary<BusinessType, string> BusinessDescriptionOverrides { get; set; }
     }
-    public class SearchOverride : ISearchOverride
+    public class ListingCleaner : IListingCleaner
     {
-        public SearchOverride(IEventFormsRepo _eventForms, IBusinessFormsRepo _businessForms)
+        public ListingCleaner(IEventFormsRepo _eventForms, IBusinessFormsRepo _businessForms)
         {
             this.EventDescriptionOverrides = new Dictionary<EventType, string>();
             this.BusinessDescriptionOverrides = new Dictionary<BusinessType, string>();

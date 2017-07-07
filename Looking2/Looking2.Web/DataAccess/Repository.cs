@@ -45,7 +45,7 @@ namespace Looking2.Web.DataAccess
             return this.Collection.Find<T>(predicate);
         }
 
-        public T Add(T entity)
+        public virtual T Add(T entity)
         {
             this.Collection.InsertOne(entity);
             return entity;

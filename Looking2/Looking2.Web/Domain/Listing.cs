@@ -1,4 +1,5 @@
 ﻿using Looking2.Web.DataAccess;
+using Looking2.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,34 +19,6 @@ namespace Looking2.Web.Domain
         public List<string> Descriptions { get; set; }
         public List<string> Contact { get; set; }
         public List<string> Location { get; set; }
-
-        /// <summary>
-        /// Removes empty fields from lists
-        /// </summary>
-        public void Clean()
-        {
-            try
-            {
-                this.Titles.RemoveAll(t => string.IsNullOrWhiteSpace(t));
-            }
-            catch { }
-
-            try
-            {
-                this.Descriptions.RemoveAll(d => string.IsNullOrWhiteSpace(d));
-            }
-            catch { }
-            try
-            {
-                this.Contact.RemoveAll(c => string.IsNullOrWhiteSpace(c));
-            }
-            catch { }
-            try
-            {
-                this.Location.RemoveAll(l => string.IsNullOrWhiteSpace(l));
-            }
-            catch { }
-        }
 
         /// <summary>
         /// Creates empty fields for lists to use in view

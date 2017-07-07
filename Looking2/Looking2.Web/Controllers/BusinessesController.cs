@@ -14,14 +14,12 @@ namespace Looking2.Web.Controllers
         private IBusinessRepository businessRepo;
         private ICategoriesRepository categoryRepo;
         private IBusinessFormsRepo formsRepo;
-        private ISearchOverride overrides;
 
-        public BusinessesController(IBusinessRepository _businessRepo, ICategoriesRepository _categoryRepo, IBusinessFormsRepo _formsRepo, ISearchOverride _overrides)
+        public BusinessesController(IBusinessRepository _businessRepo, ICategoriesRepository _categoryRepo, IBusinessFormsRepo _formsRepo)
         {
             this.businessRepo = _businessRepo;
             this.categoryRepo = _categoryRepo;
             this.formsRepo = _formsRepo;
-            this.overrides = _overrides;
         }
 
         public IActionResult Search(string textQuery, string locationQuery)
@@ -39,7 +37,7 @@ namespace Looking2.Web.Controllers
             var viewListings = new List<BusinessDetailsViewModel>();
             foreach (var item in searchResults)
             {
-                viewListings.Add(new BusinessDetailsViewModel(item, overrides));
+                viewListings.Add(new BusinessDetailsViewModel(item));
             }
             return PartialView("BusinessListings", viewListings);
         }
@@ -51,7 +49,7 @@ namespace Looking2.Web.Controllers
             var viewListings = new List<BusinessDetailsViewModel>();
             foreach (var item in listings)
             {
-                viewListings.Add(new BusinessDetailsViewModel(item, overrides));
+                viewListings.Add(new BusinessDetailsViewModel(item));
             }
             return View(viewListings);
         }
@@ -73,7 +71,6 @@ namespace Looking2.Web.Controllers
         [HttpPost]
         public IActionResult Create(BusinessListingViewModel model)
         {
-            model.Listing.Clean();
             businessRepo.Add(model.Listing);
             return RedirectToAction("Details", new { id = model.Listing.Id.ToString() });
         }
@@ -82,7 +79,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Details(string id)
         {
             var listing = businessRepo.GetById(id);
-            var vm = new BusinessDetailsViewModel(listing, overrides);
+            var vm = new BusinessDetailsViewModel(listing);
             return View(vm);
         }
 

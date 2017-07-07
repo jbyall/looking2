@@ -1,4 +1,5 @@
 ﻿using Looking2.Web.Domain;
+using Looking2.Web.Services;
 using Looking2.Web.Settings;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -39,9 +40,18 @@ namespace Looking2.Web.DataAccess
     }
     public class EventsRepository : Repository<EventListing>, IEventsRepository
     {
-        public EventsRepository(IOptions<DbSettings> settings) : base(settings)
+        private IListingCleaner cleaner;
+
+        public EventsRepository(IOptions<DbSettings> settings, IListingCleaner _cleaner) : base(settings)
         {
+            this.cleaner = _cleaner;
             this.Collection = Db.GetCollection<EventListing>(settings.Value.EventsCollection);
+        }
+
+        public override EventListing Add(EventListing entity)
+        {
+            entity.Listify(cleaner);
+            return base.Add(entity);
         }
 
         public List<EventListing> SearchDescriptionFields(string text, int maxResults = 100)
@@ -84,9 +94,18 @@ namespace Looking2.Web.DataAccess
     }
     public class BusinessRepository : Repository<BusinessListing>, IBusinessRepository
     {
-        public BusinessRepository(IOptions<DbSettings> settings) : base(settings)
+        private IListingCleaner cleaner;
+
+        public BusinessRepository(IOptions<DbSettings> settings, IListingCleaner _cleaner) : base(settings)
         {
+            this.cleaner = _cleaner;
             this.Collection = Db.GetCollection<BusinessListing>(settings.Value.BusinessesCollection);
+        }
+
+        public override BusinessListing Add(BusinessListing entity)
+        {
+            entity.Listify(cleaner);
+            return base.Add(entity);
         }
 
         public List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100)

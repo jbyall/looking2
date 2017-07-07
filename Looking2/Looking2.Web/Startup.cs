@@ -55,7 +55,7 @@ namespace Looking2.Web
             services.AddScoped<IBusinessRepository, BusinessRepository>();
             services.AddScoped<IEventFormsRepo, EventFormsRepository>();
             services.AddScoped<IBusinessFormsRepo, BusinessFormsRepository>();
-            services.AddScoped<ISearchOverride, SearchOverride>();
+            services.AddScoped<IListingCleaner, ListingCleaner>();
 
 
             // Creates a single instance of this for the entire application

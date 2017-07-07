@@ -9,7 +9,7 @@ namespace Looking2.Web.ViewModels
 {
     public class EventDetailsViewModel
     {
-        public EventDetailsViewModel(EventListing listing, ISearchOverride overrides)
+        public EventDetailsViewModel(EventListing listing)
         {
             this.Id = listing.Id.ToString();
             this.Date = listing.Date.HasValue ? listing.Date.Value.ToString("d") : null;
@@ -21,10 +21,6 @@ namespace Looking2.Web.ViewModels
             this.Price = listing.Price;
             this.LongDescription = listing.LongDescription;
             this.EventType = listing.EventType.ToString();
-            if (overrides.EventDescriptionOverrides.ContainsKey(listing.EventType))
-            {
-                listing.Descriptions.Insert(0, overrides.EventDescriptionOverrides[listing.EventType]);
-            }
             this.Description = parseDescription(listing.Descriptions);
         }
         public string Id { get; set; }
