@@ -17,11 +17,6 @@ textarea {
     max-width: 280px;
 }
 
-.admin-input{
-    width:100%;
-    max-width: 800px;
-}
-
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
@@ -33,39 +28,56 @@ textarea {
     width: 100%;
 }
 
-.centered-column{
-    text-align:center;
-}
-.right-column{
-    text-align:right;
-}
-
-.centered-column li{
-    border:none;
-}
-
-.listing-title{
-    font-size: 16px;
-    color:#AA0000;
-}
-.listing-description{
-    font-weight:600;
-}
-.highlight {
-    font-size: 16px;
-    color: #AA0000;
-    font-weight:700;
-
-}
-
-hr.resultsRule{
-    margin-top:4px;
-}
-
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
     }
+}
+
+.navbar .navbar-nav{
+    display: inline-block;
+    float:none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse{
+    text-align: center;
+}
+
+.admin-input {
+    width: 100%;
+    max-width: 800px;
+}
+
+.centered-column {
+    text-align: center;
+}
+
+.right-column {
+    text-align: right;
+}
+
+.centered-column li {
+    border: none;
+}
+
+.listing-title {
+    font-size: 16px;
+    color: #AA0000;
+}
+
+.listing-description {
+    font-weight: 600;
+}
+
+.highlight {
+    font-size: 16px;
+    color: #AA0000;
+    font-weight: 700;
+}
+
+hr.resultsRule {
+    margin-top: 4px;
 }
