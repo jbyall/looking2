@@ -9,17 +9,21 @@ namespace Looking2.Web.ViewModels
 {
     public class BusinessDetailsViewModel
     {
+        public BusinessDetailsViewModel()
+        {
+            this.Listing = new BusinessListing();
+        }
         public BusinessDetailsViewModel(BusinessListing listing)
         {
             this.Id = listing.Id.ToString();
             this.Type = listing.BusinessType.ToString();
-            this.Title = parseTitle(listing.Titles);
+            this.Title = DisplayHelper.ParseListingTitle(listing.Titles);
             
-            this.Contact = parseContact(listing.Contact);
+            this.Contact = DisplayHelper.ParseListingContact(listing.Contact);
             this.Brag = listing.Brag;
             this.LongDescription = listing.LongDescription;
             this.BusinessType = listing.BusinessType.ToString();
-            this.Description = parseDescription(listing.Descriptions);
+            this.Description = DisplayHelper.ParseListingDescription(listing.Descriptions);
         }
         public string Id { get; set; }
         public string Type { get; set; }
@@ -30,45 +34,7 @@ namespace Looking2.Web.ViewModels
         public string Brag { get; set; }
         public string LongDescription { get; set; }
         public string BusinessType { get; set; }
+        public BusinessListing Listing { get; set; }
 
-
-        private string parseTitle(List<string> titles)
-        {
-            var result = "";
-            foreach (var item in titles)
-            {
-                result += item;
-            }
-            return result;
-        }
-
-        private string parseDescription(List<string> descriptions)
-        {
-            var result = "";
-            if (descriptions.Count > 0)
-            {
-                result = descriptions[0];
-            }
-            var count = descriptions.Count < 5 ? descriptions.Count : 5;
-            for (int i = 1; i < count; i++)
-            {
-                result += " | " + descriptions[i];
-            }
-            return result;
-        }
-
-        private string parseContact(List<string> contacts)
-        {
-            var result = "";
-            if (contacts.Count > 0)
-            {
-                result = contacts[0];
-            }
-            for (int i = 1; i < contacts.Count; i++)
-            {
-                result += " | " + contacts[i];
-            }
-            return result;
-        }
     }
 }

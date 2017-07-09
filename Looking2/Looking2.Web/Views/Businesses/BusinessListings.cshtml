@@ -27,6 +27,18 @@
             </div>
         </div>
 
+        @if (!string.IsNullOrWhiteSpace(item.Location))
+        {
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-10 listing-description">
+                    <bold>@Html.DisplayFor(Model => item.Location)</bold>
+                </div>
+            </div>
+        }
+
         <div class="row">
             <div class="col-md-2">
             </div>

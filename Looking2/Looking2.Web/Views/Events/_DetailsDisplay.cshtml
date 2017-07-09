@@ -1,0 +1,99 @@
+@model EventDetailsViewModel
+
+<div class="container-fluid">
+    @if (Model.Listing.Date.HasValue)
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Date:</label>
+            </div>
+            <div class="col-md-10 highlight">
+                @Html.DisplayFor(model => model.Date)
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Title:</label>
+        </div>
+        <div class="col-md-10 listing-title">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Description:</label>
+        </div>
+        <div class="col-md-10 listing-description">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Location))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                @Html.Label("Location:")
+            </div>
+
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Location)
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Contact:</label>
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Contact)
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Price))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Price:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Price)
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.AdmissionInfo))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Admission Info:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.AdmissionInfo)
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Brag))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Highlights:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Brag)
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.LongDescription))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Additional Details:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.LongDescription)
+            </div>
+        </div>
+    }
+    @Html.HiddenFor(model => model.Id)
+
+</div>

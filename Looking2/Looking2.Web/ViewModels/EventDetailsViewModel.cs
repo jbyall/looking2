@@ -19,14 +19,15 @@ namespace Looking2.Web.ViewModels
             this.Id = listing.Id.ToString();
             this.Date = listing.Date.HasValue ? listing.Date.Value.ToString("d") : null;
             this.Type = listing.EventType.ToString();
-            this.Title = string.Format("{0} at {1}", listing.Titles[0], listing.Titles[1]);
+            this.Title = DisplayHelper.ParseListingTitle(listing.Titles, ListingCategory.Event, listing.EventType);
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
             this.AdmissionInfo = listing.AdmissionInfo;
             this.Price = listing.Price;
             this.LongDescription = listing.LongDescription;
             this.EventType = listing.EventType.ToString();
-            this.Description = parseDescription(listing.Descriptions);
+            this.Description = DisplayHelper.ParseListingDescription(listing.Descriptions);
+            this.Location = DisplayHelper.ParseListingLocation(listing.Location);
         }
         public string Id { get; set; }
         public string Date { get; set; }
@@ -42,20 +43,7 @@ namespace Looking2.Web.ViewModels
         public string EventType { get; set; }
         public EventListing Listing { get; set; }
 
-        private string parseDescription(List<string> descriptions)
-        {
-            var result = "";
-            if (descriptions.Count > 0)
-            {
-                result = descriptions[0];
-            }
-            var count = descriptions.Count < 5 ? descriptions.Count : 5;
-            for (int i = 1; i < count; i++)
-            {
-                result += " | " + descriptions[i];
-            }
-            return result;
-        }
+        
 
         private string parseContact(List<string> contacts)
         {
@@ -70,5 +58,7 @@ namespace Looking2.Web.ViewModels
             }
             return result;
         }
+
+        
     }
 }

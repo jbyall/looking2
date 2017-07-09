@@ -89,6 +89,51 @@ namespace Looking2.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult CreateLocation(string id)
+        {
+            var listing = businessRepo.GetById(id);
+            var vm = new BusinessDetailsViewModel(listing);
+            return View(vm);
+        }
+
+        public IActionResult RenderLocationPartial(string viewName, string listingId)
+        {
+            var listing = businessRepo.GetById(listingId);
+            var vm = new BusinessDetailsViewModel(listing);
+            vm.Listing.Location = Enumerable.Repeat("", 10).ToList();
+            string viewPath = string.Format("~/Views/Businesses/LocationPartials/_{0}.cshtml", viewName);
+            return PartialView(viewPath, vm);
+        }
+
+        [HttpPost]
+        public IActionResult CreateLocation(BusinessDetailsViewModel model)
+        {
+            var listing = businessRepo.GetById(model.Id);
+            foreach (var item in model.Listing.Location)
+            {
+                listing.Location.Add(item);
+            }
+            listing = businessRepo.Update(listing);
+            return RedirectToAction("Review", new { id = listing.Id.ToString() });
+        }
+
+        public IActionResult Review(string id)
+        {
+            var listing = businessRepo.GetById(id);
+            var vm = new BusinessDetailsViewModel(listing);
+            return View(vm);
+
+        }
+
+        public IActionResult SubmitListing(string id)
+        {
+            var listing = businessRepo.GetById(id);
+            listing.Status = ListingStatus.Active;
+            businessRepo.Update(listing);
+            return RedirectToAction("Index");
+        }
+
         #region Helpers
         private BusinessListingViewModel getModelByBusinessType(string businessType)
         {

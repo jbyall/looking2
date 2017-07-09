@@ -1,0 +1,66 @@
+@model BusinessDetailsViewModel
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Title:</label>
+        </div>
+        <div class="col-md-10 listing-title">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Description:</label>
+        </div>
+        <div class="col-md-10 listing-description">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Location))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                @Html.Label("Location:")
+            </div>
+
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Location)
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Contact:</label>
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Contact)
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Brag))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Highlights:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Brag)
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.LongDescription))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Additional Details:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.LongDescription)
+            </div>
+        </div>
+    }
+    @Html.HiddenFor(model => model.Id)
+
+</div>

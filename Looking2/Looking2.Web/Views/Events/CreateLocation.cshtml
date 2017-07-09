@@ -1,0 +1,46 @@
+@model EventDetailsViewModel
+@{
+    ViewData["Title"] = "Add Location";
+}
+<h2>What you've created so far</h2>
+<h4>Almost done!</h4>
+<p><em>Note - We may have added formatting and/or additional information to enhance the Looking experience</em></p>
+<hr/>
+
+@Html.Partial("_DetailsDisplay")
+
+<hr />
+<h3>Add Location Information</h3>
+<p>
+    Lookers have to be able to find where your event is located and this is where Looking2 works hardest and, we think, best,
+    by providing the most detailed, useful information possible.  Exactly how we do this depends upon whether it is in a big city, near a big city, or in a small town or rural location.
+    Please note, however, that the Looking2 format is mandatory and a failure to adhere to it may result in the delay or even forfeiture of your listing(s).
+</p>
+<div id="listing-location">
+    @Html.Partial("~/Views/Events/LocationPartials/_LocationIndex.cshtml")
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+        function getLocationPartial(partialName) {
+            var url = "/Events/RenderLocationPartial";
+            var container = "#listing-location";
+            var testId = $('#Id').val();
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    viewName: partialName,
+                    listingId:testId
+                },
+                dataType: "html"
+            }).done(function (response) {
+                $(container).html(response)
+            }).fail(function (xhr, status, errorThrown) {
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            });
+        };
+</script>
+}

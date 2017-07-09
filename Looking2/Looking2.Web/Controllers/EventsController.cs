@@ -73,15 +73,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Create(EventListingViewModel model)
         {
             eventsRepo.Add(model.Listing);
-            return RedirectToAction("Review", new { id = model.Listing.Id.ToString()});
-        }
-
-        [HttpGet]
-        public IActionResult Review(string id)
-        {
-            var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing);
-            return View(vm);
+            return RedirectToAction("CreateLocation", new { id = model.Listing.Id.ToString()});
         }
 
         [HttpGet]
@@ -99,25 +91,48 @@ namespace Looking2.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult CreateLocation(string id)
+        {
+            var listing = eventsRepo.GetById(id);
+            var vm = new EventDetailsViewModel(listing);
+            return View(vm);
+        }
+
         public IActionResult RenderLocationPartial(string viewName, string listingId)
         {
             var listing = eventsRepo.GetById(listingId);
             var vm = new EventDetailsViewModel(listing);
             vm.Listing.Location = Enumerable.Repeat("", 10).ToList();
-            vm.Listing.Location[0] = "asd;flkjas;djf";
-            string viewPath = string.Format("~/Views/Shared/LocationPartials/_{0}.cshtml", viewName);
+            string viewPath = string.Format("~/Views/Events/LocationPartials/_{0}.cshtml", viewName);
             return PartialView(viewPath, vm);
         }
 
+        [HttpPost]
         public IActionResult CreateLocation(EventDetailsViewModel model)
         {
-            var listing = eventsRepo.GetById(model.Listing.Id.ToString());
+            var listing = eventsRepo.GetById(model.Id);
             foreach (var item in model.Listing.Location)
             {
                 listing.Location.Add(item);
             }
             listing = eventsRepo.Update(listing);
-            return Content("Success");
+            return RedirectToAction("Review", new { id = listing.Id.ToString() });
+        }
+
+        public IActionResult Review(string id)
+        {
+            var listing = eventsRepo.GetById(id);
+            var vm = new EventDetailsViewModel(listing);
+            return View(listing);
+        }
+
+        public IActionResult SubmitListing(string id)
+        {
+            var listing = eventsRepo.GetById(id);
+            listing.Status = ListingStatus.Active;
+            eventsRepo.Update(listing);
+            return RedirectToAction("Index");
         }
         #region helpers
         private EventListingViewModel getModelByEventType(string eventType)
