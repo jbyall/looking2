@@ -68,6 +68,10 @@ namespace Looking2.Web
 
         private static string parseLocation(List<string> locations)
         {
+            if (locations == null)
+            {
+                return "";
+            }
             string result = "";
             var count = locations.Count;
             switch (count)
