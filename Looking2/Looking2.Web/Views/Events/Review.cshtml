@@ -1,0 +1,107 @@
+@model EventDetailsViewModel
+@{
+    ViewData["Title"] = "Review Listing";
+}
+<h2>Review Listing Details</h2>
+<p><em>Note - We may have added formatting and/or additional information to enhance the Looking experience</em></p>
+<hr/>
+<div class="container-fluid">
+    @if (Model.Listing.Date.HasValue)
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Date:</label>
+            </div>
+            <div class="col-md-10 highlight">
+                @Html.DisplayFor(model => model.Date)
+            </div>
+        </div>
+    }
+    
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Title:</label>
+        </div>
+        <div class="col-md-10 listing-title">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Description:</label>
+        </div>
+        <div class="col-md-10 listing-description">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 right-column">
+            <label class="control-label">Contact:</label>
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Contact)
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Brag))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Highlights:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Brag)
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.LongDescription))
+    {
+        <div class="row">
+            <div class="col-md-2 right-column">
+                <label class="control-label">Additional Details:</label>
+            </div>
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.LongDescription)
+            </div>
+        </div>
+    }
+    @Html.HiddenFor(model => model.Id)
+
+</div>
+
+<hr />
+<h3>Add Location Information</h3>
+<p>
+    Lookers have to be able to find where your event is located and this is where Looking2 works hardest and, we think, best,
+    by providing the most detailed, useful information possible.  Exactly how we do this depends upon whether it is in a big city, near a big city, or in a small town or rural location.
+    Please note, however, that the Looking2 format is mandatory and a failure to adhere to it may result in the delay or even forfeiture of your listing(s).
+</p>
+<div id="listing-location">
+    @Html.Partial("~/Views/Shared/LocationPartials/_LocationIndex.cshtml")
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+        function getLocationPartial(partialName) {
+            var url = "/Events/RenderLocationPartial";
+            var container = "#listing-location";
+            var testId = $('#Id').val();
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    viewName: partialName,
+                    listingId:testId
+                },
+                dataType: "html"
+            }).done(function (response) {
+                $(container).html(response)
+            }).fail(function (xhr, status, errorThrown) {
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            });
+        };
+</script>
+}

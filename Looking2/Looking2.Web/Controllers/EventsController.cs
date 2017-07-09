@@ -6,6 +6,7 @@ using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
 using Looking2.Web.Services;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Looking2.Web.Controllers
 {
@@ -72,7 +73,15 @@ namespace Looking2.Web.Controllers
         public IActionResult Create(EventListingViewModel model)
         {
             eventsRepo.Add(model.Listing);
-            return RedirectToAction("Details", new { id = model.Listing.Id.ToString()});
+            return RedirectToAction("Review", new { id = model.Listing.Id.ToString()});
+        }
+
+        [HttpGet]
+        public IActionResult Review(string id)
+        {
+            var listing = eventsRepo.GetById(id);
+            var vm = new EventDetailsViewModel(listing);
+            return View(vm);
         }
 
         [HttpGet]
@@ -90,6 +99,26 @@ namespace Looking2.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult RenderLocationPartial(string viewName, string listingId)
+        {
+            var listing = eventsRepo.GetById(listingId);
+            var vm = new EventDetailsViewModel(listing);
+            vm.Listing.Location = Enumerable.Repeat("", 10).ToList();
+            vm.Listing.Location[0] = "asd;flkjas;djf";
+            string viewPath = string.Format("~/Views/Shared/LocationPartials/_{0}.cshtml", viewName);
+            return PartialView(viewPath, vm);
+        }
+
+        public IActionResult CreateLocation(EventDetailsViewModel model)
+        {
+            var listing = eventsRepo.GetById(model.Listing.Id.ToString());
+            foreach (var item in model.Listing.Location)
+            {
+                listing.Location.Add(item);
+            }
+            listing = eventsRepo.Update(listing);
+            return Content("Success");
+        }
         #region helpers
         private EventListingViewModel getModelByEventType(string eventType)
         {

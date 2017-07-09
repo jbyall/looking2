@@ -9,8 +9,13 @@ namespace Looking2.Web.ViewModels
 {
     public class EventDetailsViewModel
     {
+        public EventDetailsViewModel()
+        {
+            this.Listing = new EventListing();
+        }
         public EventDetailsViewModel(EventListing listing)
         {
+            this.Listing = listing;
             this.Id = listing.Id.ToString();
             this.Date = listing.Date.HasValue ? listing.Date.Value.ToString("d") : null;
             this.Type = listing.EventType.ToString();
@@ -35,6 +40,7 @@ namespace Looking2.Web.ViewModels
         public string Price { get; set; }
         public string LongDescription { get; set; }
         public string EventType { get; set; }
+        public EventListing Listing { get; set; }
 
         private string parseDescription(List<string> descriptions)
         {

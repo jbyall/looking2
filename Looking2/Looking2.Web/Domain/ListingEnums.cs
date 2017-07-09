@@ -25,7 +25,14 @@ namespace Looking2.Web.Domain
     //    Lawyer,
     //    Other
     //}
-
+    public enum ListingStatus
+    {
+        Expired,
+        Active,
+        InProgress,
+        UnderReview,
+        Rejected
+    }
     public enum EventType
     {
         Benefit,
