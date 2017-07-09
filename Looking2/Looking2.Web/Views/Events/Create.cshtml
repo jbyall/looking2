@@ -13,7 +13,6 @@
     <div class="form-horizontal">
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @*TODO: make view more generic and add if string.null to check model for which fields to display*@
         @if (!string.IsNullOrWhiteSpace(Model.FormData.Title0Label))
         {
             <div class="form-group">
@@ -32,6 +31,39 @@
                 <div class="col-md-8">
                     <input asp-for="Listing.Titles[1]" class="form-control" />
                     <span asp-validation-for="Listing.Titles[1]" class="text-danger"></span>
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title2Label))
+        {
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Model.FormData.Title2Label</label>
+                <div class="col-md-8">
+                    <input asp-for="Listing.Titles[2]" class="form-control" />
+                    <span asp-validation-for="Listing.Titles[2]" class="text-danger"></span>
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title3Label))
+        {
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Model.FormData.Title3Label</label>
+                <div class="col-md-8">
+                    <input asp-for="Listing.Titles[3]" class="form-control" />
+                    <span asp-validation-for="Listing.Titles[3]" class="text-danger"></span>
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title4Label))
+        {
+            <div class="form-group">
+                <label class="col-md-4 control-label">@Model.FormData.Title4Label</label>
+                <div class="col-md-8">
+                    <input asp-for="Listing.Titles[4]" class="form-control" />
+                    <span asp-validation-for="Listing.Titles[4]" class="text-danger"></span>
                 </div>
             </div>
         }

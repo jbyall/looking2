@@ -105,7 +105,10 @@
             @{ 
                 var id = Model.Id;
             }
-            <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
+            @if (User.IsInRole("admin"))
+            {
+                <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
+            }
         </div>
     </div>
 
