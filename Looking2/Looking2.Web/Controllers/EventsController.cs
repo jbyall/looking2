@@ -124,7 +124,7 @@ namespace Looking2.Web.Controllers
         {
             var listing = eventsRepo.GetById(id);
             var vm = new EventDetailsViewModel(listing);
-            return View(listing);
+            return View(vm);
         }
 
         public IActionResult SubmitListing(string id)

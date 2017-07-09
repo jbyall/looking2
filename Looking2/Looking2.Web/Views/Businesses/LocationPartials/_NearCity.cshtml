@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label">What street, road, or route are you on?</label>
+            <label class="col-md-4 control-label">What is your street address?</label>
             <div class="col-md-8">
                 <input asp-for="Listing.Location[4]" class="form-control" />
                 <span asp-validation-for="Listing.Location[4]" class="text-danger"></span>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label">What is your number on that street, road, or route?</label>
+            <label class="col-md-4 control-label">What direction are you from the metropolitan area?</label>
             <div class="col-md-8">
                 <input asp-for="Listing.Location[5]" class="form-control" />
                 <span asp-validation-for="Listing.Location[5]" class="text-danger"></span>
@@ -51,18 +51,10 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label">What direction are you from the metropolitan area?</label>
+            <label class="col-md-4 control-label">Any landmarks or other location assistance for finding it?</label>
             <div class="col-md-8">
                 <input asp-for="Listing.Location[6]" class="form-control" />
                 <span asp-validation-for="Listing.Location[6]" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label">Any landmarks or other location assistance for finding it?</label>
-            <div class="col-md-8">
-                <input asp-for="Listing.Location[7]" class="form-control" />
-                <span asp-validation-for="Listing.Location[7]" class="text-danger"></span>
             </div>
         </div>
         @Html.HiddenFor(model => model.Id)

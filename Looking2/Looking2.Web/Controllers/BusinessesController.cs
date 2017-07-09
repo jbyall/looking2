@@ -29,7 +29,6 @@ namespace Looking2.Web.Controllers
             {
                 searchResults = businessRepo.GetAll().ToList();
             }
-            else
             {
                 searchResults = businessRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
             }
