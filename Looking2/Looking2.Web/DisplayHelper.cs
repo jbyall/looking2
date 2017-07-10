@@ -23,18 +23,15 @@ namespace Looking2.Web
             return parseLocation(locations);
         }
 
-        public static string ParseListingTitle(List<string> titles, ListingCategory category = ListingCategory.Business, EventType eventType = EventType.Other)
+        public static string ParseBusinessTitle(List<string> titles)
         {
-            switch (category)
-            {
-                case ListingCategory.Business:
-                    return parseBusinessTitle(titles);
-                case ListingCategory.Event:
-                    return parseEventTitles(titles, eventType);
-                // This should never happen
-                default:
-                    return parseBusinessTitle(titles);
-            }
+            return parseBusinessTitle(titles);
+        }
+
+        public static string ParseEventTitle(EventListing listing)
+        {
+            return parseEventTitles(listing);
+
         }
 
         private static string parseDescription(List<string> descriptions)
@@ -103,34 +100,14 @@ namespace Looking2.Web
             return result;
         }
 
-        public static string parseEventTitles(List<string> titles, EventType type)
+        public static string parseEventTitles(EventListing listing)
         {
-            var result = "";
-            int count = titles.Count;
-            switch (count)
+            var result = string.Join(" ", listing.Titles);
+            if (!string.IsNullOrWhiteSpace(listing.Venue))
             {
-                case 0:
-                    return null;
-                case 1:
-                    return titles[0];
-                default:
-                    string separator = "";
-                    switch (type)
-                    {
-                        case EventType.Benefit:
-                            separator = " for ";
-                            break;
-                        default:
-                            separator = " at ";
-                            break;
-                    }
-                    titles[count - 1] = string.Format("{0}{1}", separator, titles[count - 1]);
-                    foreach (var item in titles)
-                    {
-                        result += item;
-                    }
-                    return result;
+                result += " at " + listing.Venue;
             }
+            return result;
         }
     }
 }

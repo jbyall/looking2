@@ -13,19 +13,19 @@
         <div class="col-md-2 ">
             <a asp-action="Index">Back to List</a>
         </div>
-        
-        <div class="col-md-4">
-        </div>
-
-        <div class="col-md-6">
             @{ 
                 var id = Model.Id;
             }
             @if (User.IsInRole("admin"))
             {
-                <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
+                <div class="col-md-2">
+                    <a asp-action="Edit" asp-route-id="@id">Edit Listing</a>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
+                    }
+                </div>
             }
-        </div>
-    </div>
-
 </div>

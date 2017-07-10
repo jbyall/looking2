@@ -52,6 +52,14 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="VenueLabel" class="col-md-4 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="VenueLabel" class="form-control admin-input" />
+                <span asp-validation-for="VenueLabel" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label asp-for="DefaultDescriptionText" class="col-md-4 control-label"></label>
             <div class="col-md-8">
                 <input asp-for="DefaultDescriptionText" class="form-control admin-input" />

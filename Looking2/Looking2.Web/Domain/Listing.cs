@@ -27,10 +27,29 @@ namespace Looking2.Web.Domain
         /// </summary>
         public void Initialize()
         {
-            this.Titles = Enumerable.Repeat("", 5).ToList();
-            this.Descriptions = Enumerable.Repeat("", 10).ToList();
-            this.Contact = Enumerable.Repeat("", 5).ToList();
-            this.Location = Enumerable.Repeat("", 5).ToList();
+            //var titlesToAdd = Enumerable.Repeat("", 5-this.Titles.Count)).ToList();
+            //var descriptionsToAdd = Enumerable.Repeat("", 10).ToList();
+            //var contactToAdd = Enumerable.Repeat("", 5).ToList();
+            //var locationsToAdd = Enumerable.Repeat("", 5).ToList();
+            while (this.Titles.Count < 5)
+            {
+                this.Titles.Add("");
+            }
+
+            while (this.Descriptions.Count<10)
+            {
+                this.Descriptions.Add("");
+            }
+
+            while (this.Contact.Count < 5)
+            {
+                this.Contact.Add("");
+            }
+
+            while (this.Location.Count<10)
+            {
+                this.Location.Add("");
+            }
         }
     }
 }

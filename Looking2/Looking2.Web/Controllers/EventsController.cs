@@ -7,6 +7,7 @@ using Looking2.Web.ViewModels;
 using Looking2.Web.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using MongoDB.Bson;
 
 namespace Looking2.Web.Controllers
 {
@@ -34,7 +35,7 @@ namespace Looking2.Web.Controllers
             {
                 searchResults = eventsRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
             }
-            
+
             var viewListings = new List<EventDetailsViewModel>();
             foreach (var item in searchResults)
             {
@@ -73,7 +74,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Create(EventListingViewModel model)
         {
             eventsRepo.Add(model.Listing);
-            return RedirectToAction("CreateLocation", new { id = model.Listing.Id.ToString()});
+            return RedirectToAction("CreateLocation", new { id = model.Listing.Id.ToString() });
         }
 
         [HttpGet]
@@ -84,11 +85,27 @@ namespace Looking2.Web.Controllers
             return View(vm);
         }
 
-        
+
         public IActionResult Delete(string id)
         {
             eventsRepo.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            var listing = eventsRepo.GetById(id);
+            var vm = populateModel(listing);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EventDetailsViewModel model)
+        {
+            model.Listing.Id = new ObjectId(model.Id);
+            eventsRepo.Update(model.Listing);
+            return RedirectToAction("Details", new { id = model.Id });
         }
 
         [HttpGet]
@@ -194,6 +211,53 @@ namespace Looking2.Web.Controllers
             //create empty fields for view
             model.Listing.Initialize();
 
+            return model;
+        }
+
+        private EventListingViewModel populateModel(EventListing listingModel)
+        {
+            var model = new EventListingViewModel();
+            model.Listing = listingModel;
+            switch (listingModel.EventType)
+            {
+                case EventType.Gig:
+                    model.FormData = formsRepo.GetByName("GigCreate");
+                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
+                    break;
+                case EventType.ArtistIndividual:
+                    model.FormData = formsRepo.GetByName("ArtistIndividualCreate");
+                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
+                    break;
+                case EventType.ArtistMultiple:
+                    model.FormData = formsRepo.GetByName("ArtistMultipleCreate");
+                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
+                    break;
+                case EventType.Concert:
+                    model.FormData = formsRepo.GetByName("ConcertCreate");
+                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
+                    break;
+                case EventType.Orchestra:
+                    model.FormData = formsRepo.GetByName("OrchestraCreate");
+                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
+                    break;
+                case EventType.Benefit:
+                    model.FormData = formsRepo.GetByName("BenefitCreate");
+                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
+                    break;
+                case EventType.Series:
+                    model.FormData = formsRepo.GetByName("SeriesCreate");
+                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
+                    break;
+                case EventType.Exhibit:
+                    model.FormData = formsRepo.GetByName("ExhibitCreate");
+                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
+                    break;
+                default:
+                    model.FormData = formsRepo.GetByName("OtherCreate");
+                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
+                    break;
+            }
+            model.Listing.Initialize();
             return model;
         }
         #endregion

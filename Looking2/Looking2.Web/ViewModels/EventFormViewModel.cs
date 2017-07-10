@@ -17,6 +17,7 @@ namespace Looking2.Web.ViewModels
         public string Title2Label { get; set; }
         public string Title3Label { get; set; }
         public string Title4Label { get; set; }
+        public string VenueLabel { get; set; }
         public string DefaultDescriptionText { get; set; }
         public string Description0Label { get; set; }
         public string Description1Label { get; set; }

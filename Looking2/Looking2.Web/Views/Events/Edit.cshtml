@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = Model.FormData.PageTitle;
 }
-<form asp-action="Create">
+<form asp-action="Edit">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 centered-column">
@@ -265,7 +265,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Continue" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -279,5 +279,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+
 }

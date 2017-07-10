@@ -17,7 +17,7 @@ namespace Looking2.Web.ViewModels
         {
             this.Id = listing.Id.ToString();
             this.Type = listing.BusinessType.ToString();
-            this.Title = DisplayHelper.ParseListingTitle(listing.Titles);
+            this.Title = DisplayHelper.ParseBusinessTitle(listing.Titles);
             
             this.Contact = DisplayHelper.ParseListingContact(listing.Contact);
             this.Brag = listing.Brag;

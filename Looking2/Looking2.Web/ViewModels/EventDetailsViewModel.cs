@@ -19,7 +19,7 @@ namespace Looking2.Web.ViewModels
             this.Id = listing.Id.ToString();
             this.Date = listing.Date.HasValue ? listing.Date.Value.ToString("d") : null;
             this.Type = listing.EventType.ToString();
-            this.Title = DisplayHelper.ParseListingTitle(listing.Titles, ListingCategory.Event, listing.EventType);
+            this.Title = DisplayHelper.ParseEventTitle(listing);
             this.Contact = parseContact(listing.Contact);
             this.Brag = listing.Brag;
             this.AdmissionInfo = listing.AdmissionInfo;
