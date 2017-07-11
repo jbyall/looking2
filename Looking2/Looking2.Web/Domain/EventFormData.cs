@@ -43,5 +43,6 @@ namespace Looking2.Web.Domain
         public string PriceLabel { get; set; }
         public string AdmissionInfoLabel { get; set; }
         public string DateLabel { get; set; }
+
     }
 }

@@ -33,7 +33,9 @@ namespace Looking2.Web.Controllers
             }
             else
             {
-                searchResults = eventsRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
+                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, textQuery);
+                //searchResults = eventsRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
+                searchResults = eventsRepo.SearchListings(criteria);
             }
 
             var viewListings = new List<EventDetailsViewModel>();
@@ -96,7 +98,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Edit(string id)
         {
             var listing = eventsRepo.GetById(id);
-            var vm = populateModel(listing);
+            EventListingViewModel vm = populateModel(listing);
             return View(vm);
         }
 
@@ -162,39 +164,30 @@ namespace Looking2.Web.Controllers
                 {
                     case EventType.Gig:
                         model.FormData = formsRepo.GetByName("GigCreate");
-                        //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.ArtistIndividual:
                         model.FormData = formsRepo.GetByName("ArtistIndividualCreate");
-                        //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.ArtistMultiple:
                         model.FormData = formsRepo.GetByName("ArtistMultipleCreate");
-                        //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.Concert:
                         model.FormData = formsRepo.GetByName("ConcertCreate");
-                        //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.Orchestra:
                         model.FormData = formsRepo.GetByName("OrchestraCreate");
-                        //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                         break;
                     case EventType.Benefit:
                         model.FormData = formsRepo.GetByName("BenefitCreate");
-                        //model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                     case EventType.Series:
                         model.FormData = formsRepo.GetByName("SeriesCreate");
-                        //model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                     case EventType.Exhibit:
                         model.FormData = formsRepo.GetByName("ExhibitCreate");
-                        //model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                     default:
                         model.FormData = formsRepo.GetByName("OtherCreate");
-                        //model.Listing.SearchDescription = EventDescription.Other.ToString();
                         break;
                 }
 
@@ -222,39 +215,30 @@ namespace Looking2.Web.Controllers
             {
                 case EventType.Gig:
                     model.FormData = formsRepo.GetByName("GigCreate");
-                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                     break;
                 case EventType.ArtistIndividual:
                     model.FormData = formsRepo.GetByName("ArtistIndividualCreate");
-                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                     break;
                 case EventType.ArtistMultiple:
                     model.FormData = formsRepo.GetByName("ArtistMultipleCreate");
-                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                     break;
                 case EventType.Concert:
                     model.FormData = formsRepo.GetByName("ConcertCreate");
-                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                     break;
                 case EventType.Orchestra:
                     model.FormData = formsRepo.GetByName("OrchestraCreate");
-                    //model.Listing.SearchDescription = EventDescription.LiveMusic.ToString();
                     break;
                 case EventType.Benefit:
                     model.FormData = formsRepo.GetByName("BenefitCreate");
-                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
                     break;
                 case EventType.Series:
                     model.FormData = formsRepo.GetByName("SeriesCreate");
-                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
                     break;
                 case EventType.Exhibit:
                     model.FormData = formsRepo.GetByName("ExhibitCreate");
-                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
                     break;
                 default:
                     model.FormData = formsRepo.GetByName("OtherCreate");
-                    //model.Listing.SearchDescription = EventDescription.Other.ToString();
                     break;
             }
             model.Listing.Initialize();

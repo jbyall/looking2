@@ -3,38 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Looking2.Web.Domain;
+using Looking2.Web.Services;
+using Looking2.Web.DataAccess;
+using Microsoft.Extensions.Options;
 
 namespace Looking2.Web
 {
-    public static class DisplayHelper
+    public interface IDisplayHelper
     {
+        IListingCleaner Cleaner { get; }
+        string ParseListingDescription(List<string> descriptions);
+        string ParseListingContact(List<string> contacts);
+        string ParseListingLocation(List<string> locations);
+        string ParseBusinessTitle(List<string> titles);
+        string ParseEventTitle(EventListing listing);
+    }
+    public class DisplayHelper
+    {
+        public DisplayHelper(IListingCleaner _cleaner)
+        {
+            this.Cleaner = _cleaner;
+        }
+
+        public IListingCleaner Cleaner { get; set; }
+
         public static string ParseListingDescription(List<string> descriptions)
-        {
-            return parseDescription(descriptions);
-        }
-
-        public static string ParseListingContact(List<string> contacts)
-        {
-            return parseContact(contacts);
-        }
-
-        public static string ParseListingLocation(List<string> locations)
-        {
-            return parseLocation(locations);
-        }
-
-        public static string ParseBusinessTitle(List<string> titles)
-        {
-            return parseBusinessTitle(titles);
-        }
-
-        public static string ParseEventTitle(EventListing listing)
-        {
-            return parseEventTitles(listing);
-
-        }
-
-        private static string parseDescription(List<string> descriptions)
         {
             var result = "";
             if (descriptions.Count > 0)
@@ -49,7 +42,7 @@ namespace Looking2.Web
             return result;
         }
 
-        private static string parseContact(List<string> contacts)
+        public static string ParseListingContact(List<string> contacts)
         {
             var result = "";
             if (contacts.Count > 0)
@@ -63,7 +56,7 @@ namespace Looking2.Web
             return result;
         }
 
-        private static string parseLocation(List<string> locations)
+        public static string ParseListingLocation(List<string> locations)
         {
             if (locations == null)
             {
@@ -90,7 +83,7 @@ namespace Looking2.Web
             return result;
         }
 
-        private static string parseBusinessTitle(List<string> titles)
+        public static string ParseBusinessTitle(List<string> titles)
         {
             var result = "";
             foreach (var item in titles)
@@ -100,7 +93,7 @@ namespace Looking2.Web
             return result;
         }
 
-        public static string parseEventTitles(EventListing listing)
+        public static string ParseEventTitle(EventListing listing)
         {
             var result = string.Join(" ", listing.Titles);
             if (!string.IsNullOrWhiteSpace(listing.Venue))
@@ -108,6 +101,8 @@ namespace Looking2.Web
                 result += " at " + listing.Venue;
             }
             return result;
+
         }
+
     }
 }

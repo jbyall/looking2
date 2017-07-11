@@ -6,6 +6,7 @@ using MongoDB.Driver;
 using Looking2.Web.Domain;
 using Looking2.Web.DataAccess;
 using Looking2.Web.Services;
+using System.Globalization;
 
 namespace Looking2.Web
 {
@@ -107,7 +108,7 @@ namespace Looking2.Web
         {
             _businessRepo.Db.DropCollection("businesses");
             _eventRepo.Db.DropCollection("events");
-            _categoriesRepo.Db.DropCollection("categories");
+            //_categoriesRepo.Db.DropCollection("categories");
 
         }
 
@@ -851,9 +852,8 @@ namespace Looking2.Web
             var result = new List<EventListing>();
             var bondGig = new EventListing();
             bondGig.Titles.Add("Bond Rockers");
-            bondGig.Titles.Add("Pepsi Center");
+            bondGig.Venue = "Pepsi Center";
             bondGig.Descriptions.Add("rock & roll");
-            bondGig.Descriptions.Add("all ages");
             bondGig.Descriptions.Add("one night only");
             bondGig.Descriptions.Add("doors open at 7:30pm");
             bondGig.Contact.Add("www.bondrockers.com");
@@ -864,7 +864,65 @@ namespace Looking2.Web
             bondGig.EventType = EventType.Gig;
             bondGig.Price = "FREE!";
             bondGig.LongDescription = "We put on the best rock show you will ever see. Come to hear the face melting guitar solos of new and classic rock hits!";
+            bondGig.Location = new List<string>() { "CO", "Denver", "Denver", "HiLo", "101 E Colfax", "Downtown", "By the river" };
             result.Add(bondGig);
+
+            var gig2 = new EventListing();
+            gig2.Titles.Add("Jake Miller plus guests");
+            gig2.Venue = "Rex Theater";
+            gig2.Descriptions.Add("pop rap");
+            gig2.Descriptions.Add("one night only");
+            gig2.Descriptions.Add("8 pm");
+            gig2.Contact.Add("jakemiller.com");
+            gig2.Contact.Add("greyandaprod.com");
+            gig2.AdmissionInfo = "tickets at Druskyent.com or call 877-4-FLY-Tix";
+            gig2.Brag = "Newest album: 2:00 AM inLA";
+            gig2.Date = DateTime.Parse("09/16/2017");
+            gig2.EventType = EventType.Gig;
+            result.Add(gig2);
+
+            var gig3 = new EventListing();
+            gig3.Titles.Add("3Teeth with Morpheus Laughing & God Hates Unicorns");
+            gig3.Venue = "Rex Theater";
+            gig3.Descriptions.Add("eclectic");
+            gig3.Descriptions.Add("one night only");
+            gig3.Descriptions.Add("7:30 pm");
+            gig3.Contact.Add("greyareaprod.com");
+            gig3.AdmissionInfo = "tickets at Druskyent.com or call 877-4-FLY-Tix";
+            gig3.Date = DateTime.Parse("07/15/2017");
+            gig3.EventType = EventType.Gig;
+            result.Add(gig3);
+
+            var gig4 = new EventListing();
+            gig4.Titles.Add("Shelf Life String Band");
+            gig4.Venue = "The Park House";
+            gig4.Descriptions.Add("bluegrass & new grass");
+            gig4.Descriptions.Add("every Wednesday night");
+            gig4.Descriptions.Add("around 8 pm");
+            gig4.Contact.Add("shelflifestringband.com");
+            gig4.Contact.Add("parkhousepgh.com");
+            gig4.Price = "FREE!";
+            gig4.Brag = "'this ain't your pappy's bluegrass'";
+            gig4.Date = DateTime.Parse("07/26/2017");
+            gig4.EventType = EventType.Gig;
+            gig4.Location = new List<string>() { "PA", "Allegheny", "Pittsburgh", "North Side", "405 East Ohio Street", "north", "just of Cedar Ave by the park" };
+            result.Add(gig4);
+
+            var gig5 = new EventListing();
+            gig5.Titles.Add("Bond Unplugged");
+            gig5.Venue = "Red Rocks";
+            gig5.Descriptions.Add("classic rock");
+            gig5.Descriptions.Add("one night only");
+            gig5.Descriptions.Add("doors open at 6:15");
+            gig5.Contact.Add("www.bondmusic.com");
+            gig5.Contact.Add("www.redrocks.com");
+            gig5.Price = "$50";
+            gig5.Brag = "best classic rock covers";
+            gig5.Date = DateTime.Parse("08/15/2017");
+            gig5.EventType = EventType.Gig;
+            gig5.Location = new List<string>() { "CO", "Jefferson", "Denver", "Morrison", "101 Main Street", "West", "just off E-470" };
+            result.Add(gig5);
+
             return result;
         }
     }

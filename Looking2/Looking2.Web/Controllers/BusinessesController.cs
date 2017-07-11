@@ -29,8 +29,10 @@ namespace Looking2.Web.Controllers
             {
                 searchResults = businessRepo.GetAll().ToList();
             }
+            else
             {
-                searchResults = businessRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
+                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery);
+                searchResults = businessRepo.SearchListings(criteria);
             }
 
             var viewListings = new List<BusinessDetailsViewModel>();

@@ -20,7 +20,7 @@ namespace Looking2.Web.ViewModels
             this.Date = listing.Date.HasValue ? listing.Date.Value.ToString("d") : null;
             this.Type = listing.EventType.ToString();
             this.Title = DisplayHelper.ParseEventTitle(listing);
-            this.Contact = parseContact(listing.Contact);
+            this.Contact = DisplayHelper.ParseListingContact(listing.Contact);
             this.Brag = listing.Brag;
             this.AdmissionInfo = listing.AdmissionInfo;
             this.Price = listing.Price;
@@ -42,23 +42,6 @@ namespace Looking2.Web.ViewModels
         public string LongDescription { get; set; }
         public string EventType { get; set; }
         public EventListing Listing { get; set; }
-
-        
-
-        private string parseContact(List<string> contacts)
-        {
-            var result = "";
-            if (contacts.Count > 0)
-            {
-                result = contacts[0];
-            }
-            for (int i = 1; i < contacts.Count; i++)
-            {
-                result += " | " + contacts[i];
-            }
-            return result;
-        }
-
-        
+        public bool HasOverride { get; set; }
     }
 }

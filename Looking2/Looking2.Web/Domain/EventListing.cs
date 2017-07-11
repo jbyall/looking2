@@ -65,5 +65,6 @@ namespace Looking2.Web.Domain
                 this.Descriptions.Insert(0, overrides.EventDescriptionOverrides[this.EventType]);
             }
         }
+
     }
 }
