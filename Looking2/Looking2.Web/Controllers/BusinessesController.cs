@@ -6,6 +6,8 @@ using Looking2.Web.Domain;
 using Looking2.Web.ViewModels;
 using Looking2.Web.Services;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using MongoDB.Bson;
 
 namespace Looking2.Web.Controllers
 {
@@ -35,10 +37,10 @@ namespace Looking2.Web.Controllers
                 searchResults = businessRepo.SearchListings(criteria);
             }
 
-            var viewListings = new List<BusinessDetailsViewModel>();
+            var viewListings = new List<BusinessViewModel>();
             foreach (var item in searchResults)
             {
-                viewListings.Add(new BusinessDetailsViewModel(item));
+                viewListings.Add(new BusinessViewModel(item));
             }
             return PartialView("BusinessListings", viewListings);
         }
@@ -47,10 +49,10 @@ namespace Looking2.Web.Controllers
         public IActionResult Index()
         {
             var listings = businessRepo.GetAll();
-            var viewListings = new List<BusinessDetailsViewModel>();
+            var viewListings = new List<BusinessViewModel>();
             foreach (var item in listings)
             {
-                viewListings.Add(new BusinessDetailsViewModel(item));
+                viewListings.Add(new BusinessViewModel(item));
             }
             return View(viewListings);
         }
@@ -70,20 +72,21 @@ namespace Looking2.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(BusinessListingViewModel model)
+        public IActionResult Create(BusinessViewModel model)
         {
             businessRepo.Add(model.Listing);
-            return RedirectToAction("Details", new { id = model.Listing.Id.ToString() });
+            return RedirectToAction("CreateLocation", new { id = model.Listing.Id.ToString() });
         }
 
         [HttpGet]
         public IActionResult Details(string id)
         {
             var listing = businessRepo.GetById(id);
-            var vm = new BusinessDetailsViewModel(listing);
+            var vm = new BusinessViewModel(listing);
             return View(vm);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(string id)
         {
             businessRepo.Delete(id);
@@ -91,17 +94,33 @@ namespace Looking2.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            var listing = businessRepo.GetById(id);
+            BusinessViewModel vm = populateModel(listing);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(BusinessViewModel model)
+        {
+            model.Listing.Id = new ObjectId(model.Id);
+            businessRepo.Update(model.Listing);
+            return RedirectToAction("Details", new { id = model.Id });
+        }
+
+        [HttpGet]
         public IActionResult CreateLocation(string id)
         {
             var listing = businessRepo.GetById(id);
-            var vm = new BusinessDetailsViewModel(listing);
+            var vm = new BusinessViewModel(listing);
             return View(vm);
         }
 
         public IActionResult RenderLocationPartial(string viewName, string listingId)
         {
             var listing = businessRepo.GetById(listingId);
-            var vm = new BusinessDetailsViewModel(listing);
+            var vm = new BusinessViewModel(listing);
             vm.Listing.Location = Enumerable.Repeat("", 10).ToList();
             if (viewName == "NYC")
             {
@@ -113,7 +132,7 @@ namespace Looking2.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateLocation(BusinessDetailsViewModel model)
+        public IActionResult CreateLocation(BusinessViewModel model)
         {
             var listing = businessRepo.GetById(model.Id);
             foreach (var item in model.Listing.Location)
@@ -127,7 +146,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Review(string id)
         {
             var listing = businessRepo.GetById(id);
-            var vm = new BusinessDetailsViewModel(listing);
+            var vm = new BusinessViewModel(listing);
             return View(vm);
 
         }
@@ -141,9 +160,9 @@ namespace Looking2.Web.Controllers
         }
 
         #region Helpers
-        private BusinessListingViewModel getModelByBusinessType(string businessType)
+        private BusinessViewModel getModelByBusinessType(string businessType)
         {
-            var model = new BusinessListingViewModel();
+            var model = new BusinessViewModel();
             BusinessType type;
             if (Enum.TryParse(businessType, out type))
             {
@@ -204,6 +223,49 @@ namespace Looking2.Web.Controllers
             //create empty fields for view
             model.Listing.Initialize();
 
+            return model;
+        }
+
+        private BusinessViewModel populateModel(BusinessListing listingModel)
+        {
+            var model = new BusinessViewModel(listingModel);
+            //model.Listing = listingModel;
+            switch (listingModel.BusinessType)
+            {
+                case BusinessType.Artists:
+                    model.FormData = formsRepo.GetByName("ArtistsCreate");
+                    break;
+                case BusinessType.HealthCare:
+                    model.FormData = formsRepo.GetByName("HealthCareCreate");
+                    break;
+                case BusinessType.AltHealthCare:
+                    model.FormData = formsRepo.GetByName("AltHealthCareCreate");
+                    break;
+                case BusinessType.Information:
+                    model.FormData = formsRepo.GetByName("InformationCreate");
+                    break;
+                case BusinessType.Instruction:
+                    model.FormData = formsRepo.GetByName("InstructionCreate");
+                    break;
+                case BusinessType.Lawyers:
+                    model.FormData = formsRepo.GetByName("LawyersCreate");
+                    break;
+                case BusinessType.Restaurant:
+                    model.FormData = formsRepo.GetByName("RestaurantCreate");
+                    break;
+                case BusinessType.ServiceProviders:
+                    model.FormData = formsRepo.GetByName("ServiceProvidersCreate");
+                    break;
+                case BusinessType.Shopkeepers:
+                    model.FormData = formsRepo.GetByName("ShopkeepersCreate");
+                    break;
+                case BusinessType.Support:
+                    model.FormData = formsRepo.GetByName("SupportCreate");
+                    break;
+                default:
+                    break;
+            }
+            model.Listing.Initialize();
             return model;
         }
         #endregion

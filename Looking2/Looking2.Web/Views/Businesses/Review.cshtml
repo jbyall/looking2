@@ -1,4 +1,4 @@
-@model BusinessDetailsViewModel
+@model BusinessViewModel
 @{
     ViewData["Title"] = "Confirm & Submit";
 }
@@ -6,7 +6,7 @@
 <h1>@ViewData["Title"]</h1>
 <hr />
 
-@Html.Partial("_DetailsDisplay")
+@Html.Partial("_DetailsFormatted")
 
 <form asp-action="SubmitListing">
     <div class="form-horizontal">

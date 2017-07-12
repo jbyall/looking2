@@ -1,0 +1,116 @@
+@model BusinessViewModel
+@{
+    ViewData["Title"] = Model.FormData.PageTitle;
+}
+<form asp-action="Edit">
+    <h1>Current Listing Details</h1>
+
+    @Html.Partial("_DetailsFormatted")
+
+    <hr />
+    <h1>Edit Details Here:</h1>
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Title:</label>
+            <label class="control-label col-md-8"></label>
+
+            @for (int i = 0; i < Model.Listing.Titles.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Titles[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Titles[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Titles[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Description:</label>
+            <div class="col-md-4"></div>
+
+            @for (int i = 0; i < Model.Listing.Descriptions.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Descriptions[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Descriptions[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Descriptions[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Location:</label>
+            <div class="col-md-4"></div>
+
+            @for (int i = 0; i < Model.Listing.Location.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Descriptions[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Location[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Location[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Contact:</label>
+            <div class="col-md-4"></div>
+
+            @for (int i = 0; i < Model.Listing.Contact.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Contact[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Contact[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Contact[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Highlights:</label>
+            <div class="col-md-8">
+                <input asp-for="Listing.Brag" class="form-control" />
+                <span asp-validation-for="Listing.Brag" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Tell us more:</label>
+            <div class="col-md-8">
+                <textarea rows="5" cols="500" asp-for="Listing.LongDescription" class="form-control"></textarea>
+                <span asp-validation-for="Listing.LongDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Listing.BusinessType)
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

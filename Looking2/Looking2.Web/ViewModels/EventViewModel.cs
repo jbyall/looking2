@@ -22,12 +22,12 @@ namespace Looking2.Web.ViewModels
             this.Type = listing.EventType.ToString();
             this.TitleFormatted = DisplayHelper.ParseEventTitle(listing);
             this.ContactFormatted = DisplayHelper.ParseListingContact(listing.Contact);
+            this.DescriptionFormatted = DisplayHelper.ParseListingDescription(listing.Descriptions);
+            this.LocationFormatted = DisplayHelper.ParseListingLocation(listing.Location);
             this.Brag = listing.Brag;
             this.AdmissionInfo = listing.AdmissionInfo;
             this.Price = listing.Price;
             this.LongDescription = listing.LongDescription;
-            this.DescriptionFormatted = DisplayHelper.ParseListingDescription(listing.Descriptions);
-            this.LocationFormatted = DisplayHelper.ParseListingLocation(listing.Location);
         }
         public EventViewModel(EventListing listing, EventFormData formData) : this(listing)
         {
@@ -44,10 +44,6 @@ namespace Looking2.Web.ViewModels
         public string AdmissionInfo { get; set; }
         public string Price { get; set; }
         public string LongDescription { get; set; }
-        public int DescriptionCount { get; set; }
-        public int TitleCount { get; set; }
-        public int LocationCount { get; set; }
-        public int ContactCount { get; set; }
         public EventListing Listing { get; set; }
         public EventFormData FormData { get; set; }
     }
