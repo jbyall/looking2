@@ -14,8 +14,8 @@ namespace Looking2.Web.DataAccess
     public interface IBusinessRepository : IRepository<BusinessListing>
     {
         List<BusinessListing> SearchListings(SearchCriteria criteria);
-        List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100);
-        List<BusinessListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100);
+        //List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100);
+        //List<BusinessListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100);
     }
     public class BusinessRepository : Repository<BusinessListing>, IBusinessRepository
     {
@@ -65,37 +65,37 @@ namespace Looking2.Web.DataAccess
 
         }
 
-        public List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100)
-        {
-            var filter = new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", text)));
-            return this.Collection.Find<BusinessListing>(filter)
-                            .Limit(maxResults)
-                            .ToList();
-        }
+        //public List<BusinessListing> SearchDescriptionFields(string text, int maxResults = 100)
+        //{
+        //    var filter = new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", text)));
+        //    return this.Collection.Find<BusinessListing>(filter)
+        //                    .Limit(maxResults)
+        //                    .ToList();
+        //}
 
-        public List<BusinessListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100)
-        {
-            string searchOp = "";
-            switch (searchType)
-            {
-                case SearchOperator.And:
-                    searchOp = "$and";
-                    break;
-                case SearchOperator.Or:
-                    searchOp = "$or";
-                    break;
-                default:
-                    break;
-            }
-            var filter = new BsonDocument(searchOp, new BsonArray
-            {
-                new BsonDocument("Titles", new BsonDocument("$regex", string.Format("(?i){0}", title))),
-                new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", description))),
-            });
-            return this.Collection.Find<BusinessListing>(filter)
-                            .Limit(maxResults)
-                            .ToList();
-        }
+        //public List<BusinessListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100)
+        //{
+        //    string searchOp = "";
+        //    switch (searchType)
+        //    {
+        //        case SearchOperator.And:
+        //            searchOp = "$and";
+        //            break;
+        //        case SearchOperator.Or:
+        //            searchOp = "$or";
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    var filter = new BsonDocument(searchOp, new BsonArray
+        //    {
+        //        new BsonDocument("Titles", new BsonDocument("$regex", string.Format("(?i){0}", title))),
+        //        new BsonDocument("Descriptions", new BsonDocument("$regex", string.Format("(?i){0}", description))),
+        //    });
+        //    return this.Collection.Find<BusinessListing>(filter)
+        //                    .Limit(maxResults)
+        //                    .ToList();
+        //}
 
 
         // TODO:

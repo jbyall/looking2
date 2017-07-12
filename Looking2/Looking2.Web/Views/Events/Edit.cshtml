@@ -1,265 +1,135 @@
-@model EventListingViewModel
+@model EventViewModel
 @{
     ViewData["Title"] = Model.FormData.PageTitle;
 }
 <form asp-action="Edit">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 centered-column">
-                @Html.Partial(Model.FormData.HeadingPartial)
-            </div>
-        </div>
-    </div>
+    <h1>Current Listing Details</h1>
+
+    @Html.Partial("_DetailsFormatted")
+
+    <hr />
+    <h1>Edit Details Here:</h1>
     <div class="form-horizontal">
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title0Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Title0Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Titles[0]" class="form-control" />
-                    <span asp-validation-for="Listing.Titles[0]" class="text-danger"></span>
-                </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-4">Date:</label>
+            <div class="col-md-8" data-provide="datepicker">
+                <input asp-for="Listing.Date" class="form-control" />
+                <span asp-validation-for="Listing.Date" class="text-danger"></span>
             </div>
-        }
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-4">Title:</label>
+            <label class="control-label col-md-8"></label>
 
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title1Label))
+            @for (int i = 0; i < Model.Listing.Titles.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Titles[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Titles[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Titles[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.Listing.Venue))
         {
             <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Title1Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Titles[1]" class="form-control" />
-                    <span asp-validation-for="Listing.Titles[1]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title2Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Title2Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Titles[2]" class="form-control" />
-                    <span asp-validation-for="Listing.Titles[2]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title3Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Title3Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Titles[3]" class="form-control" />
-                    <span asp-validation-for="Listing.Titles[3]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Title4Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Title4Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Titles[4]" class="form-control" />
-                    <span asp-validation-for="Listing.Titles[4]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.VenueLabel))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.VenueLabel</label>
+                <label class="control-label col-md-4">Venue:</label>
                 <div class="col-md-8">
                     <input asp-for="Listing.Venue" class="form-control" />
                     <span asp-validation-for="Listing.Venue" class="text-danger"></span>
                 </div>
             </div>
         }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description0Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description0Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[0]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[0]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Contact0Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Contact0Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Contact[0]" class="form-control" />
-                    <span asp-validation-for="Listing.Contact[0]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Contact1Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Contact1Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Contact[1]" class="form-control" />
-                    <span asp-validation-for="Listing.Contact[1]" class="text-danger"></span>
-                </div>
-            </div>
-
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.PriceLabel))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.PriceLabel</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Price" class="form-control" />
-                    <span asp-validation-for="Listing.Price" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.AdmissionInfoLabel))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.AdmissionInfoLabel</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.AdmissionInfo" class="form-control" />
-                    <span asp-validation-for="Listing.AdmissionInfo" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.DateLabel))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.DateLabel</label>
-                <div class="col-md-8" data-provide="datepicker">
-                    <input asp-for="Listing.Date" class="form-control" />
-                    <span asp-validation-for="Listing.Date" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description1Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description1Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[1]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[1]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description2Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description2Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[2]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[2]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description3Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description3Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[3]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[3]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description4Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description4Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[4]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[4]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description5Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description5Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[5]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[5]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description6Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description6Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[6]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[6]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description7Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description7Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[7]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[7]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description8Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description8Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[8]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[8]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.Description9Label))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.Description9Label</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Descriptions[9]" class="form-control" />
-                    <span asp-validation-for="Listing.Descriptions[9]" class="text-danger"></span>
-                </div>
-            </div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.FormData.BragLabel))
-        {
-            <div class="form-group">
-                <label class="col-md-4 control-label">@Model.FormData.BragLabel</label>
-                <div class="col-md-8">
-                    <input asp-for="Listing.Brag" class="form-control" />
-                    <span asp-validation-for="Listing.Brag" class="text-danger"></span>
-                </div>
-            </div>
-        }
-        <p>Tell Us More (you might want to copy-and-paste the About-Us page from the website, or review - with attribution);</p>
+        
         <div class="form-group">
-            <label class="col-md-2"></label>
-            <div class="col-md-10">
-                <textarea rows="5" cols="300" asp-for="Listing.LongDescription" class="form-control"></textarea>
+            <label class="control-label col-md-4">Description:</label>
+            <div class="col-md-4"></div>
+
+            @for (int i = 0; i < Model.Listing.Descriptions.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Descriptions[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Descriptions[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Descriptions[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Location:</label>
+            <div class="col-md-4"></div>
+
+            @for (int i = 0; i < Model.Listing.Location.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Descriptions[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Location[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Location[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Contact:</label>
+            <div class="col-md-4"></div>
+
+            @for (int i = 0; i < Model.Listing.Contact.Count; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(Model.Listing.Contact[i]))
+                {
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        <input asp-for="Listing.Contact[i]" class="form-control" />
+                        <span asp-validation-for="Listing.Contact[i]" class="text-danger"></span>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Price:</label>
+            <div class="col-md-8">
+                <input asp-for="Listing.Price" class="form-control" />
+                <span asp-validation-for="Listing.Price" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Admission Info:</label>
+            <div class="col-md-8">
+                <input asp-for="Listing.AdmissionInfo" class="form-control" />
+                <span asp-validation-for="Listing.AdmissionInfo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Highlights:</label>
+            <div class="col-md-8">
+                <input asp-for="Listing.Brag" class="form-control" />
+                <span asp-validation-for="Listing.Brag" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4">Tell us more:</label>
+            <div class="col-md-8">
+                <textarea rows="5" cols="500" asp-for="Listing.LongDescription" class="form-control"></textarea>
                 <span asp-validation-for="Listing.LongDescription" class="text-danger"></span>
             </div>
         </div>

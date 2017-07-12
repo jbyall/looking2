@@ -2,4 +2,8 @@
 <hr/>
 <ul>
     <li>@Html.ActionLink("Edit Forms", "FormIndex")</li>
+    @if (User.IsInRole("bond"))
+    {
+        <li>@Html.ActionLink("Seed", "Index", "Seed")</li>
+    }
 </ul>

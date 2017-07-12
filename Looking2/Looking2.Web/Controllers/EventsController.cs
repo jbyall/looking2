@@ -8,6 +8,7 @@ using Looking2.Web.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Looking2.Web.Controllers
 {
@@ -34,14 +35,13 @@ namespace Looking2.Web.Controllers
             else
             {
                 SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, textQuery);
-                //searchResults = eventsRepo.SearchTitleAndDescription(textQuery, textQuery, SearchOperator.Or);
                 searchResults = eventsRepo.SearchListings(criteria);
             }
 
-            var viewListings = new List<EventDetailsViewModel>();
+            var viewListings = new List<EventViewModel>();
             foreach (var item in searchResults)
             {
-                viewListings.Add(new EventDetailsViewModel(item));
+                viewListings.Add(new EventViewModel(item));
             }
             return PartialView("EventListings", viewListings);
         }
@@ -50,10 +50,10 @@ namespace Looking2.Web.Controllers
         public IActionResult Index()
         {
             var listings = eventsRepo.GetAll();
-            var viewListings = new List<EventDetailsViewModel>();
+            var viewListings = new List<EventViewModel>();
             foreach (var item in listings)
             {
-                viewListings.Add(new EventDetailsViewModel(item));
+                viewListings.Add(new EventViewModel(item));
             }
             return View(viewListings);
         }
@@ -73,7 +73,7 @@ namespace Looking2.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(EventListingViewModel model)
+        public IActionResult Create(EventViewModel model)
         {
             eventsRepo.Add(model.Listing);
             return RedirectToAction("CreateLocation", new { id = model.Listing.Id.ToString() });
@@ -83,11 +83,11 @@ namespace Looking2.Web.Controllers
         public IActionResult Details(string id)
         {
             var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing);
+            var vm = new EventViewModel(listing);
             return View(vm);
         }
 
-
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(string id)
         {
             eventsRepo.Delete(id);
@@ -98,12 +98,12 @@ namespace Looking2.Web.Controllers
         public IActionResult Edit(string id)
         {
             var listing = eventsRepo.GetById(id);
-            EventListingViewModel vm = populateModel(listing);
+            EventViewModel vm = populateModel(listing);
             return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Edit(EventDetailsViewModel model)
+        public IActionResult Edit(EventViewModel model)
         {
             model.Listing.Id = new ObjectId(model.Id);
             eventsRepo.Update(model.Listing);
@@ -114,21 +114,26 @@ namespace Looking2.Web.Controllers
         public IActionResult CreateLocation(string id)
         {
             var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing);
+            var vm = new EventViewModel(listing);
             return View(vm);
         }
 
         public IActionResult RenderLocationPartial(string viewName, string listingId)
         {
             var listing = eventsRepo.GetById(listingId);
-            var vm = new EventDetailsViewModel(listing);
+            var vm = new EventViewModel(listing);
             vm.Listing.Location = Enumerable.Repeat("", 10).ToList();
+            if (viewName == "NYC")
+            {
+                listing.Location[0] = "NY";
+                listing.Location[2] = "NYC";
+            }
             string viewPath = string.Format("~/Views/Events/LocationPartials/_{0}.cshtml", viewName);
             return PartialView(viewPath, vm);
         }
 
         [HttpPost]
-        public IActionResult CreateLocation(EventDetailsViewModel model)
+        public IActionResult CreateLocation(EventViewModel model)
         {
             var listing = eventsRepo.GetById(model.Id);
             foreach (var item in model.Listing.Location)
@@ -142,7 +147,7 @@ namespace Looking2.Web.Controllers
         public IActionResult Review(string id)
         {
             var listing = eventsRepo.GetById(id);
-            var vm = new EventDetailsViewModel(listing);
+            var vm = new EventViewModel(listing);
             return View(vm);
         }
 
@@ -154,9 +159,9 @@ namespace Looking2.Web.Controllers
             return RedirectToAction("Index");
         }
         #region helpers
-        private EventListingViewModel getModelByEventType(string eventType)
+        private EventViewModel getModelByEventType(string eventType)
         {
-            var model = new EventListingViewModel();
+            var model = new EventViewModel();
             EventType type;
             if (Enum.TryParse(eventType, out type))
             {
@@ -197,7 +202,6 @@ namespace Looking2.Web.Controllers
             else
             {
                 model.FormData = formsRepo.GetByName("OtherCreate");
-                //model.Listing.SearchDescription = EventDescription.Other.ToString();
                 model.Listing.EventType = EventType.Other;
             }
 
@@ -207,10 +211,10 @@ namespace Looking2.Web.Controllers
             return model;
         }
 
-        private EventListingViewModel populateModel(EventListing listingModel)
+        private EventViewModel populateModel(EventListing listingModel)
         {
-            var model = new EventListingViewModel();
-            model.Listing = listingModel;
+            var model = new EventViewModel(listingModel);
+            //model.Listing = listingModel;
             switch (listingModel.EventType)
             {
                 case EventType.Gig:

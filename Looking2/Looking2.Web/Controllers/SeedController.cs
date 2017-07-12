@@ -10,7 +10,7 @@ using Looking2.Web.DataAccess;
 
 namespace Looking2.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "bond")]
     public class SeedController : Controller
     {
         private IOptions<DbSettings> settings;

@@ -25,10 +25,10 @@ namespace Looking2.Web.Domain
         /// Manipulate properties for data entry.
         /// </summary>
         /// <param name="dataCleaner"></param>
-        public void Listify(IListingCleaner dataCleaner)
+        public void Listify(IListingCleaner descriptionOverrides)
         {
             this.clean();
-            this.setDescriptions(dataCleaner);
+            this.setDescriptions(descriptionOverrides);
         }
 
         // Removes empty list items
@@ -60,9 +60,13 @@ namespace Looking2.Web.Domain
         // Sets a default description if necessary
         private void setDescriptions(IListingCleaner overrides)
         {
-            if (overrides.EventDescriptionOverrides.ContainsKey(this.EventType))
+            string descriptionToAdd;
+            if (overrides.EventDescriptionOverrides.TryGetValue(this.EventType, out descriptionToAdd))
             {
-                this.Descriptions.Insert(0, overrides.EventDescriptionOverrides[this.EventType]);
+                if (this.Descriptions.First() != descriptionToAdd)
+                {
+                    this.Descriptions.Insert(0, descriptionToAdd);
+                }
             }
         }
 

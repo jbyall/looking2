@@ -103,6 +103,11 @@ namespace Looking2.Web.Controllers
             var listing = businessRepo.GetById(listingId);
             var vm = new BusinessDetailsViewModel(listing);
             vm.Listing.Location = Enumerable.Repeat("", 10).ToList();
+            if (viewName == "NYC")
+            {
+                listing.Location[0] = "NY";
+                listing.Location[2] = "NYC";
+            }
             string viewPath = string.Format("~/Views/Businesses/LocationPartials/_{0}.cshtml", viewName);
             return PartialView(viewPath, vm);
         }

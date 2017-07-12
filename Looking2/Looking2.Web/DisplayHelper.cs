@@ -9,24 +9,8 @@ using Microsoft.Extensions.Options;
 
 namespace Looking2.Web
 {
-    public interface IDisplayHelper
+    public static class DisplayHelper
     {
-        IListingCleaner Cleaner { get; }
-        string ParseListingDescription(List<string> descriptions);
-        string ParseListingContact(List<string> contacts);
-        string ParseListingLocation(List<string> locations);
-        string ParseBusinessTitle(List<string> titles);
-        string ParseEventTitle(EventListing listing);
-    }
-    public class DisplayHelper
-    {
-        public DisplayHelper(IListingCleaner _cleaner)
-        {
-            this.Cleaner = _cleaner;
-        }
-
-        public IListingCleaner Cleaner { get; set; }
-
         public static string ParseListingDescription(List<string> descriptions)
         {
             var result = "";

@@ -120,6 +120,7 @@ namespace Looking2.Web.Controllers
                 if (user.Email == "jbond@looking2.net")
                 {
                     user.AddRole("admin");
+                    user.AddRole("bond");
                 }
 
                 if(user.Email == "rich@looking2.net")

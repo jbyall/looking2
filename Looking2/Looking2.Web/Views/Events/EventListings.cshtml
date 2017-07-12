@@ -1,4 +1,4 @@
-@model IEnumerable<Looking2.Web.ViewModels.EventDetailsViewModel>
+@model IEnumerable<Looking2.Web.ViewModels.EventViewModel>
 
 <span class="label label-default">@Model.Count() Listings</span>
 <hr class="resultsRule" />
@@ -12,7 +12,7 @@
             </div>
 
             <div class="col-md-10 listing-title">
-                @Html.DisplayFor(Model => item.Title)
+                @Html.DisplayFor(Model => item.TitleFormatted)
             </div>
 
         </div>
@@ -22,17 +22,17 @@
             </div>
 
             <div class="col-md-10 listing-description">
-                <bold>@Html.DisplayFor(Model => item.Description)</bold>
+                <bold>@Html.DisplayFor(Model => item.DescriptionFormatted)</bold>
             </div>
         </div>
-        @if (!string.IsNullOrWhiteSpace(item.Location))
+        @if (!string.IsNullOrWhiteSpace(item.LocationFormatted))
         {
             <div class="row">
                 <div class="col-md-2">
                 </div>
 
                 <div class="col-md-10">
-                    <bold>@Html.DisplayFor(Model => item.Location)</bold>
+                    <bold>@Html.DisplayFor(Model => item.LocationFormatted)</bold>
                 </div>
             </div>
         }
@@ -42,7 +42,7 @@
             </div>
 
             <div class="col-md-10">
-                @Html.DisplayFor(Model => item.Contact)
+                @Html.DisplayFor(Model => item.ContactFormatted)
             </div>
         </div>
 

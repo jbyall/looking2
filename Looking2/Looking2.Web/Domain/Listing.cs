@@ -14,6 +14,7 @@ namespace Looking2.Web.Domain
             this.Titles = new List<string>();
             this.Descriptions = new List<string>();
             this.Contact = new List<string>();
+            this.Location = new List<string>();
             this.Status = ListingStatus.InProgress;
         }
         public ListingStatus Status { get; set; }
