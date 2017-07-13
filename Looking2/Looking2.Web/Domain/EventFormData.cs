@@ -38,7 +38,7 @@ namespace Looking2.Web.Domain
         public string LongDescriptionLabel { get; set; }
         public string HeadingPartial { get; set; }
         public string PageTitle { get; set; }
-        
+
         // Unique labels
         public string PriceLabel { get; set; }
         public string AdmissionInfoLabel { get; set; }

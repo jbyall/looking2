@@ -260,7 +260,7 @@ namespace Looking2.Web
                     DisplayName = "Service Providers",
                     Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
                     Type = ListingCategory.Business,
-                    Active = false
+                    Active = true
                 },
                 new Category
                 {
@@ -268,7 +268,7 @@ namespace Looking2.Web
                     DisplayName = "Shopkeepers",
                     Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
                     Type = ListingCategory.Business,
-                    Active = false
+                    Active = true
                 },
                 new Category
                 {
