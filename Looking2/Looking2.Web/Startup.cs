@@ -16,6 +16,8 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using AutoMapper;
 using Looking2.Web.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Looking2.Web
 {
@@ -61,6 +63,11 @@ namespace Looking2.Web
             // Creates a single instance of this for the entire application
             // Allows appsettings (defined in Startup ctor) to be passed to controller
             services.AddSingleton<IConfiguration>(Configuration);
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +75,10 @@ namespace Looking2.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            var sslOptions = new RewriteOptions().AddRedirectToHttps();
+            app.UseRewriter(sslOptions);
+
 
             if (env.IsDevelopment())
             {
@@ -78,8 +89,6 @@ namespace Looking2.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            
 
             app.UseStaticFiles();
 
