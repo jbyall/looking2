@@ -64,10 +64,10 @@ namespace Looking2.Web
             // Allows appsettings (defined in Startup ctor) to be passed to controller
             services.AddSingleton<IConfiguration>(Configuration);
 
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());
-            });
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new RequireHttpsAttribute());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,8 +76,8 @@ namespace Looking2.Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            var sslOptions = new RewriteOptions().AddRedirectToHttps();
-            app.UseRewriter(sslOptions);
+            //var sslOptions = new RewriteOptions().AddRedirectToHttps();
+            //app.UseRewriter(sslOptions);
 
 
             if (env.IsDevelopment())
