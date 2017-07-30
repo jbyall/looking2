@@ -61,7 +61,7 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult CategoryIndex()
         {
-            var eventCategories = categoryRepo.GetByType(ListingCategory.Event);
+            var eventCategories = categoryRepo.GetByType(ListingCategory.Event).ToList();
             return View(eventCategories);
         }
 

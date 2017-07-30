@@ -60,7 +60,7 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult CategoryIndex()
         {
-            var eventCategories = categoryRepo.GetByType(ListingCategory.Business);
+            var eventCategories = categoryRepo.GetByType(ListingCategory.Business).OrderBy(c => c.DisplayName);
             return View(eventCategories);
         }
 
@@ -207,6 +207,9 @@ namespace Looking2.Web.Controllers
                     case BusinessType.Support:
                         model.FormData = formsRepo.GetByName("SupportCreate");
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                        break;
+                    case BusinessType.Other:
+                        model.FormData = formsRepo.GetByName("OtherCreate");
                         break;
                     default:
                         break;

@@ -63,6 +63,7 @@ namespace Looking2.Web.Domain
         [Description("Service Provider")]
         ServiceProviders,
         Shopkeepers,
-        Support
+        Support,
+        Other
     }
 }

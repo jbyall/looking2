@@ -18,20 +18,7 @@ namespace Looking2.Web
             var newCategories = GetSeedCategories();
             foreach (var item in newCategories)
             {
-                // Check for existing to determine insert or update
-                var existingCategory = _categoriesRepo.Find(c => c.Name == item.Name).ToList();
-                // Insert new
-                if (existingCategory.Count < 1)
-                {
-                    _categoriesRepo.Add(item);
-                }
-                // Update
-                else
-                {
-                    item.Id = existingCategory[0].Id;
-                    var result = _categoriesRepo.Collection.FindOneAndReplace<Category>(c => c.Name == item.Name, item);
-                }
-
+                _categoriesRepo.Add(item);
             }
         }
 
@@ -56,21 +43,16 @@ namespace Looking2.Web
 
         public static void SeedForms(IBusinessFormsRepo _businessFormsRepo, IEventFormsRepo _eventFormsRepo)
         {
-            var newForms = GetSeedEventForms();
-            foreach (var item in newForms)
-            {
-                var existingForm = _eventFormsRepo.Find(f => f.FormName == item.FormName).ToList();
+            //var newForms = GetSeedEventForms();
+            //foreach (var item in newForms)
+            //{
+            //    var existingForm = _eventFormsRepo.Find(f => f.FormName == item.FormName).ToList();
 
-                if (existingForm.Count < 1 )
-                {
-                    _eventFormsRepo.Add(item);
-                }
-                else
-                {
-                    item.Id = existingForm[0].Id;
-                    var result = _eventFormsRepo.Collection.FindOneAndReplace<EventFormData>(f => f.FormName == item.FormName, item);
-                }
-            }
+            //    if (existingForm.Count < 1 )
+            //    {
+            //        _eventFormsRepo.Add(item);
+            //    }
+            //}
 
             var newBusinessForms = GetSeedBusinessForms();
             foreach (var item in newBusinessForms)
@@ -80,11 +62,6 @@ namespace Looking2.Web
                 if (existingForm.Count < 1)
                 {
                     _businessFormsRepo.Add(item);
-                }
-                else
-                {
-                    item.Id = existingForm[0].Id;
-                    var result = _businessFormsRepo.Collection.FindOneAndReplace<BusinessFormData>(f => f.FormName == item.FormName, item);
                 }
             }
         }
@@ -122,172 +99,182 @@ namespace Looking2.Web
 
         private static List<Category> GetSeedCategories()
         {
-            var result = new List<Category>()
-            {
-                new Category
-                {
-                    Name = "Benefit",
-                    DisplayName = "Fundraisers & Benefits",
-                    Description ="when it's all about helping a good cause",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name = "Gig",
-                    DisplayName = "Gigs",
-                    Description ="for local bands playing in local venues",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="ArtistIndividual",
-                    DisplayName = "Individual Artists",
-                    Description ="for individual performers appearing alone or together",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name = "ArtistMultiple",
-                    DisplayName = "Multiple Artists",
-                    Description ="covers opening acts, joint appearances and/or special guests",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Series",
-                    DisplayName = "Series",
-                    Description ="when the event is part of a series",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name = "Exhibit",
-                    DisplayName = "Exhibits",
-                    Description ="Is your work going to be on display somewhere?  choose this one!",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name = "Concert",
-                    DisplayName = "Concert Tours",
-                    Description ="for any show on tour: concerts, comedians, speakers, whatever",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
+            var seedRepo = new SeedRepository();
+            return seedRepo.GetSeedCategories();
+            //var result = new List<Category>()
+            //{
+            //    new Category
+            //    {
+            //        Name = "Benefit",
+            //        DisplayName = "Fundraisers & Benefits",
+            //        Description ="when it's all about helping a good cause",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name = "Gig",
+            //        DisplayName = "Gigs",
+            //        Description ="for local bands playing in local venues",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="ArtistIndividual",
+            //        DisplayName = "Individual Artists",
+            //        Description ="for individual performers appearing alone or together",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name = "ArtistMultiple",
+            //        DisplayName = "Multiple Artists",
+            //        Description ="covers opening acts, joint appearances and/or special guests",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Series",
+            //        DisplayName = "Series",
+            //        Description ="when the event is part of a series",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name = "Exhibit",
+            //        DisplayName = "Exhibits",
+            //        Description ="Is your work going to be on display somewhere?  choose this one!",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name = "Concert",
+            //        DisplayName = "Concert Tours",
+            //        Description ="for any show on tour: concerts, comedians, speakers, whatever",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
 
-                    Name = "Orchestra",
-                    DisplayName = "Troupes, Companies, Orchestras",
-                    Description ="when who's putting on the show is as important as the show they're putting on",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Other",
-                    DisplayName = "Other",
-                    Description ="any event that does not fall under any of the other categories, use this one!",
-                    Type = ListingCategory.Event,
-                    Active = true
-                },
-                // Business Categories
-                new Category
-                {
-                    Name="Artists",
-                    DisplayName = "Artists, Artisans & Musicians",
-                    Description ="If you create things of beauty, pick this one",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="HealthCare",
-                    DisplayName = "Health Care",
-                    Description ="For those who practice the healing arts and sciences (& have a degree AND/OR state certification)",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="AltHealthCare",
-                    DisplayName = "Alternative Health Care",
-                    Description ="For those with a non-traditional approach to addressing our aches and pains",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Information",
-                    DisplayName = "Information",
-                    Description ="Do you offer information of any kind?",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Instruction",
-                    DisplayName = "Instruction",
-                    Description ="Lessons and instruction of all kinds",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Lawyers",
-                    DisplayName = "Lawyers",
-                    Description ="For practitioners of one of the world's oldest professions",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name = "Restaurant",
-                    DisplayName = "Places to Eat",
-                    Description ="Do you serve prepared food, ready to eat right now?",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="ServiceProviders",
-                    DisplayName = "Service Providers",
-                    Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Shopkeepers",
-                    DisplayName = "Shopkeepers",
-                    Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
-                    Type = ListingCategory.Business,
-                    Active = true
-                },
-                new Category
-                {
-                    Name="Support",
-                    DisplayName = "Support",
-                    Description ="Do you offer support of any kind?",
-                    Type = ListingCategory.Business,
-                    Active = false
-                }
+            //        Name = "Orchestra",
+            //        DisplayName = "Troupes, Companies, Orchestras",
+            //        Description ="when who's putting on the show is as important as the show they're putting on",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Other",
+            //        DisplayName = "Other",
+            //        Description ="any event that does not fall under any of the other categories, use this one!",
+            //        Type = ListingCategory.Event,
+            //        Active = true
+            //    },
+            //    // Business Categories
+            //    new Category
+            //    {
+            //        Name="Artists",
+            //        DisplayName = "Artists, Artisans & Musicians",
+            //        Description ="If you create things of beauty, pick this one",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="HealthCare",
+            //        DisplayName = "Health Care",
+            //        Description ="For those who practice the healing arts and sciences (& have a degree AND/OR state certification)",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="AltHealthCare",
+            //        DisplayName = "Alternative Health Care",
+            //        Description ="For those with a non-traditional approach to addressing our aches and pains",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Information",
+            //        DisplayName = "Information",
+            //        Description ="Do you offer information of any kind?",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Instruction",
+            //        DisplayName = "Instruction",
+            //        Description ="Lessons and instruction of all kinds",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Lawyers",
+            //        DisplayName = "Lawyers",
+            //        Description ="For practitioners of one of the world's oldest professions",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name = "Restaurant",
+            //        DisplayName = "Places to Eat",
+            //        Description ="Do you serve prepared food, ready to eat right now?",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="ServiceProviders",
+            //        DisplayName = "Service Providers",
+            //        Description ="For those who provide services people cannot or will not do for themselves (from walking dogs to building houses)",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Shopkeepers",
+            //        DisplayName = "Shopkeepers",
+            //        Description ="If you sell (or rent out) stuff for a livelihood, choose this one, even if it's from out of your kitchen",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    },
+            //    new Category
+            //    {
+            //        Name="Support",
+            //        DisplayName = "Support",
+            //        Description ="Do you offer support of any kind?",
+            //        Type = ListingCategory.Business,
+            //        Active = false
+            //    },
+            //    new Category
+            //    {
+            //        Name="Other",
+            //        DisplayName = "Other",
+            //        Description ="any business that does not fall under the other categories, use this one!",
+            //        Type = ListingCategory.Business,
+            //        Active = true
+            //    }
 
 
-            };
-            int displayCount = 1;
-            foreach (var item in result)
-            {
-                item.DisplayOrder = displayCount;
-                displayCount++;
-            }
-            return result;
+            //};
+            //int displayCount = 1;
+            //foreach (var item in result)
+            //{
+            //    item.DisplayOrder = displayCount;
+            //    displayCount++;
+            //}
+            //return result;
 
         }
 
@@ -563,11 +550,271 @@ namespace Looking2.Web
         {
             return new List<BusinessFormData>()
             {
+                //new BusinessFormData
+                //{
+                //    FormName = "ArtistsCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Artists,
+                //     Title0Label = "",
+                //     Title1Label = "",
+                //     Description0Label = "",
+                //     Description1Label = "",
+                //     Description2Label = "",
+                //     Description3Label = "",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "",
+                //     Contact1Label = "",
+                //     Contact2Label = "",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "",
+                //     PageTitle = "",
+                //     HeadingPartial = "_ArtistsHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "HealthCareCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.HealthCare,
+                //     Title0Label = "What is the name of your practice?",
+                //     Title1Label = "",
+                //     Description0Label = "What is your role as an HCP?",
+                //     Description1Label = "Please enter your last name:",
+                //     Description2Label = "Please enter your first name and middle intial:",
+                //     Description3Label = "Please enter your degree(s):",
+                //     Description4Label = "What field of medicine/health care do you focus on?",
+                //     Description5Label = "Enter conditions treated or treatments offered here:",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "Your practice's website:",
+                //     Contact1Label = "Please enter up to 2 phone numbers:",
+                //     Contact2Label = "Please enter your email if you want:",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "Brag a little(certifications, affiliated hospitals, etc)",
+                //     PageTitle = "",
+                //     HeadingPartial = "_HealthCareHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "AltHealthCareCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.AltHealthCare,
+                //     Title0Label = "What is the name of your practice?",
+                //     Title1Label = "",
+                //     Description0Label = "What is your role as an HCP?",
+                //     Description1Label = "Please enter your last name:",
+                //     Description2Label = "Please enter your first name and middle intial:",
+                //     Description3Label = "What conditions do you focus on?",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "Your practice's website:",
+                //     Contact1Label = "Please enter up to 2 phone numbers:",
+                //     Contact2Label = "Please enter your email if you want:",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "State your mission here:",
+                //     PageTitle = "",
+                //     HeadingPartial = "_AltHealthCareHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "InformationCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Information,
+                //     Title0Label = "What is the name of your business?",
+                //     Title1Label = "",
+                //     Description0Label = "Broad categorization:",
+                //     Description1Label = "General Description:",
+                //     Description2Label = "Specifics:",
+                //     Description3Label = "",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "What is your website?",
+                //     Contact1Label = "Phone (optional):",
+                //     Contact2Label = "Email (optional):",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "Brag a little",
+                //     PageTitle = "",
+                //     HeadingPartial = "_InformationHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "InstructionCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Instruction,
+                //     Title0Label = "What name do you go by as an instructor?",
+                //     Title1Label = "",
+                //     Description0Label = "What kind of instruction do you offer?",
+                //     Description1Label = "What age group do you work with?",
+                //     Description2Label = "What skill levels?",
+                //     Description3Label = "",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "What is your website?",
+                //     Contact1Label = "Phone (optional):",
+                //     Contact2Label = "Email (optional):",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "Brag a little",
+                //     PageTitle = "",
+                //     HeadingPartial = "_InstructionHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "LawyersCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Lawyers,
+                //     Title0Label = "What is the name of your law firm?",
+                //     Title1Label = "",
+                //     Description0Label = "Please enter your last name:",
+                //     Description1Label = "Please enter your first name and middle initial:",
+                //     Description2Label = "In which states are you licensed to practice?",
+                //     Description3Label = "What field of law is this listing for?",
+                //     Description4Label = "What 'buzz words' would you put in an ad?",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "What is your website?",
+                //     Contact1Label = "Phone (optional):",
+                //     Contact2Label = "Email (optional):",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "Brag a little",
+                //     PageTitle = "",
+                //     HeadingPartial = "_LawyersHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "RestaurantCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Restaurant,
+                //     Title0Label = "What is the name of your eatery?",
+                //     Title1Label = "",
+                //     Description0Label = "What type of eatery is it?",
+                //     Description1Label = "What meals do you serve?",
+                //     Description2Label = "Popular menu items or your cuisine type?",
+                //     Description3Label = "Pricing?",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "What is your website?",
+                //     Contact1Label = "Phone (optional):",
+                //     Contact2Label = "Email (optional):",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "Brag a little",
+                //     PageTitle = "",
+                //     HeadingPartial = "_RestaurantHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "ServiceProvidersCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.ServiceProviders,
+                //     Title0Label = "",
+                //     Title1Label = "",
+                //     Description0Label = "",
+                //     Description1Label = "",
+                //     Description2Label = "",
+                //     Description3Label = "",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "",
+                //     Contact1Label = "",
+                //     Contact2Label = "",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "",
+                //     PageTitle = "",
+                //     HeadingPartial = "_ServiceProvidersHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "ShopkeepersCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Shopkeepers,
+                //     Title0Label = "",
+                //     Title1Label = "",
+                //     Description0Label = "",
+                //     Description1Label = "",
+                //     Description2Label = "",
+                //     Description3Label = "",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "",
+                //     Contact1Label = "",
+                //     Contact2Label = "",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "",
+                //     PageTitle = "",
+                //     HeadingPartial = "_ShopkeepersHeading"
+                //},
+                //new BusinessFormData
+                //{
+                //    FormName = "SupportCreate",
+                //     //SearchDescription = EventDescription.Other,
+                //     BusinessType = BusinessType.Support,
+                //     Title0Label = "",
+                //     Title1Label = "",
+                //     Description0Label = "",
+                //     Description1Label = "",
+                //     Description2Label = "",
+                //     Description3Label = "",
+                //     Description4Label = "",
+                //     Description5Label = "",
+                //     Description6Label = "",
+                //     Description7Label = "",
+                //     Description8Label = "",
+                //     Description9Label = "",
+                //     Contact0Label = "",
+                //     Contact1Label = "",
+                //     Contact2Label = "",
+                //     Contact3Label = "",
+                //     Contact4Label = "",
+                //     BragLabel = "",
+                //     PageTitle = "",
+                //     HeadingPartial = "_SupportHeading"
+                //},
                 new BusinessFormData
                 {
-                    FormName = "ArtistsCreate",
+                    FormName = "OtherCreate",
                      //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Artists,
+                     BusinessType = BusinessType.Other,
                      Title0Label = "",
                      Title1Label = "",
                      Description0Label = "",
@@ -587,241 +834,7 @@ namespace Looking2.Web
                      Contact4Label = "",
                      BragLabel = "",
                      PageTitle = "",
-                     HeadingPartial = "_ArtistsHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "HealthCareCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.HealthCare,
-                     Title0Label = "What is the name of your practice?",
-                     Title1Label = "",
-                     Description0Label = "What is your role as an HCP?",
-                     Description1Label = "Please enter your last name:",
-                     Description2Label = "Please enter your first name and middle intial:",
-                     Description3Label = "Please enter your degree(s):",
-                     Description4Label = "What field of medicine/health care do you focus on?",
-                     Description5Label = "Enter conditions treated or treatments offered here:",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "Your practice's website:",
-                     Contact1Label = "Please enter up to 2 phone numbers:",
-                     Contact2Label = "Please enter your email if you want:",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "Brag a little(certifications, affiliated hospitals, etc)",
-                     PageTitle = "",
-                     HeadingPartial = "_HealthCareHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "AltHealthCareCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.AltHealthCare,
-                     Title0Label = "What is the name of your practice?",
-                     Title1Label = "",
-                     Description0Label = "What is your role as an HCP?",
-                     Description1Label = "Please enter your last name:",
-                     Description2Label = "Please enter your first name and middle intial:",
-                     Description3Label = "What conditions do you focus on?",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "Your practice's website:",
-                     Contact1Label = "Please enter up to 2 phone numbers:",
-                     Contact2Label = "Please enter your email if you want:",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "State your mission here:",
-                     PageTitle = "",
-                     HeadingPartial = "_AltHealthCareHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "InformationCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Information,
-                     Title0Label = "What is the name of your business?",
-                     Title1Label = "",
-                     Description0Label = "Broad categorization:",
-                     Description1Label = "General Description:",
-                     Description2Label = "Specifics:",
-                     Description3Label = "",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "What is your website?",
-                     Contact1Label = "Phone (optional):",
-                     Contact2Label = "Email (optional):",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "Brag a little",
-                     PageTitle = "",
-                     HeadingPartial = "_InformationHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "InstructionCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Instruction,
-                     Title0Label = "What name do you go by as an instructor?",
-                     Title1Label = "",
-                     Description0Label = "What kind of instruction do you offer?",
-                     Description1Label = "What age group do you work with?",
-                     Description2Label = "What skill levels?",
-                     Description3Label = "",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "What is your website?",
-                     Contact1Label = "Phone (optional):",
-                     Contact2Label = "Email (optional):",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "Brag a little",
-                     PageTitle = "",
-                     HeadingPartial = "_InstructionHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "LawyersCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Lawyers,
-                     Title0Label = "What is the name of your law firm?",
-                     Title1Label = "",
-                     Description0Label = "Please enter your last name:",
-                     Description1Label = "Please enter your first name and middle initial:",
-                     Description2Label = "In which states are you licensed to practice?",
-                     Description3Label = "What field of law is this listing for?",
-                     Description4Label = "What 'buzz words' would you put in an ad?",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "What is your website?",
-                     Contact1Label = "Phone (optional):",
-                     Contact2Label = "Email (optional):",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "Brag a little",
-                     PageTitle = "",
-                     HeadingPartial = "_LawyersHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "RestaurantCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Restaurant,
-                     Title0Label = "What is the name of your eatery?",
-                     Title1Label = "",
-                     Description0Label = "What type of eatery is it?",
-                     Description1Label = "What meals do you serve?",
-                     Description2Label = "Popular menu items or your cuisine type?",
-                     Description3Label = "Pricing?",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "What is your website?",
-                     Contact1Label = "Phone (optional):",
-                     Contact2Label = "Email (optional):",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "Brag a little",
-                     PageTitle = "",
-                     HeadingPartial = "_RestaurantHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "ServiceProvidersCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.ServiceProviders,
-                     Title0Label = "",
-                     Title1Label = "",
-                     Description0Label = "",
-                     Description1Label = "",
-                     Description2Label = "",
-                     Description3Label = "",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "",
-                     Contact1Label = "",
-                     Contact2Label = "",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "",
-                     PageTitle = "",
-                     HeadingPartial = "_ServiceProvidersHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "ShopkeepersCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Shopkeepers,
-                     Title0Label = "",
-                     Title1Label = "",
-                     Description0Label = "",
-                     Description1Label = "",
-                     Description2Label = "",
-                     Description3Label = "",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "",
-                     Contact1Label = "",
-                     Contact2Label = "",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "",
-                     PageTitle = "",
-                     HeadingPartial = "_ShopkeepersHeading"
-                },
-                new BusinessFormData
-                {
-                    FormName = "SupportCreate",
-                     //SearchDescription = EventDescription.Other,
-                     BusinessType = BusinessType.Support,
-                     Title0Label = "",
-                     Title1Label = "",
-                     Description0Label = "",
-                     Description1Label = "",
-                     Description2Label = "",
-                     Description3Label = "",
-                     Description4Label = "",
-                     Description5Label = "",
-                     Description6Label = "",
-                     Description7Label = "",
-                     Description8Label = "",
-                     Description9Label = "",
-                     Contact0Label = "",
-                     Contact1Label = "",
-                     Contact2Label = "",
-                     Contact3Label = "",
-                     Contact4Label = "",
-                     BragLabel = "",
-                     PageTitle = "",
-                     HeadingPartial = "_SupportHeading"
+                     HeadingPartial = "_OtherHeading"
                 },
             };
         }
