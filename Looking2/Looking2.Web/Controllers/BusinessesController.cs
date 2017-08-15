@@ -127,6 +127,11 @@ namespace Looking2.Web.Controllers
                 listing.Location[0] = "NY";
                 listing.Location[2] = "NYC";
             }
+
+            if (viewName == "Online")
+            {
+                listing.Location[0] = "Online";
+            }
             string viewPath = string.Format("~/Views/Businesses/LocationPartials/_{0}.cshtml", viewName);
             return PartialView(viewPath, vm);
         }
@@ -137,7 +142,11 @@ namespace Looking2.Web.Controllers
             var listing = businessRepo.GetById(model.Id);
             foreach (var item in model.Listing.Location)
             {
-                listing.Location.Add(item);
+                if (!string.IsNullOrWhiteSpace(item))
+                {
+                    listing.Location.Add(item);
+                }
+                
             }
             listing = businessRepo.Update(listing);
             return RedirectToAction("Review", new { id = listing.Id.ToString() });

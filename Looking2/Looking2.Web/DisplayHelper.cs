@@ -51,10 +51,19 @@ namespace Looking2.Web
             switch (count)
             {
                 case 0:
+                    break;
                 case 1:
+                    result += locations[0];
                     break;
                 default:
-                    result += string.Format("{0} ({1})", locations[0], locations[1]);
+                    if (locations[0].ToLower().Contains("online"))
+                    {
+                        result += string.Format("{0} | {1}", locations[0], locations[1]);
+                    }
+                    else
+                    {
+                        result += string.Format("{0} ({1})", locations[0], locations[1]);
+                    }
                     break;
 
             }
