@@ -5,7 +5,8 @@ function search(url, container) {
         type: "GET",
         data: {
             textQuery: $('#text-query').val(),
-            locationQuery: $('#location-query').val()
+            locationQuery: $('#location-query').val(),
+            categoryQuery: $('#category-query').val()
         },
         dataType: "html"
     }).done(function (response) {

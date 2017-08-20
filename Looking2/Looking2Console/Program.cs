@@ -15,8 +15,13 @@ namespace Looking2Console
     {
         static void Main(string[] args)
         {
-            var test = new SearchTest();
-            test.Seed(50);
+            MongoClient client = new MongoClient("mongodb://localhost:27017");
+            var db = client.GetDatabase("looking2");
+            addCategoryToBusinesses(client, db);
+
+
+            //var test = new SearchTest();
+            //test.Seed(50);
             //var bluegrassResults = test.SearchDescription("bluegrass");
             //var BluegrassResults = test.SearchDescription("Bluegrass", 10);
 
@@ -229,7 +234,100 @@ namespace Looking2Console
 
         }
 
-        
+        static void addCategoryToBusinesses(MongoClient client, IMongoDatabase db)
+        {
+            var businessCollection = db.GetCollection<BusinessListing>("businesses");
+            var businesses = businessCollection.AsQueryable().ToList();
+                             
+            foreach (var item in businesses)
+            {
+                var categoryDet = item.Descriptions[0].ToLower();
+                if (categoryDet.Contains("sports"))
+                {
+                    item.Category = BusinessSearchCategory.SportFitness;
+                }
+
+                if (categoryDet.Contains("window blinds") || categoryDet.Contains("storage") || categoryDet.Contains("moving supplies") || categoryDet.Contains("duct system"))
+                {
+                    item.Category = BusinessSearchCategory.HomeGoodsAndServices;
+                }
+
+                if (categoryDet.Contains("lesson"))
+                {
+                    item.Category = BusinessSearchCategory.Lessons;
+                }
+
+                if (categoryDet.Contains("to eat") || categoryDet.Contains("bakery") || categoryDet.Contains("catering") || categoryDet.Contains("snack") || 
+                    categoryDet.Contains("beverage")|| categoryDet.Contains("candy") || categoryDet.Contains("butcher"))
+                {
+                    item.Category = BusinessSearchCategory.FoodAndBeverage;
+                }
+
+                if (categoryDet.Contains("message") || categoryDet.Contains("audiologist") || categoryDet.Contains("dermatolog") || categoryDet.Contains("health care") ||
+                    categoryDet.Contains("pedorth") || categoryDet.Contains("sleep coach") || categoryDet.Contains("horolog"))
+                {
+                    item.Category = BusinessSearchCategory.Healthcare;
+                }
+
+                if (categoryDet.Contains("running") || categoryDet.Contains("buy & sell") || categoryDet.Contains("movies") || categoryDet.Contains("games") ||
+                    categoryDet.Contains("antique"))
+                {
+                    item.Category = BusinessSearchCategory.Retail;
+                }
+
+                if (categoryDet.Contains("equipment") || categoryDet.Contains("swimming pools") || categoryDet.Contains("sandblasting"))
+                {
+                    item.Category = BusinessSearchCategory.Supplies;
+                }
+
+                if (categoryDet.Contains("tires") || categoryDet.Contains("mechanic") || categoryDet.Contains("car care") || categoryDet.Contains("vehicles") ||
+                    categoryDet.Contains("alignments") || categoryDet.Contains("car dealership") || categoryDet.Contains("motorcycle") || categoryDet.Contains("auto parts") || 
+                    categoryDet.Contains("truck parts") || categoryDet.Contains("dump trailers"))
+                {
+                    item.Category = BusinessSearchCategory.AutoVehicle;
+                }
+
+                if (categoryDet.Contains("attorney") || categoryDet.Contains("lawyer"))
+                {
+                    item.Category = BusinessSearchCategory.Lawyers;
+                }
+
+                if (categoryDet.Contains("hacking") || categoryDet.Contains("financial") || categoryDet.Contains("cleaning") || categoryDet.Contains("consulting") ||
+                    categoryDet.Contains("fire escape") || categoryDet.Contains("banking") || categoryDet.Contains("memorials") || categoryDet.Contains("recycling"))
+                {
+                    item.Category = BusinessSearchCategory.Services;
+                }
+
+                if (categoryDet.Contains("movie house") || categoryDet.Contains("drive-in") || categoryDet.Contains("gravesite") || categoryDet.Contains("museum") ||
+                    categoryDet.Contains("black history") || categoryDet.Contains("arcade") || categoryDet.Contains("amusement") || categoryDet.Contains("convention"))
+                {
+                    item.Category = BusinessSearchCategory.EntertainmentAttractions;
+                }
+
+                if (categoryDet.Contains("salon") || categoryDet.Contains("tattoo") || categoryDet.Contains("hair") || categoryDet.Contains("beauty"))
+                {
+                    item.Category = BusinessSearchCategory.Salons;
+                }
+
+                if (categoryDet.Contains("veterina") || categoryDet.Contains("pets") || categoryDet.Contains("fish"))
+                {
+                    item.Category = BusinessSearchCategory.PetAnimal;
+                }
+
+                if (categoryDet.Contains("adoption") || categoryDet.Contains("civil rights") || categoryDet.Contains("law enforcement"))
+                {
+                    item.Category = BusinessSearchCategory.HumanServices;
+                }
+
+                if (categoryDet.Contains("public transport"))
+                {
+                    item.Category = BusinessSearchCategory.PublicServices;
+                }
+
+                businessCollection.FindOneAndReplace<BusinessListing>(l => l.Id == item.Id, item);
+
+            }
+        }
     }
 
 }

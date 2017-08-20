@@ -35,6 +35,12 @@ namespace Looking2.Web.DataAccess
 
         public List<BusinessListing> SearchListings(SearchCriteria criteria)
         {
+            // Category only search
+            if (criteria.CategoryFilter > 0 && criteria.DetailFilters.Count < 1 && string.IsNullOrWhiteSpace(criteria.LocationFilter))
+            {
+                return this.Collection.Find(new BsonDocument("Category", criteria.CategoryFilter)).ToList();
+            }
+
             //Construct description, title, venue search
             var detailFilterArray = new BsonArray();
             foreach (var item in criteria.DetailFilters)
@@ -47,20 +53,48 @@ namespace Looking2.Web.DataAccess
             var locationFilter = new BsonDocument("Location", new BsonDocument("$regex", string.Format("(?i){0}", criteria.LocationFilter)));
 
             // Execute just location if no detail filters exist
-            if (!string.IsNullOrWhiteSpace(criteria.LocationFilter) && criteria.DetailFilters.Count < 1)
+            if (!string.IsNullOrWhiteSpace(criteria.LocationFilter) && criteria.DetailFilters.Count < 1 && criteria.CategoryFilter < 1)
             {
                 return this.Collection.Find<BusinessListing>(locationFilter).ToList();
             }
 
             // Execute detail query if no location
-            if (string.IsNullOrWhiteSpace(criteria.LocationFilter) && criteria.DetailFilters.Count > 0)
+            if (string.IsNullOrWhiteSpace(criteria.LocationFilter) && criteria.DetailFilters.Count > 0 && criteria.CategoryFilter < 1)
             {
                 return this.Collection.Find<BusinessListing>(detailsFilter).ToList();
             }
 
-            // Build and execute $ and query if both exist
+            var andFilters = new List<FilterDefinition<BusinessListing>>();
+            if (criteria.CategoryFilter > 0)
+            {
+                andFilters.Add(new BsonDocument("Category", criteria.CategoryFilter));
+            }
+
+            if (criteria.DetailFilters.Count > 0)
+            {
+                andFilters.Add(detailsFilter);
+            }
+
+            if (!string.IsNullOrWhiteSpace(criteria.LocationFilter))
+            {
+                andFilters.Add(locationFilter);
+            }
+
+            // Build and execute $and query if both exist
             var andQueryBuilder = Builders<BusinessListing>.Filter;
-            var detailQuery = andQueryBuilder.And(detailsFilter, locationFilter);
+            var detailQuery = andQueryBuilder.And(andFilters);
+            //var detailQuery = FilterDefinition<BusinessListing>.Empty;
+            //if (criteria.CategoryFilter > 0)
+            //{
+            //    var categoryFilter = new BsonDocument("Category", criteria.CategoryFilter);
+            //    detailQuery = andQueryBuilder.And(detailsFilter, locationFilter, categoryFilter);
+            //}
+            //else
+            //{
+            //    detailQuery = andQueryBuilder.And(detailsFilter, locationFilter);
+            //}
+            //var detailQuery = andQueryBuilder.And(detailsFilter, locationFilter);
+            //var detailQuery = andQueryBuilder.And(andFilters.ToArray());
             return this.Collection.Find<BusinessListing>(detailQuery).ToList();
 
         }

@@ -24,16 +24,16 @@ namespace Looking2.Web.Controllers
             this.formsRepo = _formsRepo;
         }
 
-        public IActionResult Search(string textQuery, string locationQuery)
+        public IActionResult Search(string textQuery, string locationQuery, string categoryQuery)
         {
             var searchResults = new List<BusinessListing>();
-            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery))
+            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery) && categoryQuery == "0")
             {
                 searchResults = businessRepo.GetAll().ToList();
             }
             else
             {
-                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery);
+                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, categoryQuery);
                 searchResults = businessRepo.SearchListings(criteria);
             }
 
