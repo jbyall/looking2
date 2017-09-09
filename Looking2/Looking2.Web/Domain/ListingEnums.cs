@@ -71,35 +71,34 @@ namespace Looking2.Web.Domain
     public enum BusinessSearchCategory
     {
         All = 0,
+
+        Art = 1,
+
         [Display(Name = "Auto/Vehicle")]
-        AutoVehicle = 1,
+        AutoVehicle = 2,
 
         [Display(Name = "Entertainment & Attractions")]
-        EntertainmentAttractions = 2,
+        EntertainmentAttractions = 3,
 
-        [Display(Name = "Food & Beverage")]
-        FoodAndBeverage = 3,
+        [Display(Name = "Healthcare - Traditional")]
+        Healthcare = 4,
 
-        [Display(Name = "General Services")]
-        Services = 4,
+        [Display(Name = "Healthcare - Alternative")]
+        HealthcareAlt = 5,
 
-        [Display(Name = "Healthcare")]
-        Healthcare = 5,
-
-        [Display(Name = "Home Goods & Services")]
-        HomeGoodsAndServices = 6,
-
-        [Display(Name = "Human Services")]
-        HumanServices = 7,
+        [Display(Name = "Instruction & Education")]
+        Lessons = 6,
 
         [Display(Name = "Lawyers")]
-        Lawyers = 8,
+        Lawyers = 7,
+
+        Music = 8,
 
         [Display(Name = "Pet & Animal")]
         PetAnimal = 9,
 
-        [Display(Name = "Public Services")]
-        PublicServices = 10,
+        [Display(Name = "Restaurant, Food & Drink")]
+        FoodAndBeverage = 10,
 
         [Display(Name = "Retail & Shops")]
         Retail = 11,
@@ -107,14 +106,68 @@ namespace Looking2.Web.Domain
         [Display(Name = "Salons, Parlors, Beauty")]
         Salons = 12,
 
+        [Display(Name = "Services - General")]
+        GeneralServices = 13,
+
+        [Display(Name = "Services - Home")]
+        HomeServices = 14,
+
+        [Display(Name = "Services - Human")]
+        HumanServices = 15,
+
+        [Display(Name = "Services - Public")]
+        PublicServices = 16,
+
         [Display(Name = "Sports & Fitness")]
-        SportFitness = 13,
+        SportFitness = 17,
 
         [Display(Name = "Supplies")]
-        Supplies = 14,
+        Supplies = 18,
 
-        [Display(Name = "Tutoring & Education")]
-        Lessons = 15
+        [Display(Name = "Support & Information")]
+        SupportInformation = 19
+    }
 
+    public enum ServiceCategory
+    {
+        All = BusinessSearchCategory.All,
+        [Display(Name = "Auto/Vehicle")]
+        AutoVehicle = BusinessSearchCategory.AutoVehicle,
+
+        [Display(Name = "Healthcare - Traditional")]
+        Healthcare = BusinessSearchCategory.Healthcare,
+
+        [Display(Name = "Healthcare - Alternative")]
+        HealthcareAlt = BusinessSearchCategory.HealthcareAlt,
+
+        [Display(Name = "Instruction & Education")]
+        InstructionEducation = BusinessSearchCategory.Lessons,
+
+        [Display(Name = "Lawyers")]
+        Lawyers = BusinessSearchCategory.Lawyers,
+
+        [Display(Name = "Pet & Animal")]
+        PetAnimal = BusinessSearchCategory.PetAnimal,
+
+        [Display(Name = "Restaurant, Food & Drink")]
+        FoodAndBeverage = BusinessSearchCategory.FoodAndBeverage,
+
+        [Display(Name = "Services - General")]
+        GeneralServices = BusinessSearchCategory.GeneralServices,
+
+        [Display(Name = "Services - Home")]
+        HomeServices = BusinessSearchCategory.HomeServices,
+
+        [Display(Name = "Services - Human")]
+        HumanServices = BusinessSearchCategory.HumanServices,
+
+        [Display(Name = "Services - Public")]
+        PublicServices = BusinessSearchCategory.PublicServices,
+
+        [Display(Name = "Sports & Fitness")]
+        SportFitness = BusinessSearchCategory.SportFitness,
+
+        [Display(Name = "Support & Information")]
+        SupportInformation = BusinessSearchCategory.SupportInformation,
     }
 }

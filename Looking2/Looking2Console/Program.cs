@@ -241,88 +241,128 @@ namespace Looking2Console
                              
             foreach (var item in businesses)
             {
-                var categoryDet = item.Descriptions[0].ToLower();
-                if (categoryDet.Contains("sports"))
+                switch (item.BusinessType)
                 {
-                    item.Category = BusinessSearchCategory.SportFitness;
-                }
+                    case BusinessType.Artists:
+                        item.Category = BusinessSearchCategory.Art;
+                        break;
+                    case BusinessType.HealthCare:
+                        item.Category = BusinessSearchCategory.Healthcare;
+                        break;
+                    case BusinessType.AltHealthCare:
+                        item.Category = BusinessSearchCategory.HealthcareAlt;
+                        break;
+                    case BusinessType.Information:
+                        item.Category = BusinessSearchCategory.SupportInformation;
+                        break;
+                    case BusinessType.Instruction:
+                        item.Category = BusinessSearchCategory.Lessons;
+                        break;
+                    case BusinessType.Lawyers:
+                        item.Category = BusinessSearchCategory.Lawyers;
+                        break;
+                    case BusinessType.Restaurant:
+                        item.Category = BusinessSearchCategory.FoodAndBeverage;
+                        break;
+                    case BusinessType.ServiceProviders:
+                        // TODO : Similar to BusinessType.Other
+                        break;
+                    case BusinessType.Shopkeepers:
+                        item.Category = BusinessSearchCategory.Retail;
+                        break;
+                    case BusinessType.Support:
+                        item.Category = BusinessSearchCategory.SupportInformation;
+                        break;
+                    case BusinessType.Other:
+                        #region Other
+                        var categoryDet = item.Descriptions[0].ToLower();
+                        if (categoryDet.Contains("sports"))
+                        {
+                            item.Category = BusinessSearchCategory.SportFitness;
+                        }
 
-                if (categoryDet.Contains("window blinds") || categoryDet.Contains("storage") || categoryDet.Contains("moving supplies") || categoryDet.Contains("duct system"))
-                {
-                    item.Category = BusinessSearchCategory.HomeGoodsAndServices;
-                }
+                        if (categoryDet.Contains("window blinds") || categoryDet.Contains("storage") || categoryDet.Contains("moving supplies") || categoryDet.Contains("duct system"))
+                        {
+                            item.Category = BusinessSearchCategory.HomeServices;
+                        }
 
-                if (categoryDet.Contains("lesson"))
-                {
-                    item.Category = BusinessSearchCategory.Lessons;
-                }
+                        if (categoryDet.Contains("lesson"))
+                        {
+                            item.Category = BusinessSearchCategory.Lessons;
+                        }
 
-                if (categoryDet.Contains("to eat") || categoryDet.Contains("bakery") || categoryDet.Contains("catering") || categoryDet.Contains("snack") || 
-                    categoryDet.Contains("beverage")|| categoryDet.Contains("candy") || categoryDet.Contains("butcher"))
-                {
-                    item.Category = BusinessSearchCategory.FoodAndBeverage;
-                }
+                        if (categoryDet.Contains("to eat") || categoryDet.Contains("bakery") || categoryDet.Contains("catering") || categoryDet.Contains("snack") ||
+                            categoryDet.Contains("beverage") || categoryDet.Contains("candy") || categoryDet.Contains("butcher"))
+                        {
+                            item.Category = BusinessSearchCategory.FoodAndBeverage;
+                        }
 
-                if (categoryDet.Contains("message") || categoryDet.Contains("audiologist") || categoryDet.Contains("dermatolog") || categoryDet.Contains("health care") ||
-                    categoryDet.Contains("pedorth") || categoryDet.Contains("sleep coach") || categoryDet.Contains("horolog"))
-                {
-                    item.Category = BusinessSearchCategory.Healthcare;
-                }
+                        if (categoryDet.Contains("message") || categoryDet.Contains("audiologist") || categoryDet.Contains("dermatolog") || categoryDet.Contains("health care") ||
+                            categoryDet.Contains("pedorth") || categoryDet.Contains("sleep coach") || categoryDet.Contains("horolog"))
+                        {
+                            item.Category = BusinessSearchCategory.Healthcare;
+                        }
 
-                if (categoryDet.Contains("running") || categoryDet.Contains("buy & sell") || categoryDet.Contains("movies") || categoryDet.Contains("games") ||
-                    categoryDet.Contains("antique"))
-                {
-                    item.Category = BusinessSearchCategory.Retail;
-                }
+                        if (categoryDet.Contains("running") || categoryDet.Contains("buy & sell") || categoryDet.Contains("movies") || categoryDet.Contains("games") ||
+                            categoryDet.Contains("antique"))
+                        {
+                            item.Category = BusinessSearchCategory.Retail;
+                        }
 
-                if (categoryDet.Contains("equipment") || categoryDet.Contains("swimming pools") || categoryDet.Contains("sandblasting"))
-                {
-                    item.Category = BusinessSearchCategory.Supplies;
-                }
+                        if (categoryDet.Contains("equipment") || categoryDet.Contains("swimming pools") || categoryDet.Contains("sandblasting"))
+                        {
+                            item.Category = BusinessSearchCategory.Supplies;
+                        }
 
-                if (categoryDet.Contains("tires") || categoryDet.Contains("mechanic") || categoryDet.Contains("car care") || categoryDet.Contains("vehicles") ||
-                    categoryDet.Contains("alignments") || categoryDet.Contains("car dealership") || categoryDet.Contains("motorcycle") || categoryDet.Contains("auto parts") || 
-                    categoryDet.Contains("truck parts") || categoryDet.Contains("dump trailers"))
-                {
-                    item.Category = BusinessSearchCategory.AutoVehicle;
-                }
+                        if (categoryDet.Contains("tires") || categoryDet.Contains("mechanic") || categoryDet.Contains("car care") || categoryDet.Contains("vehicles") ||
+                            categoryDet.Contains("alignments") || categoryDet.Contains("car dealership") || categoryDet.Contains("motorcycle") || categoryDet.Contains("auto parts") ||
+                            categoryDet.Contains("truck parts") || categoryDet.Contains("dump trailers"))
+                        {
+                            item.Category = BusinessSearchCategory.AutoVehicle;
+                        }
 
-                if (categoryDet.Contains("attorney") || categoryDet.Contains("lawyer"))
-                {
-                    item.Category = BusinessSearchCategory.Lawyers;
-                }
+                        if (categoryDet.Contains("attorney") || categoryDet.Contains("lawyer"))
+                        {
+                            item.Category = BusinessSearchCategory.Lawyers;
+                        }
 
-                if (categoryDet.Contains("hacking") || categoryDet.Contains("financial") || categoryDet.Contains("cleaning") || categoryDet.Contains("consulting") ||
-                    categoryDet.Contains("fire escape") || categoryDet.Contains("banking") || categoryDet.Contains("memorials") || categoryDet.Contains("recycling"))
-                {
-                    item.Category = BusinessSearchCategory.Services;
-                }
+                        if (categoryDet.Contains("hacking") || categoryDet.Contains("financial") || categoryDet.Contains("cleaning") || categoryDet.Contains("consulting") ||
+                            categoryDet.Contains("fire escape") || categoryDet.Contains("banking") || categoryDet.Contains("memorials") || categoryDet.Contains("recycling"))
+                        {
+                            item.Category = BusinessSearchCategory.Services;
+                        }
 
-                if (categoryDet.Contains("movie house") || categoryDet.Contains("drive-in") || categoryDet.Contains("gravesite") || categoryDet.Contains("museum") ||
-                    categoryDet.Contains("black history") || categoryDet.Contains("arcade") || categoryDet.Contains("amusement") || categoryDet.Contains("convention"))
-                {
-                    item.Category = BusinessSearchCategory.EntertainmentAttractions;
-                }
+                        if (categoryDet.Contains("movie house") || categoryDet.Contains("drive-in") || categoryDet.Contains("gravesite") || categoryDet.Contains("museum") ||
+                            categoryDet.Contains("black history") || categoryDet.Contains("arcade") || categoryDet.Contains("amusement") || categoryDet.Contains("convention"))
+                        {
+                            item.Category = BusinessSearchCategory.EntertainmentAttractions;
+                        }
 
-                if (categoryDet.Contains("salon") || categoryDet.Contains("tattoo") || categoryDet.Contains("hair") || categoryDet.Contains("beauty"))
-                {
-                    item.Category = BusinessSearchCategory.Salons;
-                }
+                        if (categoryDet.Contains("salon") || categoryDet.Contains("tattoo") || categoryDet.Contains("hair") || categoryDet.Contains("beauty"))
+                        {
+                            item.Category = BusinessSearchCategory.Salons;
+                        }
 
-                if (categoryDet.Contains("veterina") || categoryDet.Contains("pets") || categoryDet.Contains("fish"))
-                {
-                    item.Category = BusinessSearchCategory.PetAnimal;
-                }
+                        if (categoryDet.Contains("veterina") || categoryDet.Contains("pets") || categoryDet.Contains("fish"))
+                        {
+                            item.Category = BusinessSearchCategory.PetAnimal;
+                        }
 
-                if (categoryDet.Contains("adoption") || categoryDet.Contains("civil rights") || categoryDet.Contains("law enforcement"))
-                {
-                    item.Category = BusinessSearchCategory.HumanServices;
-                }
+                        if (categoryDet.Contains("adoption") || categoryDet.Contains("civil rights") || categoryDet.Contains("law enforcement"))
+                        {
+                            item.Category = BusinessSearchCategory.HumanServices;
+                        }
 
-                if (categoryDet.Contains("public transport"))
-                {
-                    item.Category = BusinessSearchCategory.PublicServices;
+                        if (categoryDet.Contains("public transport"))
+                        {
+                            item.Category = BusinessSearchCategory.PublicServices;
+                        }
+                        #endregion
+                        break;
+                    default:
+                        break;
                 }
+                
 
                 businessCollection.FindOneAndReplace<BusinessListing>(l => l.Id == item.Id, item);
 
