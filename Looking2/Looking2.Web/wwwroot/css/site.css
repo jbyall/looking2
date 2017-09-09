@@ -81,3 +81,13 @@ textarea {
 hr.resultsRule {
     margin-top: 4px;
 }
+
+@media screen and (max-width: 1000px){
+    .col-md-3{
+        text-align: left !important;
+    }
+
+    .col-md-7 {
+        padding-left: 8%;
+    }
+}
