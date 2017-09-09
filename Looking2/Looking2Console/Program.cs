@@ -15,6 +15,10 @@ namespace Looking2Console
     {
         static void Main(string[] args)
         {
+            // TODO : Pull latest from prod and run this script to update categories as needed.
+            // Then, push the updates to prod
+            // ALSO - Update Listing create to add appropriate category
+
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             var db = client.GetDatabase("looking2");
             addCategoryToBusinesses(client, db);
