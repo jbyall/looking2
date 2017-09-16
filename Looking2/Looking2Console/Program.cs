@@ -19,8 +19,8 @@ namespace Looking2Console
             // Then, push the updates to prod
             // ALSO - Update Listing create to add appropriate category
 
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            //MongoClient client = new MongoClient("mongodb://ec2-34-228-29-104.compute-1.amazonaws.com:27017");
+            //MongoClient client = new MongoClient("mongodb://localhost:27017");
+            MongoClient client = new MongoClient("mongodb://ec2-34-228-29-104.compute-1.amazonaws.com:27017");
             var db = client.GetDatabase("looking2");
 
             doMigration(client, db);

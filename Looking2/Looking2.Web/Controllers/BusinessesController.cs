@@ -179,14 +179,17 @@ namespace Looking2.Web.Controllers
                 {
                     case BusinessType.Artists:
                         model.FormData = formsRepo.GetByName("ArtistsCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.Art);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.HealthCare:
                         model.FormData = formsRepo.GetByName("HealthCareCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.Healthcare);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.AltHealthCare:
                         model.FormData = formsRepo.GetByName("AltHealthCareCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.HealthcareAlt);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Information:
@@ -197,14 +200,17 @@ namespace Looking2.Web.Controllers
                         break;
                     case BusinessType.Instruction:
                         model.FormData = formsRepo.GetByName("InstructionCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.Lessons);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Lawyers:
                         model.FormData = formsRepo.GetByName("LawyersCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.Lawyers);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Restaurant:
                         model.FormData = formsRepo.GetByName("RestaurantCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.FoodAndBeverage);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.ServiceProviders:
@@ -215,10 +221,13 @@ namespace Looking2.Web.Controllers
                         break;
                     case BusinessType.Shopkeepers:
                         model.FormData = formsRepo.GetByName("ShopkeepersCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.Retail);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Support:
                         model.FormData = formsRepo.GetByName("SupportCreate");
+                        model.Listing.Categories.Add(BusinessSearchCategory.SupportInformation);
+                        model.Listing.Categories.Add(BusinessSearchCategory.All);
                         //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Other:
@@ -235,6 +244,8 @@ namespace Looking2.Web.Controllers
             else
             {
                 model.FormData = formsRepo.GetByName("OtherCreate");
+                model.Listing.Categories.Add(BusinessSearchCategory.All);
+                model.Listing.Categories.Add(BusinessSearchCategory.All);
                 //model.Listing.BusinessDescription = EventDescription.Other.ToString();
             }
 
