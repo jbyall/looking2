@@ -71,56 +71,38 @@ namespace Looking2.Web.Domain
     public enum BusinessSearchCategory
     {
         All = 0,
-
         Art = 1,
-
         [Display(Name = "Auto/Vehicle")]
         AutoVehicle = 2,
-
         [Display(Name = "Entertainment & Attractions")]
         EntertainmentAttractions = 3,
-
         [Display(Name = "Healthcare - Traditional")]
         Healthcare = 4,
-
         [Display(Name = "Healthcare - Alternative")]
         HealthcareAlt = 5,
-
         [Display(Name = "Instruction & Education")]
         Lessons = 6,
-
         [Display(Name = "Lawyers")]
         Lawyers = 7,
-
         Music = 8,
-
         [Display(Name = "Pet & Animal")]
         PetAnimal = 9,
-
         [Display(Name = "Restaurant, Food & Drink")]
         FoodAndBeverage = 10,
-
         [Display(Name = "Retail & Shops")]
         Retail = 11,
-
         [Display(Name = "Salons, Parlors, Beauty")]
         Salons = 12,
-
         [Display(Name = "Services - General")]
         GeneralServices = 13,
-
         [Display(Name = "Services - Home")]
         HomeServices = 14,
-
         [Display(Name = "Services - Human")]
         HumanServices = 15,
-
         [Display(Name = "Services - Public")]
         PublicServices = 16,
-
         [Display(Name = "Sports & Fitness")]
         SportFitness = 17,
-
         [Display(Name = "Supplies")]
         Supplies = 18,
 

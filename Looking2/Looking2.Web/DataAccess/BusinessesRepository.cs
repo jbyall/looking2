@@ -38,7 +38,7 @@ namespace Looking2.Web.DataAccess
             // Category only search
             if (criteria.CategoryFilter > 0 && criteria.DetailFilters.Count < 1 && string.IsNullOrWhiteSpace(criteria.LocationFilter))
             {
-                return this.Collection.Find(new BsonDocument("Category", criteria.CategoryFilter)).ToList();
+                return this.Collection.Find(new BsonDocument("Categories", criteria.CategoryFilter)).ToList();
             }
 
             //Construct description, title, venue search
