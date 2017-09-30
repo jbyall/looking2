@@ -67,7 +67,7 @@ namespace Looking2.Web.DataAccess
             var andFilters = new List<FilterDefinition<BusinessListing>>();
             if (criteria.CategoryFilter > 0)
             {
-                andFilters.Add(new BsonDocument("Category", criteria.CategoryFilter));
+                andFilters.Add(new BsonDocument("Categories", criteria.CategoryFilter));
             }
 
             if (criteria.DetailFilters.Count > 0)

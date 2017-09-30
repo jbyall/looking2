@@ -87,69 +87,69 @@ namespace Looking2.Web.Domain
         Music = 8,
         [Display(Name = "Pet & Animal")]
         PetAnimal = 9,
-        [Display(Name = "Restaurant, Food & Drink")]
+        [Display(Name = "Restaurants, Food & Drink")]
         FoodAndBeverage = 10,
         [Display(Name = "Retail & Shops")]
         Retail = 11,
         [Display(Name = "Salons, Parlors, Beauty")]
         Salons = 12,
-        [Display(Name = "Services - General")]
-        GeneralServices = 13,
-        [Display(Name = "Services - Home")]
-        HomeServices = 14,
-        [Display(Name = "Services - Human")]
-        HumanServices = 15,
-        [Display(Name = "Services - Public")]
-        PublicServices = 16,
+        Services = 13,
         [Display(Name = "Sports & Fitness")]
-        SportFitness = 17,
+        SportFitness = 14,
         [Display(Name = "Supplies")]
-        Supplies = 18,
-
+        Supplies = 15,
         [Display(Name = "Support & Information")]
-        SupportInformation = 19
+        SupportInformation = 16
+        //[Display(Name = "Services - General")]
+        //GeneralServices = 13,
+        //[Display(Name = "Services - Home")]
+        //HomeServices = 14,
+        //[Display(Name = "Services - Human")]
+        //HumanServices = 15,
+        //[Display(Name = "Services - Public")]
+        //PublicServices = 16,
     }
 
-    public enum ServiceCategory
-    {
-        All = BusinessSearchCategory.All,
-        [Display(Name = "Auto/Vehicle")]
-        AutoVehicle = BusinessSearchCategory.AutoVehicle,
+    //public enum ServiceCategory
+    //{
+    //    All = BusinessSearchCategory.All,
+    //    [Display(Name = "Auto/Vehicle")]
+    //    AutoVehicle = BusinessSearchCategory.AutoVehicle,
 
-        [Display(Name = "Healthcare - Traditional")]
-        Healthcare = BusinessSearchCategory.Healthcare,
+    //    [Display(Name = "Healthcare - Traditional")]
+    //    Healthcare = BusinessSearchCategory.Healthcare,
 
-        [Display(Name = "Healthcare - Alternative")]
-        HealthcareAlt = BusinessSearchCategory.HealthcareAlt,
+    //    [Display(Name = "Healthcare - Alternative")]
+    //    HealthcareAlt = BusinessSearchCategory.HealthcareAlt,
 
-        [Display(Name = "Instruction & Education")]
-        InstructionEducation = BusinessSearchCategory.Lessons,
+    //    [Display(Name = "Instruction & Education")]
+    //    InstructionEducation = BusinessSearchCategory.Lessons,
 
-        [Display(Name = "Lawyers")]
-        Lawyers = BusinessSearchCategory.Lawyers,
+    //    [Display(Name = "Lawyers")]
+    //    Lawyers = BusinessSearchCategory.Lawyers,
 
-        [Display(Name = "Pet & Animal")]
-        PetAnimal = BusinessSearchCategory.PetAnimal,
+    //    [Display(Name = "Pet & Animal")]
+    //    PetAnimal = BusinessSearchCategory.PetAnimal,
 
-        [Display(Name = "Restaurant, Food & Drink")]
-        FoodAndBeverage = BusinessSearchCategory.FoodAndBeverage,
+    //    [Display(Name = "Restaurant, Food & Drink")]
+    //    FoodAndBeverage = BusinessSearchCategory.FoodAndBeverage,
 
-        [Display(Name = "Services - General")]
-        GeneralServices = BusinessSearchCategory.GeneralServices,
+    //    [Display(Name = "Services - General")]
+    //    GeneralServices = BusinessSearchCategory.GeneralServices,
 
-        [Display(Name = "Services - Home")]
-        HomeServices = BusinessSearchCategory.HomeServices,
+    //    [Display(Name = "Services - Home")]
+    //    HomeServices = BusinessSearchCategory.HomeServices,
 
-        [Display(Name = "Services - Human")]
-        HumanServices = BusinessSearchCategory.HumanServices,
+    //    [Display(Name = "Services - Human")]
+    //    HumanServices = BusinessSearchCategory.HumanServices,
 
-        [Display(Name = "Services - Public")]
-        PublicServices = BusinessSearchCategory.PublicServices,
+    //    [Display(Name = "Services - Public")]
+    //    PublicServices = BusinessSearchCategory.PublicServices,
 
-        [Display(Name = "Sports & Fitness")]
-        SportFitness = BusinessSearchCategory.SportFitness,
+    //    [Display(Name = "Sports & Fitness")]
+    //    SportFitness = BusinessSearchCategory.SportFitness,
 
-        [Display(Name = "Support & Information")]
-        SupportInformation = BusinessSearchCategory.SupportInformation,
-    }
+    //    [Display(Name = "Support & Information")]
+    //    SupportInformation = BusinessSearchCategory.SupportInformation,
+    //}
 }
