@@ -42,38 +42,46 @@ namespace Looking2.Web
 
         public static string ParseListingLocation(List<string> locations)
         {
-            if (locations == null)
+            try
+            {
+                if (locations == null)
+                {
+                    return "";
+                }
+                string result = "";
+                var count = locations.Count;
+                switch (count)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        result += locations[0];
+                        break;
+                    default:
+                        if (locations[0].ToLower().Contains("online"))
+                        {
+                            result += string.Format("{0} | {1}", locations[0], locations[1]);
+                        }
+                        else
+                        {
+                            result += string.Format("{0} ({1})", locations[0], locations[1]);
+                        }
+                        break;
+
+                }
+
+                for (int i = 2; i < count; i++)
+                {
+                    result += " | " + locations[i];
+                }
+
+                return result;
+            }
+            catch (Exception)
             {
                 return "";
             }
-            string result = "";
-            var count = locations.Count;
-            switch (count)
-            {
-                case 0:
-                    break;
-                case 1:
-                    result += locations[0];
-                    break;
-                default:
-                    if (locations[0].ToLower().Contains("online"))
-                    {
-                        result += string.Format("{0} | {1}", locations[0], locations[1]);
-                    }
-                    else
-                    {
-                        result += string.Format("{0} ({1})", locations[0], locations[1]);
-                    }
-                    break;
-
-            }
-
-            for (int i = 2; i < count; i++)
-            {
-                result += " | " + locations[i];
-            }
-
-            return result;
+            
         }
 
         public static string ParseBusinessTitle(List<string> titles)

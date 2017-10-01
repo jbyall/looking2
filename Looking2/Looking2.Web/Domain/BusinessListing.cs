@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace Looking2.Web.Domain
 {
-    
     public class BusinessListing : Listing
     {
+        public BusinessListing() : base()
+        {
+            this.Categories = new List<BusinessSearchCategory>();
+        }
         public string Brag { get; set; }
         public string LongDescription { get; set; }
         public BusinessType BusinessType { get; set; }
+        public List<BusinessSearchCategory> Categories { get; set; }
 
         /// <summary>
         /// Manipulate properties for data entry.

@@ -19,40 +19,15 @@
         {
             string businessType = item.Name;
         <div class="row">
-            <div class="col-md-3 right-column">
+            <div class="col-md-3 text-right">
                 <a asp-action="Create" asp-controller="Businesses" asp-route-businessType="@businessType">@item.DisplayName</a>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-7">
                 <p>@item.Description</p>
             </div>
         </div>
         }
 
     }
-
-    <div class="row">
-        <div class="col-md-3 right-column">
-            <h3>Coming Soon:</h3>
-        </div>
-        <div class="col-md-9">
-
-        </div>
-    </div>
-
-    @foreach (var item in Model)
-    {
-        if (!item.Active)
-        {
-        <div class="row">
-            <div class="col-md-3 right-column">
-                <p><bold>@item.DisplayName</bold></p>
-            </div>
-            <div class="col-md-9">
-                <p>@item.Description</p>
-            </div>
-        </div>
-        }
-    }
-
 </div>
 

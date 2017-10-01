@@ -11,6 +11,7 @@
         </div>
     </div>
     <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Listing.Categories[0])
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         @*TODO: make view more generic and add if string.null to check model for which fields to display*@
@@ -35,6 +36,19 @@
                 </div>
             </div>
         }
+
+        @if (Model.Listing.BusinessType == BusinessType.Information || Model.Listing.BusinessType == BusinessType.Other)
+        {
+            <div class="form-group">
+                <label class="col-md-4 control-label">Please select a category for better searching:</label>
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.Listing.Categories[1], Html.GetEnumSelectList(typeof(BusinessSearchCategory)), new { @class="form-control"})
+                    @*<select asp-for="Listing.Categories[1]" class="form-control" asp-items="@Html.GetEnumSelectList<Looking2.Web.Domain.BusinessSearchCategory>()"></select>*@
+                    <span asp-validation-for="Listing.Categories[1]" class="text-danger"></span>
+                </div>
+            </div>
+        }
+
 
         @if (!string.IsNullOrWhiteSpace(Model.FormData.Description0Label))
         {

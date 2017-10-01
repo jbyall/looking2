@@ -24,16 +24,16 @@ namespace Looking2.Web.Controllers
             this.formsRepo = _formsRepo;
         }
 
-        public IActionResult Search(string textQuery, string locationQuery)
+        public IActionResult Search(string textQuery, string locationQuery, string categoryQuery)
         {
             var searchResults = new List<BusinessListing>();
-            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery))
+            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery) && categoryQuery == "0")
             {
                 searchResults = businessRepo.GetAll().ToList();
             }
             else
             {
-                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery);
+                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, categoryQuery);
                 searchResults = businessRepo.SearchListings(criteria);
             }
 
@@ -60,7 +60,7 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult CategoryIndex()
         {
-            var eventCategories = categoryRepo.GetByType(ListingCategory.Business).OrderBy(c => c.DisplayName);
+            var eventCategories = categoryRepo.GetByType(ListingCategory.Business).OrderBy(c => c.DisplayOrder);
             return View(eventCategories);
         }
 
@@ -68,13 +68,17 @@ namespace Looking2.Web.Controllers
         public IActionResult Create(string businessType)
         {
             var model = getModelByBusinessType(businessType);
+            model.Listing.Categories.AddRange(ListingHelper.GetCategories(model.Listing));
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Create(BusinessViewModel model)
         {
-            businessRepo.Add(model.Listing);
+            var listing = model.Listing;
+            var categories = ListingHelper.GetCategories(listing);
+            listing.Categories.AddRange(categories);
+            businessRepo.Add(listing);
             return RedirectToAction("CreateLocation", new { id = model.Listing.Id.ToString() });
         }
 
@@ -179,43 +183,33 @@ namespace Looking2.Web.Controllers
                 {
                     case BusinessType.Artists:
                         model.FormData = formsRepo.GetByName("ArtistsCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.HealthCare:
                         model.FormData = formsRepo.GetByName("HealthCareCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.AltHealthCare:
                         model.FormData = formsRepo.GetByName("AltHealthCareCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Information:
                         model.FormData = formsRepo.GetByName("InformationCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Instruction:
                         model.FormData = formsRepo.GetByName("InstructionCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Lawyers:
                         model.FormData = formsRepo.GetByName("LawyersCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Restaurant:
                         model.FormData = formsRepo.GetByName("RestaurantCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.ServiceProviders:
                         model.FormData = formsRepo.GetByName("ServiceProvidersCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Shopkeepers:
                         model.FormData = formsRepo.GetByName("ShopkeepersCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Support:
                         model.FormData = formsRepo.GetByName("SupportCreate");
-                        //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                         break;
                     case BusinessType.Other:
                         model.FormData = formsRepo.GetByName("OtherCreate");
@@ -223,13 +217,12 @@ namespace Looking2.Web.Controllers
                     default:
                         break;
                 }
-                //model.Listing.BusinessDescription = EventDescription.Other.ToString();
                 model.Listing.BusinessType = type;
             }
             else
             {
                 model.FormData = formsRepo.GetByName("OtherCreate");
-                //model.Listing.BusinessDescription = EventDescription.Other.ToString();
+                model.Listing.Categories.Add(BusinessSearchCategory.All);
             }
 
             //create empty fields for view

@@ -94,9 +94,7 @@ namespace Looking2.Web
             _eventForms.Db.DropCollection("eventforms");
             _businessForms.Db.DropCollection("businessforms");
         }
-
-
-
+        
         private static List<Category> GetSeedCategories()
         {
             var seedRepo = new SeedRepository();

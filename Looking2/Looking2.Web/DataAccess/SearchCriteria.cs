@@ -12,8 +12,20 @@ namespace Looking2.Web.DataAccess
     }
     public class SearchCriteria
     {
-        public SearchCriteria(string titleFilter, string locationFilter, string descriptionFilter, string venueFilter = null, int maxResults = 100)
+        public SearchCriteria(string titleFilter, string locationFilter, string descriptionFilter, string categoryFilter = null, string venueFilter = null, int maxResults = 100)
         {
+            if (!string.IsNullOrWhiteSpace(categoryFilter))
+            {
+                int catInt;
+                if (int.TryParse(categoryFilter, out catInt))
+                {
+                    this.CategoryFilter = catInt;
+                }
+                else
+                {
+                    this.CategoryFilter = 0;
+                }
+            }
             this.DetailFilters = new List<TextFieldSearch>();
             if (!string.IsNullOrWhiteSpace(titleFilter))
             {
@@ -36,6 +48,7 @@ namespace Looking2.Web.DataAccess
 
         public List<TextFieldSearch> DetailFilters { get; set; }
         public string LocationFilter { get; set; }
+        public int CategoryFilter { get; set; }
         public int MaxResults { get; set; }
         public int Skip { get; set; }
 

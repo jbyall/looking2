@@ -1,4 +1,6 @@
-﻿body {
+﻿
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -80,4 +82,18 @@ textarea {
 
 hr.resultsRule {
     margin-top: 4px;
+}
+
+@media screen and (max-width: 1000px){
+    .col-md-3{
+        text-align: left !important;
+    }
+
+    .col-md-7 {
+        padding-left: 8%;
+    }
+
+    .right-column{
+        text-align:left;
+    }
 }
