@@ -39,7 +39,8 @@ namespace Looking2.Web.Controllers
             }
 
             var viewListings = new List<EventViewModel>();
-            foreach (var item in searchResults)
+            var currentEvents = searchResults.Where(e => e.Date > DateTime.Today.AddDays(-1)).OrderBy(e => e.Date).ToList();
+            foreach (var item in currentEvents)
             {
                 viewListings.Add(new EventViewModel(item));
             }
@@ -49,7 +50,7 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var listings = eventsRepo.GetAll();
+            var listings = eventsRepo.GetAll().Where(e => e.Date > DateTime.Today.AddDays(-1)).OrderBy(e => e.Date);
             var viewListings = new List<EventViewModel>();
             foreach (var item in listings)
             {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Looking2.Web
@@ -52,8 +53,11 @@ namespace Looking2.Web
                 default:
                     break;
             }
-            result.AddRange(getAdditionalCategories(business.Descriptions[0]));
-            result.AddRange(getAdditionalCategories(business.Titles[0]));
+
+            result.AddRange(getAdditionalCategories(DisplayHelper.ParseListingDescription(business.Descriptions)));
+            result.AddRange(getAdditionalCategories(DisplayHelper.ParseBusinessTitle(business.Titles)));
+            //result.AddRange(getAdditionalCategories(business.Descriptions[0]));
+            //result.AddRange(getAdditionalCategories(business.Titles[0]));
             return result;
             
         }
@@ -129,7 +133,9 @@ namespace Looking2.Web
                 result.Add(BusinessSearchCategory.Salons);
             }
 
-            if (categoryDeterminator.Contains("veterina") || categoryDeterminator.Contains("pets") || categoryDeterminator.Contains("fish"))
+            var eatPattern = @"\beat\b";
+            var foodPattern = @"\bfood\b";
+            if (!Regex.IsMatch(categoryDeterminator,eatPattern) && !Regex.IsMatch(categoryDeterminator, foodPattern) && (categoryDeterminator.Contains("veterina") || categoryDeterminator.Contains("pets") || categoryDeterminator.Contains("fish")))
             {
                 result.Add(BusinessSearchCategory.PetAnimal);
             }
@@ -149,9 +155,18 @@ namespace Looking2.Web
                 result.Add(BusinessSearchCategory.Music);
             }
 
-            if (categoryDeterminator.Contains(" art "))
+            var artPattern = @"\bart\b";
+            if (Regex.IsMatch(categoryDeterminator, artPattern))
             {
                 result.Add(BusinessSearchCategory.Art);
+            }
+
+            var coachPattern = @"\bcoach\b";
+            var coachingPattern = @"\bcoaching\b";
+            var supportPattern = @"\bsupport\b";
+            if (Regex.IsMatch(categoryDeterminator, coachingPattern) || Regex.IsMatch(categoryDeterminator, coachPattern) || Regex.IsMatch(categoryDeterminator, supportPattern))
+            {
+                result.Add(BusinessSearchCategory.SupportInformation);
             }
 
             return result;
