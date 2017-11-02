@@ -21,8 +21,8 @@
             @{
                 var id = Model.Id;
             }
-            @*@if (User.IsInRole("admin"))*@
-            
+            @if (User.IsInRole("admin"))
+            {
                 <div class="col-md-2">
                     <a asp-action="Edit" asp-route-id="@id">Edit Listing</a>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
                 </div>
-            
+            }
         </div>
     </div>
 
