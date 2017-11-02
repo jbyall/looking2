@@ -47,6 +47,8 @@ namespace Looking2.Web.DataAccess
 
         public virtual T Add(T entity)
         {
+            entity.Created = DateTime.Now;
+            entity.Modified = DateTime.Now;
             this.Collection.InsertOne(entity);
             return entity;
         }
@@ -63,6 +65,7 @@ namespace Looking2.Web.DataAccess
 
         public T Update(T entity)
         {
+            entity.Modified = DateTime.Now;
             return this.Collection.FindOneAndReplace<T>(o => o.Id == entity.Id, entity);
         }
 

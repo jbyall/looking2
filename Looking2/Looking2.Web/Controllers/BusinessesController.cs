@@ -268,6 +268,7 @@ namespace Looking2.Web.Controllers
                     model.FormData = formsRepo.GetByName("SupportCreate");
                     break;
                 default:
+                    model.FormData = formsRepo.GetByName("OtherCreate");
                     break;
             }
             model.Listing.Initialize();
