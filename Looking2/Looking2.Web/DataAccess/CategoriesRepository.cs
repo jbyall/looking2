@@ -10,6 +10,7 @@ namespace Looking2.Web.DataAccess
     public interface ICategoriesRepository : IRepository<Category>
     {
         IEnumerable<Category> GetByType(ListingCategory type);
+        IEnumerable<Category> GetByName(string name);
     }
 
     public class CategoriesRepository : Repository<Category>, ICategoriesRepository
@@ -22,6 +23,11 @@ namespace Looking2.Web.DataAccess
         public IEnumerable<Category> GetByType(ListingCategory type)
         {
             return this.Collection.AsQueryable().Where(c => c.Type == type);
+        }
+
+        public IEnumerable<Category> GetByName(string name)
+        {
+            return this.Collection.AsQueryable().Where(c => c.Name.ToLower() == name.ToLower());
         }
     }
 }

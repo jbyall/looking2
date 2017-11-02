@@ -36,48 +36,81 @@ namespace Looking2.Web.Controllers
         }
         public IActionResult Index()
         {
+            ViewData["MigrationSummary"] = "Change display text of individual artist category";
             return View();
         }
-        public IActionResult SeedCategories()
+
+        public IActionResult RunMigration()
         {
-            Seed.SeedCategories(categoriesRepo);
-            return Content("Categories seeded successfully");
+            var results = categoriesRepo.GetByName("artistindividual").ToList();
+            if (results.Count != 1)
+            {
+                ViewData["Result"] = "Found multiple categories, did not run migration";
+            }
+            else
+            {
+                var catToUpdate = results.First();
+                catToUpdate.Description = "for those performing without other acts";
+                var updateResult = categoriesRepo.Update(catToUpdate);
+
+                //Validate
+                if (catToUpdate.Name != updateResult.Name ||
+                    catToUpdate.DisplayName != updateResult.DisplayName ||
+                    catToUpdate.Type != updateResult.Type ||
+                    catToUpdate.DisplayOrder != updateResult.DisplayOrder ||
+                    catToUpdate.Active != updateResult.Active)
+                {
+                    ViewData["Result"] = "Something happened. Do a double check";
+                }
+                else
+                {
+                    ViewData["Result"] = "Success";
+                }
+            }
+            return View();
+
         }
 
-        public IActionResult SeedForms()
-        {
-            Seed.SeedForms(businessForms, eventForms);
-            return Content("Forms seeded successfully");
-        }
+        //public IActionResult SeedCategories()
+        //{
+        //    Seed.SeedCategories(categoriesRepo);
+        //    return Content("Categories seeded successfully");
+        //}
 
-        public IActionResult SeedBusinesses()
-        {
-            Seed.SeedBusinesses(businessRepo);
-            return Content("Businesses seeded successfully");
-        }
+        //public IActionResult SeedForms()
+        //{
+        //    Seed.SeedForms(businessForms, eventForms);
+        //    return Content("Forms seeded successfully");
+        //}
 
-        public IActionResult SeedEvents()
-        {
-            Seed.SeedEvents(eventRepo);
-            return Content("Events seeded successfully");
-        }
+        //public IActionResult SeedBusinesses()
+        //{
+        //    Seed.SeedBusinesses(businessRepo);
+        //    return Content("Businesses seeded successfully");
+        //}
 
-        public IActionResult SeedAll()
-        {
-            Seed.SeedAll(categoriesRepo, businessForms, eventForms, eventRepo, businessRepo);
-            return Content("All done.");
-        }
+        //public IActionResult SeedEvents()
+        //{
+        //    Seed.SeedEvents(eventRepo);
+        //    return Content("Events seeded successfully");
+        //}
 
-        public IActionResult DropListingCollections()
-        {
-            Seed.DropListingCollections(categoriesRepo, eventRepo, businessRepo);
-            return Content("Listing collections dropped");
-        }
+        //public IActionResult SeedAll()
+        //{
+        //    Seed.SeedAll(categoriesRepo, businessForms, eventForms, eventRepo, businessRepo);
+        //    return Content("All done.");
+        //}
 
-        public IActionResult DropFormCollections()
-        {
-            Seed.DropFormCollections(eventForms, businessForms);
-            return Content("Form collections dropped");
-        }
+        //public IActionResult DropListingCollections()
+        //{
+        //    Seed.DropListingCollections(categoriesRepo, eventRepo, businessRepo);
+        //    return Content("Listing collections dropped");
+        //}
+
+        //public IActionResult DropFormCollections()
+        //{
+        //    Seed.DropFormCollections(eventForms, businessForms);
+        //    return Content("Form collections dropped");
+        //}
     }
 }
