@@ -1,5 +1,5 @@
 @model EventViewModel
-@{ 
+@{
     ViewData["Title"] = "Event Details";
 }
 
@@ -13,7 +13,12 @@
         <div class="col-md-2 ">
             <a asp-action="Index">Back to List</a>
         </div>
-            @{ 
+
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-6">
+            @{
                 var id = Model.Id;
             }
             @if (User.IsInRole("admin"))
@@ -27,4 +32,6 @@
                     <a asp-action="Delete" asp-route-id="@id">Delete Listing</a>
                 </div>
             }
+        </div>
+    </div>
 </div>
