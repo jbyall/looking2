@@ -26,16 +26,8 @@ namespace Looking2.Web.Controllers
 
         public IActionResult Search(string textQuery, string locationQuery, string categoryQuery)
         {
-            var searchResults = new List<BusinessListing>();
-            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery) && categoryQuery == "0")
-            {
-                searchResults = businessRepo.GetAll().ToList();
-            }
-            else
-            {
-                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, categoryQuery);
-                searchResults = businessRepo.SearchListings(criteria);
-            }
+            SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, categoryQuery);
+            var searchResults = businessRepo.SearchListings(criteria);
 
             var viewListings = new List<BusinessViewModel>();
             foreach (var item in searchResults)
@@ -48,7 +40,7 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var listings = businessRepo.GetAll();
+            var listings = businessRepo.GetByStatus(ListingStatus.Active);
             var viewListings = new List<BusinessViewModel>();
             foreach (var item in listings)
             {
@@ -150,7 +142,7 @@ namespace Looking2.Web.Controllers
                 {
                     listing.Location.Add(item);
                 }
-                
+
             }
             listing = businessRepo.Update(listing);
             return RedirectToAction("Review", new { id = listing.Id.ToString() });

@@ -25,18 +25,18 @@ namespace Looking2.Web.Controllers
             this.formsRepo = _formsRepo;
         }
 
-        public IActionResult Search(string textQuery, string locationQuery)
+        public IActionResult Search(string textQuery, string venueQuery, string locationQuery)
         {
             var searchResults = new List<EventListing>();
-            if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery))
-            {
-                searchResults = eventsRepo.GetAll().ToList();
-            }
-            else
-            {
-                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, textQuery);
+            //if (string.IsNullOrWhiteSpace(textQuery) && string.IsNullOrWhiteSpace(locationQuery))
+            //{
+            //    searchResults = eventsRepo.GetAll().ToList();
+            //}
+            //else
+            //{
+                SearchCriteria criteria = new SearchCriteria(textQuery, locationQuery, textQuery, null, venueQuery);
                 searchResults = eventsRepo.SearchListings(criteria);
-            }
+            //}
 
             var viewListings = new List<EventViewModel>();
             var currentEvents = searchResults.Where(e => e.Date > DateTime.Today.AddDays(-1)).OrderBy(e => e.Date).ToList();
@@ -50,7 +50,10 @@ namespace Looking2.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var listings = eventsRepo.GetAll().Where(e => e.Date > DateTime.Today.AddDays(-1)).OrderBy(e => e.Date);
+            var test = eventsRepo.GetAll().Where(e => e.Date > DateTime.Today.AddDays(-1) && e.Status == ListingStatus.Active);
+            SearchCriteria criteria = new SearchCriteria(null, null, null);
+            var listings = eventsRepo.SearchListings(criteria).Where(e => e.Date > DateTime.Today.AddDays(-1)).OrderBy(e => e.Date);
+            //var listings = eventsRepo.GetAll().Where(e => e.Date > DateTime.Today.AddDays(-1)).OrderBy(e => e.Date);
             var viewListings = new List<EventViewModel>();
             foreach (var item in listings)
             {

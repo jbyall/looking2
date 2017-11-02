@@ -15,7 +15,7 @@ namespace Looking2.Web.DataAccess
     {
         //List<EventListing> SearchDescriptionFields(string text, int maxResults = 100);
         //List<EventListing> SearchTitleAndDescription(string title, string description, SearchOperator searchType, int maxResults = 100);
-        List<EventListing> SearchListings(SearchCriteria criteria);
+        List<EventListing> SearchListings(SearchCriteria criteria, bool activeOnly = true);
     }
     public class EventsRepository : Repository<EventListing>, IEventsRepository
     {
@@ -33,34 +33,40 @@ namespace Looking2.Web.DataAccess
             return base.Add(entity);
         }
 
-        public List<EventListing> SearchListings(SearchCriteria criteria)
+        public List<EventListing> SearchListings(SearchCriteria criteria, bool activeOnly = true)
         {
+            var andFilters = new List<FilterDefinition<EventListing>>();
+            if (activeOnly)
+            {
+                andFilters.Add(new BsonDocument("Status", ListingStatus.Active));
+            }
+
             //Construct description, title, venue search
             var detailFilterArray = new BsonArray();
             foreach (var item in criteria.DetailFilters)
             {
                 detailFilterArray.Add(new BsonDocument(item.FieldName, new BsonDocument("$regex", string.Format("(?i){0}", item.Value))));
             }
-            var detailsFilter = new BsonDocument("$or", detailFilterArray);
-
-            //construct location search
-            var locationFilter = new BsonDocument("Location", new BsonDocument("$regex", string.Format("(?i){0}", criteria.LocationFilter)));
-
-            // Execute just location if no detail filters exist
-            if (!string.IsNullOrWhiteSpace(criteria.LocationFilter) && criteria.DetailFilters.Count < 1)
+            BsonDocument detailsFilter = detailFilterArray.Count > 0 ? new BsonDocument("$or", detailFilterArray) : null;
+            if (detailsFilter != null)
             {
-                return this.Collection.Find<EventListing>(locationFilter).ToList();
+                andFilters.Add(detailsFilter);
             }
 
-            // Execute detail query if no location
-            if (string.IsNullOrWhiteSpace(criteria.LocationFilter) && criteria.DetailFilters.Count > 0)
+            //construct location search
+            if (!string.IsNullOrWhiteSpace(criteria.LocationFilter))
             {
-                return this.Collection.Find<EventListing>(detailsFilter).ToList();
+                andFilters.Add(new BsonDocument("Location", new BsonDocument("$regex", string.Format("(?i){0}", criteria.LocationFilter))));
+            }
+
+            if (andFilters.Count < 2)
+            {
+                andFilters.Add(new BsonDocument());
             }
 
             // Build and execute $ and query if both exist
             var andQueryBuilder = Builders<EventListing>.Filter;
-            var detailQuery =  andQueryBuilder.And(detailsFilter, locationFilter);
+            var detailQuery =  andQueryBuilder.And(andFilters);
             return this.Collection.Find<EventListing>(detailQuery).ToList();
 
         }
